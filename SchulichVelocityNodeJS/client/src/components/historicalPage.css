@@ -1,0 +1,20 @@
+  
+  .Historical {
+    top: 56px;
+    right: 100px;
+    text-align: center;
+  }
+  .Historical-header {
+    background-color: #282c34;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  }
+  
+  .Historical-link {
+    color: #61dafb;
+  }

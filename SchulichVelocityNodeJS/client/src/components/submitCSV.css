@@ -1,0 +1,18 @@
+.submitCSV {
+    text-align: center;
+  }
+  
+  .submitCSV-header {
+    background-color: white;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  }
+  
+  .submitCSV-link {
+    color: #61dafb;
+  }
