@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { Line } from 'react-chartjs-2';
 //import 'chartjs-plugin-streaming';
 
@@ -6,7 +6,7 @@ function getRandomInt (min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-export default class streamingGraph extends React.Component {
+class streamGraph extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -18,31 +18,32 @@ export default class streamingGraph extends React.Component {
                 data: yData, 
                 borderColor: 'rgb(255, 99, 132)',
                 backgroundColor: 'rgba(0,0,0,0.0)',
-                lineTension: 0
+                lineTension: 0,
             }]
         }
     }
 
     pullData() {
-        yData.push(getRandomInt(0, 10));
-        xData.push(currentLabel.toString());
-        currentLabel++;
 
-        if (currentLabel - 50 > x[0]) {
-            xData.shift();
-            yData.shift();
+        this.state.yData.push(getRandomInt(0, 10));
+        this.state.xData.push(this.state.currentLabel.toString());
+        this.state.currentLabel++;
+
+        if (this.state.currentLabel - 50 > x[0]) {
+            this.state.xData.shift();
+            this.state.yData.shift();
         }
     }
 
     tick() {
-        pullData();
+        this.state.pullData();
         this.setState({state: state});
     }
 
     componentdidMount() {
         this.timerID = setInterval(
             () => this.tick(), 
-            1000
+            200
         );
     }
 
@@ -54,19 +55,21 @@ export default class streamingGraph extends React.Component {
         return(
             <div>
                 <Line data={this.state}
-                    //options={{
-                    //    responsive: true;
-                    //    scales: {
-                    //       xAxes: [{
-                    //             realtime: {
-                    //                 onRefresh: function(chart) {},
-                    //             }
-                    //         }]
-                    //     }
-                    // }}
+                    options={{
+                       responsive: true,
+                       scales: {
+                          xAxes: [{
+                                realtime: {
+                                    onRefresh: function(chart) {},
+                                }
+                            }]
+                        }
+                    }}
                 />
-                <button onclick></button>
+                <button></button>
             </div>
         )
     }
 }
+
+export default streamGraph;

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Line } from 'react-chartjs-2';
 
 let x = ['1', '2','3'];
-let y = ['1', '2', '3'];
+let y = [1, 3, 2];
 
 const getState = () => (
     {

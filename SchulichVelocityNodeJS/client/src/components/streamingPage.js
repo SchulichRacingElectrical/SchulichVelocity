@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../CSS/streamingPage.css';
+//import streamGraph from '../components/streamGraph'
 
 class Streaming extends Component {
   render() {
