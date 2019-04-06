@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import './historicalPage.css'
+import '../CSS/historicalPage.css'
+
 class Historical extends Component {
   render() {
     return (

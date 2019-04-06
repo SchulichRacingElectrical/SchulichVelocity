@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './streamingPage.css';
+import '../CSS/streamingPage.css';
 
 class Streaming extends Component {
   render() {

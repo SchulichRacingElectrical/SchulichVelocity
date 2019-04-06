@@ -3,7 +3,19 @@ import SideNav, { Toggle, Nav, NavItem, NavIcon, NavText } from '@trendmicro/rea
 import { Switch, BrowserRouter as Router, Route } from 'react-router-dom';
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 
-class SideNavigation extends React.Component {
+export default class SideNavigation extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    componentDidMount() { 
+
+    }
+
+    componentWillUnmount() {
+
+    }
+
     render() {
         var x = (<div></div>);
         if (window.location.href.indexOf("historical") !== -1 || window.location.href.indexOf("streaming") !== -1) {
@@ -159,28 +171,46 @@ class SideNavigation extends React.Component {
                     </SideNav>
                     <main>
                         <Route path="/selectData"/>
+                        <Route path="/suspension"/>
+                        <Route path="/powertrain/rpm"/>
+                        <Route path="/powertrain/tPos"/>
+                        <Route path="/powertrain/ipw"/>
+                        <Route path="/powertrain/baro"/>
+                        <Route path="/powertrain/map"/>
+                        <Route path="/powertrain/airToFuel"/>
+                        <Route path="/powertrain/iat"/>
+                        <Route path="/powertrain/engineTemp"/>
+                        <Route path="/powertrain/oilPressure"/>
+                        <Route path="/powertrain/oilTemp"/>
+                        <Route path="/powertrain/fuelTemp"/>
+                        <Route path="/acceleration"/>
+                        <Route path="/yaw"/>
+                        <Route path="/pitch"/>
+                        <Route path="/roll"/>
+                        <Route path="/trackMap"/>
+                        <Route path="/speed"/>
+                        <Route path="/distance"/>
                     </main>
                 </React.Fragment>
                 )}/>
             </Router>
             );
+
             var style = (function () {
                 var style = document.createElement("style");
                 style.appendChild(document.createTextNode(""));
                 document.head.appendChild(style);
                 return style;
             })();
-            if (window.location.href.indexOf("streaming") !== -1) {
+
+            if (window.location.href.indexOf("streaming") !== -1) 
                 var idx = style.sheet.insertRule(".selectdata { display:none;}", 0);
-            }
-            else {
+            else 
                 style.sheet.cssRules[idx] = "";
-            }
         }
         return x;
     }
 }
 
-export default SideNavigation;
 
 

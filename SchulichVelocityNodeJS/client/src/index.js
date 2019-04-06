@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Switch, BrowserRouter as Router, Route } from 'react-router-dom';
-import './index.css';
+import './CSS/index.css';
 
-import Navigation from './components/navigation';
-import SideNavigation from './components/sideNavigation';
+import Navigation from './components/topNav';
+import SideNavigation from './components/sideNav';
 import Home from './components/homePage';
 import Historical from './components/historicalPage';
 import Streaming from './components/streamingPage';

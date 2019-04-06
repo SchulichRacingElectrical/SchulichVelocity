@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import ReactFileReader from 'react-file-reader';
 import { post } from 'axios';
-import './submitCSV.css';
+import '../CSS/submitCSV.css';
 
 export default class SubmitCSV extends Component {
   handleFiles = file => {
-    const url = 'http://localhost:3001/submitCSV';
+    const url = 'http://localhost:3000/submitCSV';
     const formData = new FormData();
     formData.append('file',file);
     const config = {
