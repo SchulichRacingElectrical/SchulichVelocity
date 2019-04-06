@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import '../CSS/historicalPage.css'
+import '../CSS/historicalPage.css';
+import Graph from './graph';
 
 class Historical extends Component {
   render() {
@@ -9,7 +10,7 @@ class Historical extends Component {
         </header>
         <form onSubmit={this.handleSubmit}>
           <p><br></br>Historical Data</p>
-          {/*Put all other shit in here*/}
+          <Graph/>
         </form>
       </div>
     );
