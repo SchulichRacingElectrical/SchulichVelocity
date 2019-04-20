@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../CSS/historicalPage.css';
 import Graph from './graph';
+import ParseCSV from './parseCSV';
 
 class Historical extends Component {
   render() {
@@ -11,7 +12,8 @@ class Historical extends Component {
         <form onSubmit={this.handleSubmit}>
           <p><br></br>Historical Data</p>
         </form>
-          <Graph/>
+          {/*clicking any selection from the form should return a data type*/}
+          <ParseCSV/>
       </div>
     );
   }
