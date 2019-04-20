@@ -10,8 +10,8 @@ class Historical extends Component {
         </header>
         <form onSubmit={this.handleSubmit}>
           <p><br></br>Historical Data</p>
-          <Graph/>
         </form>
+          <Graph/>
       </div>
     );
   }

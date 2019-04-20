@@ -6,19 +6,14 @@ function getRandomInt (min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-var xData = ['0', '1', '2'];
-var yData = [1, 2, 3];
-
 class StreamGraph extends Component {
     constructor(props){
         super(props);
         this.state = {
-            currentLabel: 1,
-            xData: [],
-            yData: [], 
-            labels: xData, 
+            currentLabel: 3,
+            labels: ['0', '1', '2'],
             datasets: [{
-                data: yData, 
+                data: [1, 2, 3],
                 borderColor: 'rgb(255, 99, 132)',
                 backgroundColor: 'rgba(0,0,0,0.0)',
                 lineTension: 0,
@@ -28,20 +23,18 @@ class StreamGraph extends Component {
 
     pullData() {
 
-        this.state.yData.push(getRandomInt(0, 10));
-        this.state.xData.push(this.state.currentLabel.toString());
-        this.state.currentLabel++;
+        this.state.labels.push(this.state.currentLabel.toString());
+        this.state.datasets[0].data.push(getRandomInt(0, 10));
+        this.setState({currentLabel: this.state.currentLabel + 1});
 
-        if (this.state.currentLabel - 50 > xData[0]) {
-            this.state.xData.shift();
-            this.state.yData.shift();
+        if (this.state.currentLabel - 80 > this.state.labels[0]) {
+            this.state.labels.shift();
+            this.state.datasets[0].data.shift();
         }
     }
 
     tick() {
-        console.log(this.state.currentLabel);
         this.pullData();
-        // this.setState(this.state, this.state.getState);
     }
 
     componentDidMount() {
@@ -51,20 +44,19 @@ class StreamGraph extends Component {
         );
     }
 
-    componentWillUnmount() {
-        clearInterval(this.timerID);
-    }
-
     render() {
         return(
             <div>
                 <Line data={this.state}
                     options={{
-                       responsive: true,
-                       scales: {
-                          xAxes: [{
-                                realtime: {
-                                    onRefresh: function(chart) {},
+                        animation: {
+                            duration: 0
+                        },
+                        responsive: true,
+                        scales: {
+                            xAxes: [{
+                               realtime: {
+                                   onRefresh: function(chart) {},
                                 }
                             }]
                         }
