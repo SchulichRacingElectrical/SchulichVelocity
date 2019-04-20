@@ -3,6 +3,9 @@ import '../CSS/streamingPage.css';
 import StreamGraph from '../components/streamGraph';
 
 class Streaming extends Component {
+    componentDidMount(){
+        document.title = "Schulich Velocity: Streaming"
+    }
   render() {
     return (
       <div className="Streaming">

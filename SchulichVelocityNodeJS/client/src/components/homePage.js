@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import '../CSS/homePage.css';
 
 class Home extends Component {
+    componentDidMount(){
+        document.title = "Schulich Velocity: Home"
+    }
 render() {
     return (
       <div className="Home">

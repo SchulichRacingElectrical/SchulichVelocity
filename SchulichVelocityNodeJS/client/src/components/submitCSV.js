@@ -4,6 +4,9 @@ import { post } from 'axios';
 import '../CSS/submitCSV.css';
 
 export default class SubmitCSV extends Component {
+  componentDidMount(){
+    document.title = "Schulich Velocity: Submit"
+  }
   handleFiles = file => {
     const url = 'http://localhost:3000/submitCSV';
     const formData = new FormData();

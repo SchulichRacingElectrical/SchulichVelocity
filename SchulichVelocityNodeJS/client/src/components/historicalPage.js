@@ -3,6 +3,9 @@ import '../CSS/historicalPage.css';
 import Graph from './graph';
 
 class Historical extends Component {
+    componentDidMount(){
+        document.title = "Schulich Velocity: Historical"
+    }
   render() {
     return (
       <div className="Historical">
