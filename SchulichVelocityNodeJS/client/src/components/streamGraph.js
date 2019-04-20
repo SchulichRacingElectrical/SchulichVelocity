@@ -6,7 +6,10 @@ function getRandomInt (min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-class streamGraph extends Component {
+var xData = ['0', '1', '2'];
+var yData = [1, 2, 3];
+
+class StreamGraph extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -29,20 +32,21 @@ class streamGraph extends Component {
         this.state.xData.push(this.state.currentLabel.toString());
         this.state.currentLabel++;
 
-        if (this.state.currentLabel - 50 > x[0]) {
+        if (this.state.currentLabel - 50 > xData[0]) {
             this.state.xData.shift();
             this.state.yData.shift();
         }
     }
 
     tick() {
-        this.state.pullData();
-        this.setState({state: state});
+        console.log(this.state.currentLabel);
+        this.pullData();
+        // this.setState(this.state, this.state.getState);
     }
 
-    componentdidMount() {
+    componentDidMount() {
         this.timerID = setInterval(
-            () => this.tick(), 
+            () => this.tick(),
             200
         );
     }
@@ -66,10 +70,9 @@ class streamGraph extends Component {
                         }
                     }}
                 />
-                <button></button>
             </div>
         )
     }
 }
 
-export default streamGraph;
+export default StreamGraph;
