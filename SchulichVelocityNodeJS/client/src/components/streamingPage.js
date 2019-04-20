@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../CSS/streamingPage.css';
-//import streamGraph from '../components/streamGraph'
+import StreamGraph from '../components/streamGraph';
 
 class Streaming extends Component {
   render() {
@@ -8,10 +8,9 @@ class Streaming extends Component {
       <div className="Streaming">
         <header className="Streaming-header">
         </header>
-        <form onSubmit={this.handleSubmit}>
           <p><br></br>Streaming Data</p>
           {/*put all other shit here*/}
-        </form>
+          <StreamGraph/>
       </div>
     );
   }
