@@ -16,9 +16,9 @@ export default class SubmitCSV extends Component {
             headers: {
                 'content-type': 'multipart/form-data'
             }
-        }
+        };
         post(url, formData, config);
-    }
+    };
 
     render() {
         return (
