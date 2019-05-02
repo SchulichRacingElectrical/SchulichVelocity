@@ -4,7 +4,6 @@ import { Switch, BrowserRouter as Router, Route } from 'react-router-dom';
 import './CSS/index.css';
 
 import Navigation from './components/topNav';
-import SideNavigation from './components/sideNav';
 import Home from './components/homePage';
 import Historical from './components/historicalPage';
 import Streaming from './components/streamingPage';
@@ -19,7 +18,6 @@ export default class App extends React.Component {
                 <Router>
                     <div>
                         <Navigation />
-                        <SideNavigation />
                         <Switch>
                             <Route exact path="/" component={Home} />
                             <Route exact path="/home" component={Home} />

@@ -22,7 +22,6 @@ class StreamGraph extends Component {
     }
 
     pullData() {
-
         this.state.labels.push(this.state.currentLabel.toString());
         this.state.datasets[0].data.push(getRandomInt(0, 10));
         this.setState({currentLabel: this.state.currentLabel + 1});

@@ -3,12 +3,14 @@ import { CSVReader } from 'react-papaparse';
 import { Line } from 'react-chartjs-2';
 import 'chartjs-plugin-streaming';
 
-class ParseCSV extends Component {
+export default class ParseCSV extends Component {
     constructor(props) {
         super(props);
         this.fileInput = React.createRef();
-        this.chartData = {
+        this.chartElement = React.createRef();
+        this.state = {
             labels: [],
+            title: [],
             datasets: [{
                 data: [],
                 borderColor: 'rgb(255, 0, 0)',
@@ -16,10 +18,26 @@ class ParseCSV extends Component {
                 lineTension: 0,
             }]
         };
+        this.options = {
+            layout: {
+                padding: {
+                    left: 80,
+                    right: 30,
+                    top: 0,
+                    bottom: 0
+                }
+            },
+            animation: {
+                duration: 0
+            },
+            title: {
+                display: true,
+                text: ''
+            }
+        }
     }
 
     handleReadCSV = (data) => {
-
         for(let i = 0; i < data.data.length; i++) {
             this.chartData.labels[i] = data.data[i].Interval; //Interval = time header
             //this.chartData.datasets[0].data[i] = parseInt(data.data[i].Speed, 10);
@@ -49,8 +67,13 @@ class ParseCSV extends Component {
 
     handleImportOffer = () => {
         this.fileInput.current.click();
-        this.setState(this.state, this.state);
+        this.setState({state: this.state});
     };
+
+    setTitle = (selected) => {
+        this.options.title.text = selected;
+        this.setState({state: this.state})
+    }
 
     render() {
         return (
@@ -65,16 +88,8 @@ class ParseCSV extends Component {
                     }}
                 />
                 <button onClick={this.handleImportOffer}>Import</button>
-                <Line data={this.chartData}
-                      options={{
-                          animation: {
-                              duration: 0,
-                          }
-                      }}
-                />
+                <Line data={this.state} options={this.options}/>
             </div>
         );
     }
 }
-
-export default ParseCSV;
