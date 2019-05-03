@@ -32,6 +32,7 @@ export default class ParseCSV extends Component {
             },
             title: {
                 display: true,
+                fontSize: 30,
                 text: ''
             }
         }
@@ -42,7 +43,6 @@ export default class ParseCSV extends Component {
             this.chartData.labels[i] = data.data[i].Interval; //Interval = time header
             //this.chartData.datasets[0].data[i] = parseInt(data.data[i].Speed, 10);
         }
-
         let uneString = Object.keys(data.data[0]);
         for (let i = 1; i < Object.keys(data.data[0]).length; i++) {
             this.chartData.datasets.push({
@@ -57,7 +57,6 @@ export default class ParseCSV extends Component {
                 this.chartData.datasets[i].data.push(parseFloat(data.data[j][uneString[i]] , 10));
             }
         }
-
         this.forceUpdate();
     };
 
@@ -71,7 +70,8 @@ export default class ParseCSV extends Component {
     };
 
     setTitle = (selected) => {
-        this.options.title.text = selected;
+        if(selected !== null && selected !== "Select Data")
+            this.options.title.text = selected;
         this.setState({state: this.state})
     }
 

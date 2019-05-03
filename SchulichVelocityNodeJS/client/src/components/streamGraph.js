@@ -1,13 +1,13 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
 import 'chartjs-plugin-streaming';
 
-function getRandomInt (min, max) {
+function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-class StreamGraph extends Component {
-    constructor(props){
+export default class StreamGraph extends Component {
+    constructor(props) {
         super(props);
         this.state = {
             currentLabel: 3,
@@ -19,12 +19,38 @@ class StreamGraph extends Component {
                 lineTension: 0,
             }]
         }
+        this.options = {
+            layout: {
+                padding: {
+                    left: 80,
+                    right: 30,
+                    top: 0,
+                    bottom: 0
+                }
+            },
+            animation: {
+                duration: 0
+            },
+            title: {
+                display: true,
+                fontSize: 30,
+                text: ''
+            },
+            responsive: true,
+            scales: {
+                xAxes: [{
+                    realtime: {
+                        onRefresh: function (chart) { },
+                    }
+                }]
+            }
+        }
     }
 
     pullData() {
         this.state.labels.push(this.state.currentLabel.toString());
         this.state.datasets[0].data.push(getRandomInt(0, 10));
-        this.setState({currentLabel: this.state.currentLabel + 1});
+        this.setState({ currentLabel: this.state.currentLabel + 1 });
 
         if (this.state.currentLabel - 60 > this.state.labels[0]) {
             this.state.labels.shift();
@@ -37,33 +63,20 @@ class StreamGraph extends Component {
     }
 
     componentDidMount() {
-        this.timerID = setInterval(
-            () => this.tick(),
-            200
-        );
+        this.timerID = setInterval(() => this.tick(),200);
+    }
+
+    setTitle = (selected) => {
+        if(selected !== null && selected !== "Select Data")
+            this.options.title.text = selected;
+        this.setState({state: this.state})
     }
 
     render() {
-        return(
+        return (
             <div>
-                <Line data={this.state}
-                    options={{
-                        animation: {
-                            duration: 0
-                        },
-                        responsive: true,
-                        scales: {
-                            xAxes: [{
-                               realtime: {
-                                   onRefresh: function(chart) {},
-                                }
-                            }]
-                        },
-                    }}
-                />
+                <Line data={this.state} options={this.options} />
             </div>
         )
     }
 }
-
-export default StreamGraph;

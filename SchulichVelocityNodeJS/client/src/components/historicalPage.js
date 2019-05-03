@@ -3,13 +3,22 @@ import '../CSS/historicalPage.css';
 import ParseCSV from './parseCSV';
 import SideNavigation from './sideNav';
 
-class Historical extends Component {
-  constructor(props){
+export default class Historical extends Component {
+  constructor(props) {
     super(props);
     this.graphElement = React.createRef();
+    this.state = {
+      selected: "",
+      hideGraph: true
+    }
   }
 
   sideHandler = (selected) => {
+    this.setState({ selected: selected });
+    if (selected === null || selected === "Select Data" || selected === "")
+      this.setState({hideGraph: true, selected: ""});
+    else
+      this.setState({hideGraph: false});
     this.graphHandler(selected);
   }
 
@@ -18,15 +27,14 @@ class Historical extends Component {
   }
 
   render() {
+    const style = this.state.hideGraph ? {display: 'none'} : {};
     return (
       <div className="Historical">
         <SideNavigation sideNav={this.sideHandler}/>
-        <header className="Historical-header">
-        </header>
-        <ParseCSV ref={this.graphElement}/>
+        <div style={style}>
+          <ParseCSV className="contentGraph" ref={this.graphElement}/>
+        </div>
       </div>
     );
   }
 }
-
-export default Historical;

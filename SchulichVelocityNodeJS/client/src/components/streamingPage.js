@@ -1,23 +1,40 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import '../CSS/streamingPage.css';
 import StreamGraph from '../components/streamGraph';
+import SideNavigation from './sideNav';
 
-class Streaming extends Component {
-    componentDidMount() {
-        document.title = "Schulich Velocity: Streaming"
+export default class Streaming extends Component {
+    constructor(props) {
+        super(props);
+        this.graphElement = React.createRef();
+        this.state = {
+            selected: "",
+            hideGraph: true
+        }
+    }
+
+    sideHandler = (selected) => {
+        this.setState({ selected: selected });
+        if (selected === null || selected === "Select Data" || selected === "")
+            this.setState({ hideGraph: true, selected: "" });
+        else
+            this.setState({ hideGraph: false });
+        this.graphHandler(selected);
+    }
+
+    graphHandler = (selected) => {
+        this.graphElement.current.setTitle(selected);
     }
 
     render() {
+        const style = this.state.hideGraph ? {display: 'none'} : {};
         return (
             <div className="Streaming">
-                <header className="Streaming-header">
-                </header>
-                <p><br></br>Streaming Data</p>
-                {/*put all other shit here*/}
-                <StreamGraph/>
+                <SideNavigation sideNav={this.sideHandler} />
+                <div style={style}>
+                    <StreamGraph className="contentGraph" ref={this.graphElement}/>
+                </div>
             </div>
         );
     }
 }
-
-export default Streaming;

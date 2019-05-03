@@ -1,19 +1,24 @@
 import React from 'react';
-import SideNav, {NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
+import SideNav, { NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 
 export default class SideNavigation extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
+        this.hideSelectData = true;
     }
 
     render() {
-        return (
+        if (window.location.href.indexOf('streaming') === -1)
+            this.hideSelectData = false;
+        else
+            this.hideSelectData = true;
+        var content = (
             <React.Fragment>
                 <SideNav onSelect={(selected) => this.props.sideNav(selected)}>
                     <SideNav.Toggle />
                     <SideNav.Nav defaultSelected="none">
-                        <NavItem className="selectdata" eventKey="selectData">
+                        <NavItem className="selectdata" eventKey="Select Data">
                             <NavIcon></NavIcon>
                             <NavText>Select Historical Data</NavText>
                         </NavItem>
@@ -146,6 +151,18 @@ export default class SideNavigation extends React.Component {
                 </SideNav>
             </React.Fragment>
         );
+        var style = (function () {
+            var style = document.createElement("style");
+            style.appendChild(document.createTextNode(""));
+            document.head.appendChild(style);
+            return style;
+        })();
+        if (this.hideSelectData === true)
+            var idx = style.sheet.insertRule(".selectdata { display:none;}", 0);
+        else
+            style.sheet.cssRules[idx] = "";
+
+        return content;
     }
 }
 
