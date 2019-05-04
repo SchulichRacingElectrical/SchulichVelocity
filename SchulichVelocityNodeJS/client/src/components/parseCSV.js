@@ -24,7 +24,7 @@ export default class ParseCSV extends Component {
                 this.dataCSV[i + 1].data.push(parseFloat(data.data[j][data.meta.fields[i]]));
             }
         }
-        
+
         console.log(data);
         console.log(this.dataCSV);
 
@@ -60,7 +60,7 @@ export default class ParseCSV extends Component {
         }
 
         return dataArrays;
-        
+
     }
 
     render() {
