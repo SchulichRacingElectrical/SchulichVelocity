@@ -24,14 +24,17 @@ export default class Historical extends Component {
       this.setState({hideGraph: false});
       this.graphHandler(selected);
     }
-  }
+  };
 
   graphHandler = (name) => {
     this.graphElement.current.setTitle(name);
     this.data = this.parser.current.getData(name);
+
+
+
     //var graphData = [];
     //this.graphElement.current.setData();
-  }
+  };
 
   render() {
     const style = this.state.hideGraph ? {display: 'none'} : {};
