@@ -15,10 +15,11 @@ export default class StreamGraph extends Component {
             datasets: [{
                 data: [1, 2, 3],
                 borderColor: 'rgb(255, 0, 0)',
+                pointRadius: 1,
                 backgroundColor: 'rgba(0,0,0,0.0)',
                 lineTension: 0,
             }]
-        }
+        };
         this.options = {
             layout: {
                 padding: {

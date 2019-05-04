@@ -24,10 +24,6 @@ export default class ParseCSV extends Component {
                 this.dataCSV[i + 1].data.push(parseFloat(data.data[j][data.meta.fields[i]]));
             }
         }
-        
-        console.log(data);
-        console.log(this.dataCSV);
-
     };
 
     handleOnError = (err, file, inputElem, reason) => {
@@ -39,28 +35,31 @@ export default class ParseCSV extends Component {
         this.setState({state: this.state});
     };
 
-    getData(name, data) {
+    getData(name) {
 
         let headerArray = [];
         let dataArrays = [];
+        dataArrays.push(this.dataCSV[1]);
 
-        if (name === 'Suspension') {
-            headerArray = ['RearRight', 'RearLeft', 'FrontLeft', 'FrontRight'];
+        if (name === "Suspension") {
+            headerArray = ["RearRight", "RearLeft", "FrontLeft", "FrontRight"];
         }
-        else if (name === 'Acceleration') {
-            headerArray = ['AccelX', 'AccelY', 'AccelZ']; 
-        };
+        else if (name === "Acceleration") {
+            headerArray = ["AccelX", "AccelY", "AccelZ"];
+        }
+        else {
+            headerArray = [name];
+        }
 
-        for(let i = 1; i < data.meta.fields.length; i++) {
+        for(let i = 0; i < this.dataCSV.length; i++) {
             for(let j = 0; j < headerArray.length; j++) {
-                if(headerArray[j] === this.dataCSV.label) {
+                if(headerArray[j] === this.dataCSV[i].label) {
                     dataArrays.push(this.dataCSV[i]);
                 }
             }
         }
-
+        console.log(dataArrays);
         return dataArrays;
-        
     }
 
     render() {
@@ -75,6 +74,7 @@ export default class ParseCSV extends Component {
                                     delimiter: ','
                     }}
                 />
+                <button onClick={this.handleImportOffer}>Upload CSV</button>
             </div>
         );
     }

@@ -20,11 +20,11 @@ export default class Streaming extends Component {
         else
             this.setState({ hideGraph: false });
         this.graphHandler(selected);
-    }
+    };
 
     graphHandler = (selected) => {
         this.graphElement.current.setTitle(selected);
-    }
+    };
 
     render() {
         const style = this.state.hideGraph ? {display: 'none'} : {};
@@ -34,6 +34,7 @@ export default class Streaming extends Component {
                 <div style={style}>
                     <StreamGraph className="contentGraph" ref={this.graphElement}/>
                 </div>
+                <StreamGraph/>
             </div>
         );
     }

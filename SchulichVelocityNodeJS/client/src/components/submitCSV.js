@@ -2,23 +2,25 @@ import React, {Component} from 'react';
 import ReactFileReader from 'react-file-reader';
 import {post} from 'axios';
 import '../CSS/submitCSV.css';
+import ParseCSV from './parseCSV';
 
 export default class SubmitCSV extends Component {
-    componentDidMount() {
-        document.title = "Schulich Velocity: Submit"
-    }
 
-    handleFiles = file => {
-        const url = 'http://localhost:3000/submitCSV';
-        const formData = new FormData();
-        formData.append('file', file);
-        const config = {
-            headers: {
-                'content-type': 'multipart/form-data'
-            }
-        };
-        post(url, formData, config);
-    };
+    // componentDidMount() {
+    //     document.title = "Schulich Velocity: Submit"
+    // }
+    //
+    // handleFiles = file => {
+    //     const url = 'http://localhost:3000/submitCSV';
+    //     const formData = new FormData();
+    //     formData.append('file', file);
+    //     const config = {
+    //         headers: {
+    //             'content-type': 'multipart/form-data'
+    //         }
+    //     };
+    //     post(url, formData, config);
+    // };
 
     render() {
         return (
@@ -30,11 +32,7 @@ export default class SubmitCSV extends Component {
                         Once submitted, you can view the data in the historical data section.
                     </p>
                 </div>
-                <ReactFileReader handleFiles={this.handleFiles}>
-                    <button className='submitBTN'>
-                        Upload
-                    </button>
-                </ReactFileReader>
+                <ParseCSV/>
             </div>
         );
     }

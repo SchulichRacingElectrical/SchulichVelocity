@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { CSVReader } from 'react-papaparse';
 import { Line } from 'react-chartjs-2';
 import 'chartjs-plugin-streaming';
 
@@ -11,6 +10,7 @@ export default class HistoricalLineGraph extends React.Component {
             datasets: [{
                 data: [],
                 borderColor: 'rgb(255, 0, 0)',
+                pointRadius: 1,
                 backgroundColor: 'rgba(0,0,0,0.0)',
                 lineTension: 0,
             }]
@@ -39,13 +39,11 @@ export default class HistoricalLineGraph extends React.Component {
         if(selected !== null && selected !== "Select Data")
             this.options.title.text = selected;
         this.setState({state: this.state})
-    }
+    };
 
     setData = (data) => {
-        this.setState({
-            data: data
-        });
-    }
+
+    };
 
     render() {
         return (
