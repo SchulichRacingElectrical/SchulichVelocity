@@ -27,13 +27,9 @@ export default class Historical extends Component {
   };
 
   graphHandler = (name) => {
-    this.graphElement.current.setTitle(name);
     this.data = this.parser.current.getData(name);
-
-
-
-    //var graphData = [];
-    //this.graphElement.current.setData();
+    this.graphElement.current.setTitle(name);
+    this.graphElement.current.setData(this.data);
   };
 
   render() {

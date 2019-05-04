@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { CSVReader } from 'react-papaparse';
-import { Line } from 'react-chartjs-2';
 import 'chartjs-plugin-streaming';
 
 export default class ParseCSV extends Component {
