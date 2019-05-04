@@ -46,6 +46,30 @@ export default class ParseCSV extends Component {
         else if (name === "Acceleration") {
             headerArray = ["AccelX", "AccelY", "AccelZ"];
         }
+        else if (name === "Engine Temperature") {
+            headerArray = ["EngineTemp"];
+        }
+        else if (name === "Oil Temperature") {
+            headerArray = ["OilTemp"];
+        }
+        else if (name === "Oil Pressure") {
+            headerArray = ["OilPressure"];
+        }
+        else if (name === "Barometer") {
+            headerArray = ["Baro"];
+        }
+        else if (name === "Fuel Temperature") {
+            headerArray = ["FuelTemp"];
+        }
+        else if (name === "Manifold Air Pressure") {
+            headerArray = ["MAP"];
+        }
+        else if (name === "Intake Air Temperature") {
+            headerArray = ["IAT"];
+        }
+        else if (name === "Injector Pulse Width") {
+            headerArray = ["InjectorPW"];
+        }
         else {
             headerArray = [name];
         }

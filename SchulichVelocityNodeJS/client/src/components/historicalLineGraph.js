@@ -54,6 +54,8 @@ export default class HistoricalLineGraph extends React.Component {
                 label: data[i].label,
                 borderColor: colorArray[i - 1],
                 pointRadius: 1,
+                borderWidth: 2,
+                showLine: true,
                 backgroundColor: 'rgba(0,0,0,0.0)',
                 lineTension: 0,
             })
