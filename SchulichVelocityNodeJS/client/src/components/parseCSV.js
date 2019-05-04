@@ -7,57 +7,27 @@ export default class ParseCSV extends Component {
     constructor(props) {
         super(props);
         this.fileInput = React.createRef();
-        this.chartElement = React.createRef();
-        this.state = {
-            labels: [],
-            title: [],
-            datasets: [{
-                data: [],
-                borderColor: 'rgb(255, 0, 0)',
-                backgroundColor: 'rgba(0,0,0,0.0)',
-                lineTension: 0,
-            }]
-        };
-        this.options = {
-            layout: {
-                padding: {
-                    left: 80,
-                    right: 30,
-                    top: 0,
-                    bottom: 0
-                }
-            },
-            animation: {
-                duration: 0
-            },
-            title: {
-                display: true,
-                fontSize: 30,
-                text: ''
-            }
-        }
+        this.dataCSV = [{
+            label: [],
+            data: []
+        }]
     }
 
     handleReadCSV = (data) => {
-        for(let i = 0; i < data.data.length; i++) {
-            this.chartData.labels[i] = data.data[i].Interval; //Interval = time header
-            //this.chartData.datasets[0].data[i] = parseInt(data.data[i].Speed, 10);
-        }
-        let uneString = Object.keys(data.data[0]);
-        for (let i = 1; i < Object.keys(data.data[0]).length; i++) {
-            this.chartData.datasets.push({
+
+        for (let i = 0; i < data.meta.fields.length; i++) {
+            this.dataCSV.push({
                 data: [],
-                borderColor: 'rgb(255, 0, 0)',
-                backgroundColor: 'rgba(0,0,0,0.0)',
-                lineTension: 0,
-                hidden: true,
-                label: uneString[i],
+                label: data.meta.fields[i]
             });
             for(let j = 0; j < data.data.length; j++) {
-                this.chartData.datasets[i].data.push(parseFloat(data.data[j][uneString[i]] , 10));
+                this.dataCSV[i + 1].data.push(parseFloat(data.data[j][data.meta.fields[i]]));
             }
         }
-        this.forceUpdate();
+        
+        console.log(data);
+        console.log(this.dataCSV);
+
     };
 
     handleOnError = (err, file, inputElem, reason) => {
@@ -69,10 +39,28 @@ export default class ParseCSV extends Component {
         this.setState({state: this.state});
     };
 
-    setTitle = (selected) => {
-        if(selected !== null && selected !== "Select Data")
-            this.options.title.text = selected;
-        this.setState({state: this.state})
+    getData(name, data) {
+
+        let headerArray = [];
+        let dataArrays = [];
+
+        if (name === 'Suspension') {
+            headerArray = ['RearRight', 'RearLeft', 'FrontLeft', 'FrontRight'];
+        }
+        else if (name === 'Acceleration') {
+            headerArray = ['AccelX', 'AccelY', 'AccelZ']; 
+        };
+
+        for(let i = 1; i < data.meta.fields.length; i++) {
+            for(let j = 0; j < headerArray.length; j++) {
+                if(headerArray[j] === this.dataCSV.label) {
+                    dataArrays.push(this.dataCSV[i]);
+                }
+            }
+        }
+
+        return dataArrays;
+        
     }
 
     render() {
@@ -87,8 +75,6 @@ export default class ParseCSV extends Component {
                                     delimiter: ','
                     }}
                 />
-                <button onClick={this.handleImportOffer}>Import</button>
-                <Line data={this.state} options={this.options}/>
             </div>
         );
     }
