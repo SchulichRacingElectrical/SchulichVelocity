@@ -1,3 +1,4 @@
+'use strict';
 const {Model} = require('./model');
 
 class HistoricalModel extends Model{
@@ -6,7 +7,7 @@ class HistoricalModel extends Model{
     }
 
     fetchData() {
-        
+
     }
 }
 

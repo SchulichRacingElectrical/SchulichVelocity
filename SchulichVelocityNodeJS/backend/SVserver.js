@@ -1,4 +1,4 @@
-//const csvControl = require('./control/submitCSVControl');
+'use strict';
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -15,7 +15,6 @@ class Server {
             host: '3.19.41.249',
             user: 'postgres',
         });
-        this.shutdown = false;
     }
 
     run() {
@@ -39,10 +38,6 @@ class Server {
         //})
     }
 
-    shutdown() {
-
-    }
-
     start() {
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: true }));
@@ -55,16 +50,7 @@ var server = new Server();
 server.start();
 server.app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
 
-
-
-
-
-
 // app.post('/submitCSV', (req, res) => {
 //     console.log('here');
 //     //res is the file
 // });
-
-
-
-

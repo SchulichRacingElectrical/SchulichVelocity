@@ -36,11 +36,11 @@ export default class Historical extends Component {
     const style = this.state.hideGraph ? {display: 'none'} : {};
     return (
       <div className="Historical">
+      <div>
         <SideNavigation sideNav={this.sideHandler}/>
+        <div style={style}><HistoricalLineGraph ref={this.graphElement}/></div>
+        </div>        
         <ParseCSV ref={this.parser}/>
-        <div style={style}>
-          <HistoricalLineGraph ref={this.graphElement}/>
-        </div>
       </div>
     );
   }

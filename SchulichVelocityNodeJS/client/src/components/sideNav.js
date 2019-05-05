@@ -15,7 +15,7 @@ export default class SideNavigation extends React.Component {
             this.hideSelectData = true;
         var content = (
             <React.Fragment>
-                <SideNav onSelect={(selected) => this.props.sideNav(selected)}>
+                <SideNav onSelect={(selected) => this.props.sideNav(selected)} >
                     <SideNav.Toggle />
                     <SideNav.Nav defaultSelected="none">
                         <NavItem className="selectdata" eventKey="Select Data">

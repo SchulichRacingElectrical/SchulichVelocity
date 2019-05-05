@@ -1,3 +1,4 @@
+'use strict';
 const {Model} = require('./model');
 
 class StreamingModel extends Model{
@@ -6,7 +7,7 @@ class StreamingModel extends Model{
     }
 
     fetchData() {
-        
+
     }
 }
 

@@ -1,8 +1,9 @@
   
   .Historical {
-    top: 60px;
-    right: 200px;
+    position: relative;
+    height: 100vh;
   }
+  
   .Historical-header {
     background-color: #282c34;
     min-height: 0;
