@@ -1,0 +1,28 @@
+ * {
+    box-sizing: border-box;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: none;
+} 
+
+.selector {
+    margin: 0 auto;
+    max-width: 350px;
+}
+
+.react-dropdown-select-dropdown-handle{
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 0px;
+}
+
+.react-dropdown-select-input {
+    font-size: 13.3333px;
+}
+
+.css-46gck8-DropdownHandleComponent {
+    text-align: center;
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+    margin: 0px 0 2px 5px !important;
+    cursor: pointer;
+}
