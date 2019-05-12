@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import '../CSS/aboutPage.css';
+import '../CSS/about.css';
 
-class About extends Component {
+export default class About extends Component {
     componentDidMount() {
         document.title = "Schulich Velocity: About"
     }
@@ -17,5 +17,3 @@ class About extends Component {
         );
     }
 }
-
-export default About;

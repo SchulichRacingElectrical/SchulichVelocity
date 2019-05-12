@@ -13,7 +13,6 @@ export default class ParseCSV extends Component {
     }
 
     handleReadCSV = (data) => {
-
         for (let i = 0; i < data.meta.fields.length; i++) {
             this.dataCSV.push({
                 data: [],
@@ -35,7 +34,6 @@ export default class ParseCSV extends Component {
     };
 
     getData(name) {
-
         let headerArray = [];
         let dataArrays = [];
         dataArrays.push(this.dataCSV[1]);

@@ -1,13 +1,18 @@
 'use strict';
-const {Control} = require('./control');
+const Control = require('./control');
 
 class HistoricalControl extends Control{
-    constructor(model) {
-        super();
+    constructor(model, app) {
+        super(model, app);
+        this.data;
     }
 
-    fetchData(request) {
-        
+    async getDataFromModel(req) {
+        return await this.model.fetchData(req);
+    }
+
+    async getData() {
+        return await this.data;
     }
 }
 

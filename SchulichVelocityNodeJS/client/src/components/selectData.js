@@ -1,15 +1,12 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import styled from "@emotion/styled";
 import { options } from "./selectDataOptions";
 import Select from "react-dropdown-select";
-import '../CSS/selectDataPage.css'
-import 'normalize.css'
+import '../CSS/selectData.css'
 
 export default class SelectData extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       multi: true,
       disabled: false,
@@ -32,7 +29,7 @@ export default class SelectData extends React.Component {
       placeholder: "Search or Drop Down...",
       labelField: "dataset",
       valueField: " ",
-      color: "#0074D9",
+      color: "#db3d44",
       keepSelectedInList: true,
       closeOnSelect: true,
       dropdownPosition: "bottom",
@@ -41,15 +38,10 @@ export default class SelectData extends React.Component {
     };
   }
 
-  setValues = selectValues => this.setState({ selectValues });
-
-  contentRenderer = ({ props, state }) => {
-    return (
-      <div>
-        {state.values.length} of {props.options.length} Selected
-      </div>
-    );
-  };
+  setValues = async (selectValues) => {
+    await this.setState({ selectValues: selectValues });
+    this.props.selectData(this.state.selectValues.pop());
+  }
 
   noDataRenderer = () => {
     return (
@@ -58,15 +50,6 @@ export default class SelectData extends React.Component {
       </p>
     );
   };
-
-  itemRenderer = ({ item, itemIndex, props, state, methods }) => (
-    <div key={item[props.valueField]} onClick={() => methods.addItem(item)}>
-      <div style={{ margin: "10px" }}>
-        <input type="checkbox" checked={methods.isSelected(item)} />
-        &nbsp;&nbsp;&nbsp;{item[props.labelField]}
-      </div>
-    </div>
-  );
 
   dropdownRenderer = ({ props, state, methods }) => {
     const regexp = new RegExp(state.search, "i");
@@ -125,14 +108,6 @@ export default class SelectData extends React.Component {
     );
   };
 
-  optionRenderer = ({ option, props, state, methods }) => (
-    <React.Fragment>
-      <div onClick={event => methods.removeItem(event, option, true)}>
-        {option.label}
-      </div>
-    </React.Fragment>
-  );
-
   inputRenderer = ({ props, state, methods }) => (
     <input
       tabIndex="1"
@@ -187,28 +162,10 @@ export default class SelectData extends React.Component {
                   : undefined
               }
               dropdownPosition={this.state.dropdownPosition}
-              itemRenderer={
-                this.state.itemRenderer
-                  ? (item, itemIndex, props, state, methods) =>
-                      this.itemRenderer(item, itemIndex, props, state, methods)
-                  : undefined
-              }
               inputRenderer={
                 this.state.inputRenderer
                   ? (props, state, methods) =>
                       this.inputRenderer(props, state, methods)
-                  : undefined
-              }
-              optionRenderer={
-                this.state.optionRenderer
-                  ? (option, props, state, methods) =>
-                      this.optionRenderer(option, props, state, methods)
-                  : undefined
-              }
-              contentRenderer={
-                this.state.contentRenderer
-                  ? (innerProps, innerState) =>
-                      this.contentRenderer(innerProps, innerState)
                   : undefined
               }
               dropdownRenderer={

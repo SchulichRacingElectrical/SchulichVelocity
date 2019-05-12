@@ -1,6 +1,7 @@
 
   .Streaming {
     position: relative;
+    height: 100vh;
   }
   .Streaming-header {
     background-color: #282c34;

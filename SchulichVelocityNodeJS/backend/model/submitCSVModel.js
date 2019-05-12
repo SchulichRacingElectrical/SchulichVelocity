@@ -1,5 +1,5 @@
 'use strict';
-const {Model} = require('./model');
+const Model = require('./model');
 
 class SubmitCSVModel extends Model {
     constructor(DB) {

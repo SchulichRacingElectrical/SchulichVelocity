@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import '../CSS/homePage.css';
+import '../CSS/home.css';
 
 class Home extends Component {
     componentDidMount() {

@@ -1,9 +1,13 @@
 'use strict';
-const {Control} = require('./control');
+const Control = require('./control');
 
 class StreamingControl extends Control{
-    constructor(model) {
-        super(model);
+    constructor(model, router) {
+        super(model, router);
+    }
+
+    start() {
+        
     }
 
     fetchData(request) {

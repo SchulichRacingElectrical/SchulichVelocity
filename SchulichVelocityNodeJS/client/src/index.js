@@ -2,13 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Switch, BrowserRouter as Router, Route } from 'react-router-dom';
 import './CSS/index.css';
+import 'normalize.css'
 
 import Navigation from './components/topNav';
-import Home from './components/homePage';
-import Historical from './components/historicalPage';
-import Streaming from './components/streamingPage';
+import Home from './components/home';
+import Historical from './components/historical';
+import Streaming from './components/streaming';
 import SubmitCSV from './components/submitCSV';
-import About from './components/aboutPage';
+import About from './components/about';
 import Notfound from './components/notFound';
 
 export default class App extends React.Component {
@@ -17,7 +18,7 @@ export default class App extends React.Component {
             <div className="App">
                 <Router>
                     <div>
-                        <Navigation />
+                        <Navigation/>
                         <Switch>
                             <Route exact path="/" component={Home} />
                             <Route exact path="/home" component={Home} />

@@ -1,7 +1,7 @@
 export const options = [
     {
         id: 1, 
-        dataset: "2018 Endurance: Luke Fouad",
+        dataset: "2018 Endurance: Luke",
         value: " "
     },
     {

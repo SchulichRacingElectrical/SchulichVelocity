@@ -1,10 +1,10 @@
 'use strict';
-const {Control} = require('./control');
+const Control = require('./control');
 const {submitCSVModel} = require('../model/submitCSVModel');
 
 class SubmitCSVControl extends Control{
-    constructor(model) {
-        super(model);
+    constructor(model, router) {
+        super(model, router);
     }
 
     parseCSV(csv) {

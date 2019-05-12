@@ -52,11 +52,6 @@ export default class StreamGraph extends Component {
         this.state.labels.push(this.state.currentLabel.toString());
         this.state.datasets[0].data.push(getRandomInt(0, 10));
         this.setState({ currentLabel: this.state.currentLabel + 1 });
-
-        if (this.state.currentLabel - 60 > this.state.labels[0]) {
-            this.state.labels.shift();
-            this.state.datasets[0].data.shift();
-        }
     }
 
     tick() {
