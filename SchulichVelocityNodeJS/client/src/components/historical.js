@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../CSS/historical.css';
 import ParseCSV from './parseCSV';
+import HistoricalParser from './historicalParser';
 import HistoricalLineGraph from './historicalLineGraph';
 import SideNavigation from './sideNav';
 import SelectData from './selectData';
@@ -10,6 +11,7 @@ export default class Historical extends Component {
     super(props);
     this.graphElement = React.createRef();
     this.parser = React.createRef();
+    this.historicalParser =React.createRef();
     this.searcher = React.createRef();
     this.state = {
       selectedData: "",
@@ -20,25 +22,30 @@ export default class Historical extends Component {
   }
 
   getDataFromDB = async (request) => {
-    const response = await fetch('/api/request', {
+    await fetch('/api/request', {
       method: 'POST', 
       headers: {
         'Content-Type': 'application/json',
       }, 
       body: JSON.stringify({post: 'historical'})
     });
-    const body = await response;
-    console.log(body.body.post);
-
-    const data = await fetch('/api/getHistoricalData');
-    console.log(data.body.getReader().read());
+    await fetch('/api/getHistoricalData',  {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({post: 'test.endurance'})
+    })
+    .then(response => response.json())
+    .then(data => this.setState({data: data.data}));
   }
 
-  selectHandler = (selected) => {
+  selectHandler = async (selected) => {
     if(selected === undefined)
       return;
     selected = (Object.values(selected.dataset).join(''));
-    this.getDataFromDB(selected);
+    await this.getDataFromDB(selected);
+    this.historicalParser.current.parseData(this.state.data);
   }
 
   sideHandler = (selected) => {
@@ -65,7 +72,8 @@ export default class Historical extends Component {
           <SideNavigation sideNav={this.sideHandler} />
           <div style={graphStyle}><HistoricalLineGraph ref={this.graphElement} /></div>
           <div style={searcherStyle}><SelectData selectData={this.selectHandler} ref={this.searcher}/></div>
-          <ParseCSV ref={this.parser}/>
+          <HistoricalParser ref={this.historicalParser} />
+          {/* <ParseCSV ref={this.parser}/> */}
       </div>
     );
   }

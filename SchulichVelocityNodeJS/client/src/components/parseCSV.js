@@ -38,39 +38,28 @@ export default class ParseCSV extends Component {
         let dataArrays = [];
         dataArrays.push(this.dataCSV[1]);
 
-        if (name === "Suspension") {
+        if (name === "Suspension") 
             headerArray = ["RearRight", "RearLeft", "FrontLeft", "FrontRight"];
-        }
-        else if (name === "Acceleration") {
+        else if (name === "Acceleration") 
             headerArray = ["AccelX", "AccelY", "AccelZ"];
-        }
-        else if (name === "Engine Temperature") {
+        else if (name === "Engine Temperature") 
             headerArray = ["EngineTemp"];
-        }
-        else if (name === "Oil Temperature") {
+        else if (name === "Oil Temperature") 
             headerArray = ["OilTemp"];
-        }
-        else if (name === "Oil Pressure") {
+        else if (name === "Oil Pressure") 
             headerArray = ["OilPressure"];
-        }
-        else if (name === "Barometer") {
+        else if (name === "Barometer") 
             headerArray = ["Baro"];
-        }
-        else if (name === "Fuel Temperature") {
+        else if (name === "Fuel Temperature") 
             headerArray = ["FuelTemp"];
-        }
-        else if (name === "Manifold Air Pressure") {
+        else if (name === "Manifold Air Pressure") 
             headerArray = ["MAP"];
-        }
-        else if (name === "Intake Air Temperature") {
+        else if (name === "Intake Air Temperature") 
             headerArray = ["IAT"];
-        }
-        else if (name === "Injector Pulse Width") {
+        else if (name === "Injector Pulse Width") 
             headerArray = ["InjectorPW"];
-        }
-        else {
+        else 
             headerArray = [name];
-        }
 
         for(let i = 0; i < this.dataCSV.length; i++) {
             for(let j = 0; j < headerArray.length; j++) {

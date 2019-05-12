@@ -37,29 +37,34 @@ class Server {
     async run() {
         this.app.post("/api/request", (req, res) => {
             if(req.body.post === "historical"){
-                console.log('here')
                 var historicalModel = new HistoricalModel(this.pool);
-                this.controller = new HistoricalControl(historicalModel, this.router);
-                this.controller.getDataFromModel('test.endurance');
+                this.controller = new HistoricalControl(historicalModel, this.app);
             }
             else if(req.body.post === "streaming"){
                 var streamingModel = new StreamingModel(this.pool);
                 this.controller = new StreamingControl(streamingModel, this.app);
-                this.controller.start();
             }
             else if(req.body.post === "submitCSV"){
                 var submitCSVModel = new SubmitCSVModel(this.pool);
                 this.controller = new SubmitCSVControl(submitCSVModel, this.app);
-                this.controller.start();
             }
-            res.send('Well done');
-            console.log(req.body.post);
+            res.send();
         });
 
-        this.app.get('/api/getHistoricalData', async(req, res) => {
-            res.send(this.controller.getDataFromModel('test.endurance').json());
-            console.log(this.controller.getDataFromModel('test.endurance'));
-            res.send(this.controller.data);
+        this.app.post('/api/getHistoricalData', async(req, res) => {
+            var data = await this.controller.getDataFromModel(req.body.post);
+            var json = JSON.stringify({
+                data: data.rows
+            })
+            res.end(json);
+        });
+
+        this.app.get('/api/getStreamingData', async(req, res) => {
+            //streaming stuff
+        });
+
+        this.app.post('/api/submitCSV', async(req, res) => {
+            //submit the CSV
         });
     }
 }
@@ -67,8 +72,3 @@ class Server {
 var server = new Server(app);
 server.start();
 
-
-// app.post('/submitCSV', (req, res) => {
-//     console.log('here');
-//     //res is the file
-// });
