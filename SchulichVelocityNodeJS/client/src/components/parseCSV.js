@@ -68,7 +68,7 @@ export default class ParseCSV extends Component {
                 }
             }
         }
-        console.log(dataArrays);
+        //console.log(dataArrays);
         return dataArrays;
     }
 
