@@ -18,9 +18,8 @@ export default class ParseCSV extends Component {
                 data: [],
                 label: data.meta.fields[i]
             });
-            for(let j = 0; j < data.data.length; j++) {
+            for(let j = 0; j < data.data.length; j++) 
                 this.dataCSV[i + 1].data.push(parseFloat(data.data[j][data.meta.fields[i]]));
-            }
         }
     };
 
@@ -61,14 +60,10 @@ export default class ParseCSV extends Component {
         else 
             headerArray = [name];
 
-        for(let i = 0; i < this.dataCSV.length; i++) {
-            for(let j = 0; j < headerArray.length; j++) {
-                if(headerArray[j] === this.dataCSV[i].label) {
+        for(let i = 0; i < this.dataCSV.length; i++) 
+            for(let j = 0; j < headerArray.length; j++) 
+                if(headerArray[j] === this.dataCSV[i].label) 
                     dataArrays.push(this.dataCSV[i]);
-                }
-            }
-        }
-        //console.log(dataArrays);
         return dataArrays;
     }
 
@@ -81,7 +76,7 @@ export default class ParseCSV extends Component {
                     style={{display: 'none'}}
                     onError={this.handleOnError}
                     configOptions={{header: true,
-                                    delimiter: ','
+                    delimiter: ','
                     }}
                 />
                 <button onClick={this.handleImportOffer}>Upload CSV</button>

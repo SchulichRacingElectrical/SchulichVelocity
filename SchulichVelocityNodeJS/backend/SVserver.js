@@ -59,16 +59,15 @@ class Server {
             res.end(json);
         });
 
-        this.app.get('/api/getStreamingData', async(req, res) => {
+        this.app.post('/api/getStreamingData', async(req, res) => {
             //streaming stuff
         });
 
         this.app.post('/api/submitCSV', async(req, res) => {
-            //submit the CSV
+            //Use CSV controller to call CSV Model which will parse out the csv to properly insert into a table
         });
     }
 }
 
 var server = new Server(app);
 server.start();
-

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../CSS/historical.css';
-import ParseCSV from './parseCSV';
+//import ParseCSV from './parseCSV';
 import HistoricalParser from './historicalParser';
 import HistoricalLineGraph from './historicalLineGraph';
 import SideNavigation from './sideNav';
@@ -11,7 +11,7 @@ export default class Historical extends Component {
     super(props);
     this.graphElement = React.createRef();
     this.parser = React.createRef();
-    this.historicalParser =React.createRef();
+    this.historicalParser = React.createRef();
     this.searcher = React.createRef();
     this.state = {
       selectedData: "",
@@ -65,7 +65,7 @@ export default class Historical extends Component {
   };
 
   render() {
-    const graphStyle = this.state.hideGraph ? { display: 'none' } : {};
+    const graphStyle = this.state.hideGraph ? {display: 'none'} : {};
     const searcherStyle = this.state.hideGraph ? {} : {display: 'none'};
     return (
       <div className="Historical">

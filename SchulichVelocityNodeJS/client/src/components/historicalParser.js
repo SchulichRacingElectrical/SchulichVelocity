@@ -23,12 +23,11 @@ export default class HistoricalParser extends Component {
             for (const datum in dataset) {
                 if (!dataset.hasOwnProperty(datum)) continue;
                 var index = this.datasets.findIndex(obj =>
-                    obj.label == datum
+                    obj.label === datum
                 );
                 this.datasets[index].data.push(dataset[datum]);
             }
         }
-        console.log(this.datasets);
     }
 
     getData(name) {
@@ -36,7 +35,7 @@ export default class HistoricalParser extends Component {
         let dataArrays = [];
         dataArrays.push(this.datasets[1]);
 
-        if (name === "Suspension")
+        if (name === "Suspension") 
             headerArray = ["rearright", "rearleft", "frontleft", "frontright"];
         else if (name === "Acceleration")
             headerArray = ["accelx", "accely", "accelz"];
@@ -59,14 +58,10 @@ export default class HistoricalParser extends Component {
         else
             headerArray = [name];
 
-        for (let i = 0; i < this.datasets.length; i++) {
-            for (let j = 0; j < headerArray.length; j++) {
-                if (headerArray[j].toLowerCase() === this.datasets[i].label) {
+        for (let i = 0; i < this.datasets.length; i++) 
+            for (let j = 0; j < headerArray.length; j++) 
+                if (headerArray[j].toLowerCase() === this.datasets[i].label) 
                     dataArrays.push(this.datasets[i]);
-                }
-            }
-        }
-
         return dataArrays;
     }
 
