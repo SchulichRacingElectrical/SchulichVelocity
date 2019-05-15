@@ -11,9 +11,9 @@ export default class StreamGraph extends Component {
         super(props);
         this.state = {
             currentLabel: 3,
-            labels: ['0', '1', '2'],
+            labels: [],
             datasets: [{
-                data: [1, 2, 3],
+                data: [],
                 borderColor: 'rgb(255, 0, 0)',
                 pointRadius: 1,
                 backgroundColor: 'rgba(0,0,0,0.0)',
@@ -48,10 +48,17 @@ export default class StreamGraph extends Component {
         }
     }
 
+
+
     pullData() {
         this.state.labels.push(this.state.currentLabel.toString());
         this.state.datasets[0].data.push(getRandomInt(0, 10));
         this.setState({ currentLabel: this.state.currentLabel + 1 });
+
+        if(this.state.labels.length > 50) {
+            this.state.datasets[0].data.shift();
+            this.state.labels.shift();
+        }
     }
 
     tick() {
@@ -66,7 +73,7 @@ export default class StreamGraph extends Component {
         if(selected !== null && selected !== "Select Data")
             this.options.title.text = selected;
         this.setState({state: this.state})
-    }
+    };
 
     render() {
         return (

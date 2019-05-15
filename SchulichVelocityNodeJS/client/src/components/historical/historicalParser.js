@@ -28,17 +28,19 @@ export default class HistoricalParser extends Component {
                 this.datasets[index].data.push(dataset[datum]);
             }
         }
-    }
+    };
 
     getData(name) {
         let headerArray = [];
         let dataArrays = [];
         dataArrays.push(this.datasets[1]);
 
-        if (name === "Suspension") 
+        if (name === "Suspension")
             headerArray = ["rearright", "rearleft", "frontleft", "frontright"];
         else if (name === "Acceleration")
             headerArray = ["accelx", "accely", "accelz"];
+        else if (name === 'Track Map')
+            headerArray = ['Longitude, Latitude'];
         else if (name === "Engine Temperature")
             headerArray = ["enginetemp"];
         else if (name === "Oil Temperature")
@@ -58,10 +60,16 @@ export default class HistoricalParser extends Component {
         else
             headerArray = [name];
 
-        for (let i = 0; i < this.datasets.length; i++) 
-            for (let j = 0; j < headerArray.length; j++) 
-                if (headerArray[j].toLowerCase() === this.datasets[i].label) 
+        for (let i = 0; i < this.datasets.length; i++) {
+            for (let j = 0; j < headerArray.length; j++) {
+                if (headerArray[j].toLowerCase() === this.datasets[i].label) {
                     dataArrays.push(this.datasets[i]);
+                }
+            }
+        }
+        console.log(dataArrays);
+        console.log(name);
+
         return dataArrays;
     }
 

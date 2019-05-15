@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import '../CSS/streaming.css';
+import '../../CSS/streaming.css';
 import StreamGraph from './streamGraph';
-import SideNavigation from './sideNav';
+import SideNavigation from '../../components/sideNav';
 
 export default class Streaming extends Component {
     constructor(props) {
@@ -32,7 +32,6 @@ export default class Streaming extends Component {
             <div className="Streaming">
                 <SideNavigation sideNav={this.sideHandler} />
                 <div style={style}><StreamGraph className="contentGraph" ref={this.graphElement}/></div>
-                <StreamGraph/>
             </div>
         );
     }

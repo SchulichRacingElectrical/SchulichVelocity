@@ -6,8 +6,8 @@ import 'normalize.css'
 
 import Navigation from './components/topNav';
 import Home from './components/home';
-import Historical from './components/historical';
-import Streaming from './components/streaming';
+import Historical from './components/historical/historical';
+import Streaming from './components/streaming/streaming';
 import SubmitCSV from './components/submitCSV';
 import About from './components/about';
 import Notfound from './components/notFound';

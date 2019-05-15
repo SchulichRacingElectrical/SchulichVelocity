@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import '../CSS/historical.css';
+import '../../CSS/historical.css';
 //import ParseCSV from './parseCSV';
 import HistoricalParser from './historicalParser';
 import HistoricalLineGraph from './historicalLineGraph';
-import SideNavigation from './sideNav';
-import SelectData from './selectData';
+import SideNavigation from '../../components/sideNav';
+import SelectData from '../../components/selectData';
+import ParseCSV from '../parseCSV';
 
 export default class Historical extends Component {
   constructor(props) {
@@ -38,7 +39,7 @@ export default class Historical extends Component {
     })
     .then(response => response.json())
     .then(data => this.setState({data: data.data}));
-  }
+  };
 
   selectHandler = async (selected) => {
     if(selected === undefined)
@@ -46,7 +47,7 @@ export default class Historical extends Component {
     selected = (Object.values(selected.dataset).join(''));
     await this.getDataFromDB(selected);
     this.historicalParser.current.parseData(this.state.data);//clean up so historical does not need a data variable
-  }
+  };
 
   sideHandler = (selected) => {
     this.setState({ selectedGraph: selected });
@@ -73,7 +74,7 @@ export default class Historical extends Component {
           <div style={graphStyle}><HistoricalLineGraph ref={this.graphElement} /></div>
           <div style={searcherStyle}><SelectData selectData={this.selectHandler} ref={this.searcher}/></div>
           <HistoricalParser ref={this.historicalParser} />
-          {/* <ParseCSV ref={this.parser}/> */}
+          <ParseCSV ref={this.parser}/>
       </div>
     );
   }
