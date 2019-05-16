@@ -2,16 +2,16 @@
 const Control = require('./control');
 
 class StreamingControl extends Control{
-    constructor(model, router) {
-        super(model, router);
+    constructor(model) {
+        super(model);
     }
 
     start() {
-        
+        this.model.start();
     }
 
-    fetchData(request) {
-
+    fetchData() {
+        this.model.getData();
     }
 }
 

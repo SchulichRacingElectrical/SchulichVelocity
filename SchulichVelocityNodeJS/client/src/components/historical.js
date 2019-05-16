@@ -45,7 +45,8 @@ export default class Historical extends Component {
       return;
     selected = (Object.values(selected.dataset).join(''));
     await this.getDataFromDB(selected);
-    this.historicalParser.current.parseData(this.state.data);//clean up so historical does not need a data variable
+    this.historicalParser.current.clearData(); //clean up, calling logic is weird
+    this.historicalParser.current.setData(this.state.data);//clean up so historical does not need a data variable
   }
 
   sideHandler = (selected) => {
@@ -73,7 +74,6 @@ export default class Historical extends Component {
           <div style={graphStyle}><HistoricalLineGraph ref={this.graphElement} /></div>
           <div style={searcherStyle}><SelectData selectData={this.selectHandler} ref={this.searcher}/></div>
           <HistoricalParser ref={this.historicalParser} />
-          {/* <ParseCSV ref={this.parser}/> */}
       </div>
     );
   }

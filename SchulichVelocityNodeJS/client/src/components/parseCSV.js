@@ -18,9 +18,11 @@ export default class ParseCSV extends Component {
                 data: [],
                 label: data.meta.fields[i]
             });
-            for(let j = 0; j < data.data.length; j++) 
+            for (let j = 0; j < data.data.length; j++)
                 this.dataCSV[i + 1].data.push(parseFloat(data.data[j][data.meta.fields[i]]));
         }
+        this.sendCSVToServer();
+        this.setState({state: this.state});
     };
 
     handleOnError = (err, file, inputElem, reason) => {
@@ -29,43 +31,60 @@ export default class ParseCSV extends Component {
 
     handleImportOffer = () => {
         this.fileInput.current.click();
-        this.setState({state: this.state});
+        this.setState({ state: this.state });
     };
 
-    getData(name) {
-        let headerArray = [];
-        let dataArrays = [];
-        dataArrays.push(this.dataCSV[1]);
+    sendCSVToServer = async() => {
+        await fetch('/api/request', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({post: 'submitCSV'})
+        });
+        await fetch('/api/saveCSV', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({post: this.dataCSV})
+        });
+    };
 
-        if (name === "Suspension") 
-            headerArray = ["RearRight", "RearLeft", "FrontLeft", "FrontRight"];
-        else if (name === "Acceleration") 
-            headerArray = ["AccelX", "AccelY", "AccelZ"];
-        else if (name === "Engine Temperature") 
-            headerArray = ["EngineTemp"];
-        else if (name === "Oil Temperature") 
-            headerArray = ["OilTemp"];
-        else if (name === "Oil Pressure") 
-            headerArray = ["OilPressure"];
-        else if (name === "Barometer") 
-            headerArray = ["Baro"];
-        else if (name === "Fuel Temperature") 
-            headerArray = ["FuelTemp"];
-        else if (name === "Manifold Air Pressure") 
-            headerArray = ["MAP"];
-        else if (name === "Intake Air Temperature") 
-            headerArray = ["IAT"];
-        else if (name === "Injector Pulse Width") 
-            headerArray = ["InjectorPW"];
-        else 
-            headerArray = [name];
+    // getData(name) {
+    //     let headerArray = [];
+    //     let dataArrays = [];
+    //     dataArrays.push(this.dataCSV[1]);
 
-        for(let i = 0; i < this.dataCSV.length; i++) 
-            for(let j = 0; j < headerArray.length; j++) 
-                if(headerArray[j] === this.dataCSV[i].label) 
-                    dataArrays.push(this.dataCSV[i]);
-        return dataArrays;
-    }
+    //     if (name === "Suspension") 
+    //         headerArray = ["RearRight", "RearLeft", "FrontLeft", "FrontRight"];
+    //     else if (name === "Acceleration") 
+    //         headerArray = ["AccelX", "AccelY", "AccelZ"];
+    //     else if (name === "Engine Temperature") 
+    //         headerArray = ["EngineTemp"];
+    //     else if (name === "Oil Temperature") 
+    //         headerArray = ["OilTemp"];
+    //     else if (name === "Oil Pressure") 
+    //         headerArray = ["OilPressure"];
+    //     else if (name === "Barometer") 
+    //         headerArray = ["Baro"];
+    //     else if (name === "Fuel Temperature") 
+    //         headerArray = ["FuelTemp"];
+    //     else if (name === "Manifold Air Pressure") 
+    //         headerArray = ["MAP"];
+    //     else if (name === "Intake Air Temperature") 
+    //         headerArray = ["IAT"];
+    //     else if (name === "Injector Pulse Width") 
+    //         headerArray = ["InjectorPW"];
+    //     else 
+    //         headerArray = [name];
+
+    //     for(let i = 0; i < this.dataCSV.length; i++) 
+    //         for(let j = 0; j < headerArray.length; j++) 
+    //             if(headerArray[j] === this.dataCSV[i].label) 
+    //                 dataArrays.push(this.dataCSV[i]);
+    //     return dataArrays;
+    // }
 
     render() {
         return (
@@ -73,10 +92,11 @@ export default class ParseCSV extends Component {
                 <CSVReader
                     onFileLoaded={this.handleReadCSV}
                     inputRef={this.fileInput}
-                    style={{display: 'none'}}
+                    style={{ display: 'none' }}
                     onError={this.handleOnError}
-                    configOptions={{header: true,
-                    delimiter: ','
+                    configOptions={{
+                        header: true,
+                        delimiter: ','
                     }}
                 />
                 <button onClick={this.handleImportOffer}>Upload CSV</button>

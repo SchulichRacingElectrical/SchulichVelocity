@@ -6,8 +6,9 @@ class SubmitCSVModel extends Model {
         super(DB);
     }
 
-    insertData(data) {
-
+    insertData(dataCSV) {
+        console.log(dataCSV)
+        //parse out the csv file and insert into the DB
     }
 }
 

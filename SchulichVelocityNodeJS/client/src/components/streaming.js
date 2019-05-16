@@ -31,8 +31,9 @@ export default class Streaming extends Component {
         return (
             <div className="Streaming">
                 <SideNavigation sideNav={this.sideHandler} />
-                <div style={style}><StreamGraph className="contentGraph" ref={this.graphElement}/></div>
-                <StreamGraph/>
+                <div style={style}>
+                    <StreamGraph className="contentGraph" ref={this.graphElement}/>
+                </div>
             </div>
         );
     }

@@ -10,29 +10,18 @@ export default class HistoricalParser extends Component {
         }]
     }
 
-    parseData = (historicalData) => {
-        const result = historicalData[0];
-        for (const label in result) {
-            var temp = { label: label, data: [] };
-            this.datasets.push(temp);
-        }
+    clearData() { //clean up, calling logic is a bit weird.
+       this.datasets = [{label: "", data: []}];
+    }
 
-        for (const result in historicalData) {
-            if (!historicalData.hasOwnProperty(result)) continue;
-            var dataset = historicalData[result];
-            for (const datum in dataset) {
-                if (!dataset.hasOwnProperty(datum)) continue;
-                var index = this.datasets.findIndex(obj =>
-                    obj.label === datum
-                );
-                this.datasets[index].data.push(dataset[datum]);
-            }
-        }
+    setData = (historicalData) => {
+        this.datasets = historicalData;
     }
 
     getData(name) {
         let headerArray = [];
         let dataArrays = [];
+
         dataArrays.push(this.datasets[1]);
 
         if (name === "Suspension") 

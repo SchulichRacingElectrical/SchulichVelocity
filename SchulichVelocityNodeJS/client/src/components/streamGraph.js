@@ -9,6 +9,7 @@ function getRandomInt(min, max) {
 export default class StreamGraph extends Component {
     constructor(props) {
         super(props);
+        this.titles = [];
         this.state = {
             currentLabel: 3,
             labels: ['0', '1', '2'],
@@ -29,9 +30,6 @@ export default class StreamGraph extends Component {
                     bottom: 0
                 }
             },
-            animation: {
-                duration: 0
-            },
             title: {
                 display: true,
                 fontSize: 30,
@@ -41,17 +39,48 @@ export default class StreamGraph extends Component {
             scales: {
                 xAxes: [{
                     realtime: {
+                        duration: 20000,
                         onRefresh: function (chart) { },
                     }
                 }]
+            }, 
+            plugins: {
+                streaming: {
+                    frameRate: 30
+                }
             }
         }
     }
 
-    pullData() {
+    pullData = () => {
         this.state.labels.push(this.state.currentLabel.toString());
-        this.state.datasets[0].data.push(getRandomInt(0, 10));
-        this.setState({ currentLabel: this.state.currentLabel + 1 });
+        this.state.datasets[0].data.push(getRandomInt(0, 50));
+        this.setState({ currentLabel: this.state.currentLabel + 1});
+        if(this.state.currentLabel - 100 > this.state.labels[0]){
+            this.state.datasets[0].data.shift();
+            this.state.labels.shift();
+        }
+
+        // await fetch('/api/request', {
+        //     method: 'POST', 
+        //     headers: {
+        //       'Content-Type': 'application/json',
+        //     }, 
+        //     body: JSON.stringify({post: 'streaming'})
+        // });
+
+        // await fetch('/api/getStreamingData', {
+        //     method: 'POST', 
+        //     headers: {
+        //       'Content-Type': 'application/json',
+        //     }, 
+        //     body: JSON.stringify({post: ''})
+        // })
+        // .then(response => response.json())
+        // .then(data => 
+        //     //parse out the data then determine the page we are on
+        //     this.state.datasets[0].data.push(data)
+        // );
     }
 
     tick() {
@@ -59,7 +88,7 @@ export default class StreamGraph extends Component {
     }
 
     componentDidMount() {
-        this.timerID = setInterval(() => this.tick(),200);
+        this.timerID = setInterval(() => this.tick(),33);
     }
 
     setTitle = (selected) => {

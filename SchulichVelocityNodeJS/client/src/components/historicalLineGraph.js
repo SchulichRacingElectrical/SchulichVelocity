@@ -71,13 +71,6 @@ export default class HistoricalLineGraph extends Component {
         this.setState({state: this.state});
     };
 
-    resize(smaller) {
-        if(smaller === true)
-            this.options.layout.padding = 240;
-        else
-            this.options.layout.padding = 80;
-    }
-
     render() {
         return (
             <div>

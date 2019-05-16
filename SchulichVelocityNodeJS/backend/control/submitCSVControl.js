@@ -3,16 +3,12 @@ const Control = require('./control');
 const {submitCSVModel} = require('../model/submitCSVModel');
 
 class SubmitCSVControl extends Control{
-    constructor(model, router) {
-        super(model, router);
+    constructor(model) {
+        super(model);
     }
 
-    parseCSV(csv) {
-
-    }
-
-    insertToDB() {
-
+    insertToDB(dataCSV) {
+        this.model.insertData(dataCSV)
     }
 }
 
