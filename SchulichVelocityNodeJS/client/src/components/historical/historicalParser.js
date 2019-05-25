@@ -33,42 +33,60 @@ export default class HistoricalParser extends Component {
 
     // this function is outdated, when we're going to use historicalParser, copy function from parseCSV
     getData(name) {
-        let headerArray = ["Interval"];
-        let dataArrays = [[]];
+        let headerArray = [];
+        let dataArrays = [];
 
-        if (name === "Suspension")
-            headerArray = headerArray.concat(["Line", "RearRight", "RearLeft", "FrontLeft", "FrontRight"]);
-        else if (name === "Acceleration v Time")
-            headerArray = headerArray.concat(["Line", "AccelX", "AccelY", "AccelZ"]);
-        else if (name === "Acceleration Scatter")
-            headerArray = headerArray.concat(["Scatter", "AccelX", "AccelY", "AccelZ"]);
+        if      (name === "Suspension")
+            headerArray = [1, "Line", "Interval", "RearRight", "RearLeft", "FrontLeft", "FrontRight"];
+        else if (name === "Accel vs Time")
+            headerArray = ["Line", "Interval", "AccelX", "AccelY", "AccelZ"];
+        else if (name === "Accel Map")
+            headerArray = ["Scatter", "Interval", "AccelX", "AccelY"];
+        // else if (name === "RPM")
+        //     headerArray = ["Line", "Interval", "RPM", "Speed"];
         else if (name === "Engine Temperature")
-            headerArray = headerArray.concat(["Line", "EngineTemp"]);
+            headerArray = ["Line", "Interval", "EngineTemp"];
         else if (name === "Oil Temperature")
-            headerArray = headerArray.concat(["Line", "OilTemp"]);
+            headerArray = ["Line", "Interval", "OilTemp"];
         else if (name === "Oil Pressure")
-            headerArray = headerArray.concat(["Line", "OilPressure"]);
+            headerArray = ["Line", "Interval", "OilPressure"];
         else if (name === "Barometer")
-            headerArray = headerArray.concat(["Line", "Baro"]);
+            headerArray = ["Line", "Interval", "Baro"];
         else if (name === "Fuel Temperature")
-            headerArray = headerArray.concat(["Line", "FuelTemp"]);
+            headerArray = ["Line", "Interval", "FuelTemp"];
         else if (name === "Manifold Air Pressure")
-            headerArray = headerArray.concat(["Line", "MAP"]);
+            headerArray = ["Line", "Interval", "MAP"];
         else if (name === "Intake Air Temperature")
-            headerArray = headerArray.concat(["Line", "IAT"]);
+            headerArray = ["Line", "Interval", "IAT"];
         else if (name === "Injector Pulse Width")
-            headerArray = headerArray.concat(["Line", "InjectorPW"]);
+            headerArray = ["Line", "Interval", "InjectorPW"];
         else if (name === "Track Map")
-            headerArray = headerArray.concat(["Scatter", "Longitude", "Latitude"]);
+            headerArray = ["Scatter", "Interval", "Longitude", "Latitude"];
+        else if (name === "Speed")
+            headerArray = ["Line", "Interval", "Speed"];
+        else if (name === "Throttle Position")
+            headerArray = ["Line", "Interval", "TPS"];
+        else if (name === "Distance")
+            headerArray = ["Line", "Interval", "Distance"];
+        else if (name === "Intake Air Pressure")
+            headerArray = ["Line", "Interval", "IAT"];
+        else if (name === "Air To Fuel")
+            headerArray = ["Line", "Interval", "AFR"];
+        else if (name === "Axes") {
+            headerArray = ["Line", "Interval", "Yaw", "Pitch", "Roll"]
+        }
         else
-            headerArray = headerArray.concat([name]);
+            headerArray = ["Line", "Interval", name];
 
-        for(let i = 0; i < this.dataCSV.length; i++)
-            for(let j = 1; j < headerArray.length; j++)
-                if(headerArray[i] === this.dataCSV.label) {
-                    dataArrays.push(this.dataCSV.data)
+        dataArrays.push(headerArray[0]);
+
+        for(let i = 1; i < this.dataCSV.length; i++) {
+            for (let j = 1; j < headerArray.length; j++) {
+                if(this.dataCSV[i].label === headerArray[j]) {
+                    dataArrays.push(this.dataCSV[i])
                 }
-
+            }
+        }
         return dataArrays;
     }
 

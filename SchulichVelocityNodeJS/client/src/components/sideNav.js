@@ -26,7 +26,7 @@ export default class SideNavigation extends React.Component {
                             <NavIcon></NavIcon>
                             <NavText>Suspension</NavText>
                         </NavItem>
-                        <NavItem eventKey="powertrain">
+                        <NavItem eventKey="Powertrain">
                             <NavIcon></NavIcon>
                             <NavText>
                                 Power Train

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { Line } from 'react-chartjs-2';
+import {Line, Scatter} from 'react-chartjs-2';
 import 'chartjs-plugin-streaming';
+
+let chartType = "Line";
 
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -48,8 +50,6 @@ export default class StreamGraph extends Component {
         }
     }
 
-
-
     pullData() {
         this.state.labels.push(this.state.currentLabel.toString());
         this.state.datasets[0].data.push(getRandomInt(0, 10));
@@ -76,10 +76,23 @@ export default class StreamGraph extends Component {
     };
 
     render() {
-        return (
+        if (chartType === "Line")
+            return (
+                <div>
+                    <Line data={this.state} options={this.options}/>
+                </div>
+            );
+        else if (chartType === "Scatter")
+            return (
+                <div>
+                    <Scatter data={this.ScatterData} options={this.options}/>
+                </div>
+            );
+        else
+            return (
             <div>
-                <Line data={this.state} options={this.options} />
+                <h1>Error: Chart type not specified.</h1>
             </div>
-        )
+            );
     }
 }

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import '../../CSS/historical.css';
-//import ParseCSV from './parseCSV';
 import HistoricalParser from './historicalParser';
 import HistoricalGraph from './historicalGraph';
 import SideNavigation from '../../components/sideNav';
 import SelectData from '../../components/selectData';
 import ParseCSV from '../parseCSV';
+
+let chartItems = [];
 
 export default class Historical extends Component {
   constructor(props) {
@@ -24,10 +25,10 @@ export default class Historical extends Component {
 
   getDataFromDB = async (request) => {
     await fetch('/api/request', {
-      method: 'POST', 
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-      }, 
+      },
       body: JSON.stringify({post: 'historical'})
     });
     await fetch('/api/getHistoricalData',  {
@@ -60,19 +61,22 @@ export default class Historical extends Component {
   };
 
   graphHandler = (name) => {
-    this.data = this.parser.current.getData(name);
-    console.log(this.data);
-    this.graphElement.current.setTitle(name);
-    this.graphElement.current.setData(this.data);
+      this.data = this.parser.current.getData(name);
+      console.log(this.data);
+      this.graphElement.current.setTitle(name);
+      this.graphElement.current.setData(this.data[0]);
   };
 
   render() {
-    const graphStyle = this.state.hideGraph ? {display: 'none'} : {};
-    const searcherStyle = this.state.hideGraph ? {} : {display: 'none'};
-    return (
-      <div className="Historical">
-          <SideNavigation sideNav={this.sideHandler} />
-          <div style={graphStyle}><HistoricalGraph ref={this.graphElement} /></div>
+      const graphStyle = this.state.hideGraph ? {display: 'none'} : {};
+      const searcherStyle = this.state.hideGraph ? {} : {display: 'none'};
+      return (
+          <div className="Historical">
+              <SideNavigation sideNav={this.sideHandler} />
+          <div style={graphStyle}>
+              <HistoricalGraph ref={this.graphElement} />
+              {/*<ul>{graphs}</ul>*/}
+          </div>
           <div style={searcherStyle}><SelectData selectData={this.selectHandler} ref={this.searcher}/></div>
           <ParseCSV ref={this.parser}/>
       </div>
