@@ -63,7 +63,7 @@ export default class HistoricalGraph extends Component {
                 this.state.datasets.push( {
                     data : data[i].data,
                     label: data[i].label,
-                    borderColor: colorArray[i - 1],
+                    borderColor: colorArray[i - 2],
                     pointRadius: 0.5,
                     borderWidth: 2,
                     showLine: true,
