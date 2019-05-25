@@ -111,10 +111,10 @@ export default class SideNavigation extends React.Component {
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Accel vs Time
                                 </NavText>
                             </NavItem>
-                            <NavItem eventKey="Acceleration Map">
+                            <NavItem eventKey="Accel Map">
                             <NavText>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Acceleration Map
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Accel Map
                             </NavText>
                         </NavItem>
                         </NavItem>
@@ -125,24 +125,6 @@ export default class SideNavigation extends React.Component {
                             <NavText>
                                 Axes
                             </NavText>
-                            <NavItem eventKey="Yaw">
-                                <NavText>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Yaw
-                                </NavText>
-                            </NavItem>
-                            <NavItem eventKey="Pitch">
-                                <NavText>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pitch
-                                </NavText>
-                            </NavItem>
-                            <NavItem eventKey="Roll">
-                                <NavText>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Roll
-                                </NavText>
-                            </NavItem>
                         </NavItem>
 
                         <NavItem eventKey="Track Map">

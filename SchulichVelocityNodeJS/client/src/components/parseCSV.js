@@ -39,10 +39,10 @@ export default class ParseCSV extends Component {
 
         if      (name === "Suspension")
             headerArray = ["Line", "Interval", "RearRight", "RearLeft", "FrontLeft", "FrontRight"];
-        else if (name === "Acceleration v Time")
+        else if (name === "Accel vs Time")
             headerArray = ["Line", "Interval", "AccelX", "AccelY", "AccelZ"];
-        else if (name === "Acceleration Scatter")
-            headerArray = ["Scatter", "AccelX", "AccelY", "AccelZ"];
+        else if (name === "Accel Map")
+            headerArray = ["Scatter", "AccelX", "AccelY"];
         else if (name === "Engine Temperature")
             headerArray = ["Line", "Interval", "EngineTemp"];
         else if (name === "Oil Temperature")
@@ -63,6 +63,15 @@ export default class ParseCSV extends Component {
             headerArray = ["Scatter", "Longitude", "Latitude"];
         else if (name === "Speed")
             headerArray = ["Line", "Interval", "Speed"];
+        else if (name === "RPM")
+            headerArray = ["Line", "Interval", "RPM"];
+        else if (name === "Throttle Position")
+            headerArray = ["Line", "Interval", "TPS"];
+        else if (name === "Distance")
+            headerArray = ["Line", "Interval", "Distance"];
+        else if (name === "Axes") {
+            headerArray = ["Line", "Interval", "Yaw", "Pitch", "Roll"]
+        }
         else
             headerArray = headerArray.concat([name]);
 
@@ -75,8 +84,6 @@ export default class ParseCSV extends Component {
                 }
             }
         }
-
-        console.log(dataArrays);
         return dataArrays;
     }
 
