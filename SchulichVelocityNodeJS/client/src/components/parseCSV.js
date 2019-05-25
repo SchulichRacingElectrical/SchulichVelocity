@@ -21,6 +21,7 @@ export default class ParseCSV extends Component {
             for(let j = 0; j < data.data.length; j++) 
                 this.dataCSV[i + 1].data.push(parseFloat(data.data[j][data.meta.fields[i]]));
         }
+        console.log(this.dataCSV);
     };
 
     handleOnError = (err, file, inputElem, reason) => {
@@ -36,33 +37,44 @@ export default class ParseCSV extends Component {
         let headerArray = [];
         let dataArrays = [];
 
-        if (name === "Suspension")
-            headerArray = ["RearRight", "RearLeft", "FrontLeft", "FrontRight"];
-        else if (name === "Acceleration")
-            headerArray = ["AccelX", "AccelY", "AccelZ"];
+        if      (name === "Suspension")
+            headerArray = ["Line", "Interval", "RearRight", "RearLeft", "FrontLeft", "FrontRight"];
+        else if (name === "Acceleration v Time")
+            headerArray = ["Line", "Interval", "AccelX", "AccelY", "AccelZ"];
+        else if (name === "Acceleration Scatter")
+            headerArray = ["Scatter", "AccelX", "AccelY", "AccelZ"];
         else if (name === "Engine Temperature")
-            headerArray = ["EngineTemp"];
+            headerArray = ["Line", "Interval", "EngineTemp"];
         else if (name === "Oil Temperature")
-            headerArray = ["OilTemp"];
+            headerArray = ["Line", "Interval", "OilTemp"];
         else if (name === "Oil Pressure")
-            headerArray = ["OilPressure"];
+            headerArray = ["Line", "Interval", "OilPressure"];
         else if (name === "Barometer")
-            headerArray = ["Baro"];
+            headerArray = ["Line", "Interval", "Baro"];
         else if (name === "Fuel Temperature")
-            headerArray = ["FuelTemp"];
+            headerArray = ["Line", "Interval", "FuelTemp"];
         else if (name === "Manifold Air Pressure")
-            headerArray = ["MAP"];
+            headerArray = ["Line", "Interval", "MAP"];
         else if (name === "Intake Air Temperature")
-            headerArray = ["IAT"];
+            headerArray = ["Line", "Interval", "IAT"];
         else if (name === "Injector Pulse Width")
-            headerArray = ["InjectorPW"];
+            headerArray = ["Line", "Interval", "InjectorPW"];
+        else if (name === "Track Map")
+            headerArray = ["Scatter", "Longitude", "Latitude"];
+        else if (name === "Speed")
+            headerArray = ["Line", "Interval", "Speed"];
         else
-            headerArray = [name];
+            headerArray = headerArray.concat([name]);
 
-        for(let i = 0; i < this.dataCSV.length; i++)
-            for(let j = 0; j < headerArray.length; j++)
-                if(headerArray[j] === this.dataCSV[i].label)
-                    dataArrays.push(this.dataCSV[i]);
+        dataArrays.push(headerArray[0]);
+
+        for(let i = 1; i < this.dataCSV.length; i++) {
+            for (let j = 1; j < headerArray.length; j++) {
+                if(this.dataCSV[i].label === headerArray[j]) {
+                    dataArrays.push(this.dataCSV[i])
+                }
+            }
+        }
 
         console.log(dataArrays);
         return dataArrays;

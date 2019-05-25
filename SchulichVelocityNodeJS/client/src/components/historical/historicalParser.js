@@ -30,48 +30,48 @@ export default class HistoricalParser extends Component {
         }
     };
 
+
+    // this function is outdated, when we're going to use historicalParser, copy function from parseCSV
     getData(name) {
-        let headerArray = [];
-        let dataArrays = [];
-        dataArrays.push(this.datasets[1]);
+        let headerArray = ["Interval"];
+        let dataArrays = [[]];
 
         if (name === "Suspension")
-            headerArray = ["rearright", "rearleft", "frontleft", "frontright"];
-        else if (name === "Acceleration")
-            headerArray = ["accelx", "accely", "accelz"];
-        else if (name === 'Track Map')
-            headerArray = ['Longitude, Latitude'];
+            headerArray = headerArray.concat(["Line", "RearRight", "RearLeft", "FrontLeft", "FrontRight"]);
+        else if (name === "Acceleration v Time")
+            headerArray = headerArray.concat(["Line", "AccelX", "AccelY", "AccelZ"]);
+        else if (name === "Acceleration Scatter")
+            headerArray = headerArray.concat(["Scatter", "AccelX", "AccelY", "AccelZ"]);
         else if (name === "Engine Temperature")
-            headerArray = ["enginetemp"];
+            headerArray = headerArray.concat(["Line", "EngineTemp"]);
         else if (name === "Oil Temperature")
-            headerArray = ["oiltemp"];
+            headerArray = headerArray.concat(["Line", "OilTemp"]);
         else if (name === "Oil Pressure")
-            headerArray = ["oilpressure"];
+            headerArray = headerArray.concat(["Line", "OilPressure"]);
         else if (name === "Barometer")
-            headerArray = ["baro"];
+            headerArray = headerArray.concat(["Line", "Baro"]);
         else if (name === "Fuel Temperature")
-            headerArray = ["fueltemp"];
+            headerArray = headerArray.concat(["Line", "FuelTemp"]);
         else if (name === "Manifold Air Pressure")
-            headerArray = ["map"];
+            headerArray = headerArray.concat(["Line", "MAP"]);
         else if (name === "Intake Air Temperature")
-            headerArray = ["iat"];
+            headerArray = headerArray.concat(["Line", "IAT"]);
         else if (name === "Injector Pulse Width")
-            headerArray = ["injectorpw"];
+            headerArray = headerArray.concat(["Line", "InjectorPW"]);
+        else if (name === "Track Map")
+            headerArray = headerArray.concat(["Scatter", "Longitude", "Latitude"]);
         else
-            headerArray = [name];
+            headerArray = headerArray.concat([name]);
 
-        for (let i = 0; i < this.datasets.length; i++) {
-            for (let j = 0; j < headerArray.length; j++) {
-                if (headerArray[j].toLowerCase() === this.datasets[i].label) {
-                    dataArrays.push(this.datasets[i]);
+        for(let i = 0; i < this.dataCSV.length; i++)
+            for(let j = 1; j < headerArray.length; j++)
+                if(headerArray[i] === this.dataCSV.label) {
+                    dataArrays.push(this.dataCSV.data)
                 }
-            }
-        }
-        console.log(dataArrays);
-        console.log(name);
 
         return dataArrays;
     }
+
 
     render() {
         return (<div></div>);

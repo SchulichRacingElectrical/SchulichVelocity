@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../../CSS/historical.css';
 //import ParseCSV from './parseCSV';
 import HistoricalParser from './historicalParser';
-import HistoricalLineGraph from './historicalLineGraph';
+import HistoricalGraph from './historicalGraph';
 import SideNavigation from '../../components/sideNav';
 import SelectData from '../../components/selectData';
 import ParseCSV from '../parseCSV';
@@ -12,12 +12,12 @@ export default class Historical extends Component {
     super(props);
     this.graphElement = React.createRef();
     this.parser = React.createRef();
-    this.historicalParser = React.createRef();
     this.searcher = React.createRef();
     this.state = {
       selectedData: "",
       selectedGraph: "",
       hideGraph: true,
+      graphType: "Line",
       data: []
     }
   }
@@ -46,7 +46,7 @@ export default class Historical extends Component {
       return;
     selected = (Object.values(selected.dataset).join(''));
     await this.getDataFromDB(selected);
-    this.historicalParser.current.parseData(this.state.data);//clean up so historical does not need a data variable
+    //this.historicalParser.current.parseData(this.state.data);//clean up so historical does not need a data variable
   };
 
   sideHandler = (selected) => {
@@ -60,7 +60,8 @@ export default class Historical extends Component {
   };
 
   graphHandler = (name) => {
-    this.data = this.historicalParser.current.getData(name);
+    this.data = this.parser.current.getData(name);
+    console.log(this.data);
     this.graphElement.current.setTitle(name);
     this.graphElement.current.setData(this.data);
   };
@@ -71,9 +72,8 @@ export default class Historical extends Component {
     return (
       <div className="Historical">
           <SideNavigation sideNav={this.sideHandler} />
-          <div style={graphStyle}><HistoricalLineGraph ref={this.graphElement} /></div>
+          <div style={graphStyle}><HistoricalGraph ref={this.graphElement} /></div>
           <div style={searcherStyle}><SelectData selectData={this.selectHandler} ref={this.searcher}/></div>
-          <HistoricalParser ref={this.historicalParser} />
           <ParseCSV ref={this.parser}/>
       </div>
     );

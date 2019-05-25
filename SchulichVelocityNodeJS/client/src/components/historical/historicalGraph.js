@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
-import { Scatter } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 import 'chartjs-plugin-streaming';
 
-export default class HistoricalLineGraph extends Component {
+export default class HistoricalGraph extends Component {
     constructor(props){
         super(props);
         this.state = {
-            label: '',
-            data: [{
-                // x: 0
-                // y: 0
-            }]
+            labels: [],
+            datasets: []
         };
         this.options = {
             layout: {
@@ -20,7 +17,7 @@ export default class HistoricalLineGraph extends Component {
                     top: 0,
                     bottom: 0
                 }
-
+                
             },
             elements: {
                 line: {
@@ -52,19 +49,31 @@ export default class HistoricalLineGraph extends Component {
 
     setData = (data) => {
         let colorArray = ['rgb(255, 0, 0)', 'rgb(0, 255, 0)', 'rgb(0, 0, 255)',
-            'rgb(255, 255, 0)', 'rgb(0, 255, 255)', 'rgb(255, 0, 255)'];
+                          'rgb(255, 255, 0)', 'rgb(0, 255, 255)', 'rgb(255, 0, 255)'];
+        let i = 1;
         //Clear previous data
-        this.state.data = [{}];
+        this.state.labels = [];
+        this.state.datasets = [];
         //Push in new data
+        if(data[0] === "Line") {
+            this.state.labels = data[1].data;
+            i = 2;
+        }
+        console.log(i);
 
-        console.log(data.length);
-
-        for(let i = 1; i < data.length; i++) {
-            this.state.data.push({
-                x: data[i].data[i],
-                y: data[i].label[i],
+        for(i; i < data.length; i++) {
+            this.state.datasets.push( {
+                data : data[i].data,
+                label: data[i].label,
+                borderColor: colorArray[i - 1],
+                pointRadius: 0.5,
+                borderWidth: 2,
+                showLine: true,
+                backgroundColor: 'rgba(0,0,0,0.0)',
+                lineTension: 0
             })
         }
+        console.log(this.state);
         this.setState({state: this.state});
     };
 
@@ -78,7 +87,7 @@ export default class HistoricalLineGraph extends Component {
     render() {
         return (
             <div>
-                <Scatter data={this.state} options={this.options}/>
+                <Line data={this.state} options={this.options}/>
             </div>
         )
     }
