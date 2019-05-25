@@ -67,7 +67,7 @@ export default class SideNavigation extends React.Component {
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Air To Fuel
                             </NavText>
                             </NavItem>
-                            <NavItem eventKey="Intake Air Pressure">
+                            <NavItem eventKey="Intake Air Temperature">
                                 <NavText>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Intake Air Temperature

@@ -69,6 +69,10 @@ export default class ParseCSV extends Component {
             headerArray = ["Line", "Interval", "TPS"];
         else if (name === "Distance")
             headerArray = ["Line", "Interval", "Distance"];
+        else if (name === "Intake Air Pressure")
+            headerArray = ["Line", "Interval", "IAT"];
+        else if (name === "Air To Fuel")
+            headerArray = ["Line", "Interval", "AFR"];
         else if (name === "Axes") {
             headerArray = ["Line", "Interval", "Yaw", "Pitch", "Roll"]
         }
