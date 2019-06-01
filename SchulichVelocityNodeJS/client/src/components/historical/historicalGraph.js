@@ -95,6 +95,7 @@ export default class HistoricalGraph extends Component {
                     lineTension: 0
                 })
             }
+            return lineData
         }
         else if(data[0] === "Scatter") {
             chartType = "Scatter";
@@ -105,7 +106,9 @@ export default class HistoricalGraph extends Component {
                     y: data[3].data[i]
                 })
             }
+            return scatterData;
         }
+
 
         // console.log(lineData);
         // console.log(scatterData);

@@ -93,6 +93,7 @@ export default class ParseCSV extends Component {
                 }
             }
         }
+        dataArrays.pop();
         return dataArrays;
     }
     render() {
