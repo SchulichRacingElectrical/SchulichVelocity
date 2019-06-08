@@ -6,12 +6,6 @@ import 'rc-slider/assets/index.css';
 
 let chartType = "Line";
 let chartData = 0;
-let minInterval;
-let maxInterval;
-let min;
-let max;
-let originalLineData = {};
-let originalScatterData = {};
 
 export default class HistoricalGraph extends Component {
     constructor(props){
@@ -21,6 +15,18 @@ export default class HistoricalGraph extends Component {
             min: 0,
             max: 100,
             value: [0, 0],
+            originalLineData: {
+                labels: [],
+                datasets: [{
+                    data: []
+                }],
+            },
+            originalScatterData: {
+                labels: [],
+                datasets: [{
+                    data: []
+                }],
+            },
             lineData: {},
             scatterData: {}
         };
@@ -71,21 +77,16 @@ export default class HistoricalGraph extends Component {
                           'rgb(255, 255, 0)', 'rgb(0, 255, 255)', 'rgb(255, 0, 255)'];
         chartData = data;
 
-        minInterval = data[1].data[0];
-        maxInterval = data[1].data[data[1].data.length - 2];
-
-        min = minInterval;
-        max = maxInterval;
+        this.state.min = data[1].data[0];
+        this.state.max = data[1].data[data[1].data.length - 2];
 
         if(data[0] === "Line") {
             chartType = "Line";
-            originalLineData ={
-                labels: [],
-                datasets: []
-            };
-            originalLineData.labels = data[1].data;
+            this.state.originalLineData.data = [];
+            this.state.originalLineData.labels = data[1].data;
+
             for(let i = 2; i < data.length; i++) {
-                originalLineData.datasets.push( {
+                this.state.originalLineData.datasets.push( {
                     data : data[i].data,
                     label: data[i].label,
                     borderColor: colorArray[i - 2],
@@ -96,12 +97,13 @@ export default class HistoricalGraph extends Component {
                     lineTension: 0
                 })
             }
-            this.setState({lineData: originalLineData});
+            this.setState({lineData: this.state.originalLineData,
+                                originalLineData: this.state.originalLineData});
         }
 
         else if(data[0] === "Scatter") {
             chartType = "Scatter";
-            originalScatterData = {
+            this.state.originalScatterData = {
                 labels: 'Points',
                 datasets: [{
                     data: [
@@ -123,13 +125,13 @@ export default class HistoricalGraph extends Component {
             for(let i = 0; i < data[1].data.length; i++) {
                 if (!(isNaN(data[2].data[i]) || isNaN(data[3].data[i]))
                     && (data[2].data[i] !== 0 || data[3].data[i] !== 0)) {
-                    originalScatterData.datasets[0].data.push({
+                    this.state.originalScatterData.datasets[0].data.push({
                         x: data[2].data[i],
                         y: data[3].data[i]
                     });
                 }
             }
-            this.setState({scatterData: originalScatterData});
+            this.setState({scatterData: this.state.originalScatterData});
         }
         // console.log(lineData);
         // console.log(scatterData);
@@ -160,31 +162,29 @@ export default class HistoricalGraph extends Component {
         if (chartType === "Line") {
 
             this.setState({
-                lineData: originalLineData
+                lineData: this.state.originalLineData
             });
 
-            for(let i = 0; i < originalLineData.labels.length; i++) {
-                if (i < value[0]) {
-                    this.state.lineData.labels[i] = NaN;
-                    for (let j = 0; j < originalLineData.datasets.length; j++) {
-                        this.state.lineData.datasets[j].data[i] = NaN;
+            for(let i = 0; i < this.state.originalLineData.labels.length; i++) {
+                if (this.state.originalLineData.labels[i] < value[0]) {
+                    this.state.lineData.labels.shift();
+                    for (let j = 0; j < this.state.originalLineData.datasets.length; j++) {
+                        this.state.lineData.datasets[j].data.shift();
                     }
                 }
-                if (i > value[1]) {
-                    this.state.lineData.labels[i] = NaN;
-                    for (let j = 0; j < originalLineData.datasets.length; j++) {
-                        this.state.lineData.datasets[j].data[i] = NaN;
+                if (this.state.originalLineData.labels[i] > value[1]) {
+                    this.state.lineData.labels.pop();
+                    for (let j = 0; j < this.state.originalLineData.datasets.length; j++) {
+                        this.state.lineData.datasets[j].data.pop();
                     }
                 }
             }
+            console.log([this.state.originalLineData, 'orginal Line Data']);
+            console.log([this.state.lineData, 'line data']);
+            //this.state.lineData.forceUpdate();
             this.setState({
                 lineData: this.state.lineData
             });
-
-            this.forceUpdate();
-
-            console.log(originalLineData);
-            console.log(this.state.lineData);
         }
 
         else if (chartType === "Scatter") {
@@ -201,12 +201,12 @@ export default class HistoricalGraph extends Component {
                     <Line data={this.state.lineData} options={this.options}/>
                     <Range
                         step={20}
-                        min={minInterval}
-                        max={maxInterval}
+                        min={this.state.min}
+                        max={this.state.max}
                         allowCross={true}
-                        defaultValue={[minInterval, maxInterval]}
+                        defaultValue={[this.state.min, this.state.max]}
                         onAfterChange={this.rangeUpdate}
-                        pushable={1000}
+                        pushable={2000}
                     />
                 </div>
         );
