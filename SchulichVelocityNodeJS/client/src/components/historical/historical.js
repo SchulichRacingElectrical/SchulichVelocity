@@ -5,11 +5,8 @@ import HistoricalGraph from './historicalGraph';
 import SideNavigation from '../../components/sideNav';
 import SelectData from '../../components/selectData';
 import ParseCSV from '../parseCSV';
-import {Line, Scatter} from "react-chartjs-2";
-import {Range} from "rc-slider";
 
 let chartItems = [];
-let graphs;
 
 export default class Historical extends Component {
   constructor(props) {
@@ -21,6 +18,7 @@ export default class Historical extends Component {
       selectedData: "",
       selectedGraph: "",
       hideGraph: true,
+      graphType: "Line",
       data: []
     }
   }
@@ -66,13 +64,7 @@ export default class Historical extends Component {
       this.data = this.parser.current.getData(name);
       console.log(this.data);
       this.graphElement.current.setTitle(name);
-      console.log(this.data.length);
-      for (let i = 0; i < this.data.length; i++) {
-          chartItems.push(this.graphElement.current.setData(this.data[i]));
-      }
-      this.graphElement.current = chartItems;
-
-      console.log(chartItems);
+      this.graphElement.current.setData(this.data[0]);
   };
 
   render() {

@@ -10,13 +10,15 @@ let minInterval = 0;
 let maxInterval = 1000;
 let min = 100;
 let max = 500;
-let lineData = [{
+let lineData ={
     labels: [],
     datasets: []
-}];
-let scatterData = [{
+};
+let scatterData = {
+    labels: 'Points',
     datasets: [{
-        data: [],
+        data: [
+        ],
         fill: false,
         backgroundColor: 'rgba(75,192,192,0.4)',
         pointBorderColor: 'rgba(75,192,192,1)',
@@ -27,9 +29,9 @@ let scatterData = [{
         pointHoverBorderColor: 'rgba(220,220,220,1)',
         pointHoverBorderWidth: 2,
         pointRadius: 1,
-        pointHitRadius: 10,
-    }]
-}];
+        pointHitRadius: 10
+    }],
+};
 
 export default class HistoricalGraph extends Component {
     constructor(props){
@@ -95,21 +97,21 @@ export default class HistoricalGraph extends Component {
                     lineTension: 0
                 })
             }
-            return lineData
         }
+
         else if(data[0] === "Scatter") {
             chartType = "Scatter";
-            for(let i = 1; i < data[1].data.length; i++) {
-                if (data[2].data[i] !== 0 && data[3].data[i] !== 0)
-                scatterData.datasets[0].data.push({
-                    x: data[2].data[i],
-                    y: data[3].data[i]
-                })
+            console.log(data);
+            for(let i = 0; i < data[1].data.length; i++) {
+                if (!(isNaN(data[2].data[i]) || isNaN(data[3].data[i]))
+                    && (data[2].data[i] !== 0 || data[3].data[i] !== 0)) {
+                    scatterData.datasets[0].data.push({
+                        x: data[2].data[i],
+                        y: data[3].data[i]
+                    });
+                }
             }
-            return scatterData;
         }
-
-
         // console.log(lineData);
         // console.log(scatterData);
     };
