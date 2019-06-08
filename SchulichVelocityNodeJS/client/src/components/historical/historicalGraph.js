@@ -179,6 +179,7 @@ export default class HistoricalGraph extends Component {
                     }
                 }
             }
+
             console.log([this.state.originalLineData, 'orginal Line Data']);
             console.log([this.state.lineData, 'line data']);
             //this.state.lineData.forceUpdate();
