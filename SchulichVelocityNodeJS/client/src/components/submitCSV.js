@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+//import ReactFileReader from 'react-file-reader';
 //import {post} from 'axios';
 import '../CSS/submitCSV.css';
 import ParseCSV from './parseCSV';

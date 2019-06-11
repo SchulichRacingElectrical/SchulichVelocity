@@ -41,7 +41,7 @@ export default class SelectData extends React.Component {
   setValues = async (selectValues) => {
     await this.setState({ selectValues: selectValues });
     this.props.selectData(this.state.selectValues.pop());
-  };
+  }
 
   noDataRenderer = () => {
     return (
