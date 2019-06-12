@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import '../CSS/historical.css';
+import '../../CSS/historical.css';
 //import ParseCSV from './parseCSV';
 import HistoricalParser from './historicalParser';
 import HistoricalLineGraph from './historicalLineGraph';
-import SideNavigation from './sideNav';
-import SelectData from './selectData';
+import SideNavigation from '../navigation/sideNav';
+import SelectData from '../selectData';
 
 export default class Historical extends Component {
   constructor(props) {

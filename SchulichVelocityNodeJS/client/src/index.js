@@ -2,13 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Switch, BrowserRouter as Router, Route } from 'react-router-dom';
 import './CSS/index.css';
-import 'normalize.css'
+import 'normalize.css';
 
-import Navigation from './components/topNav';
+import Navigation from './components/navigation/topNav';
 import Home from './components/home';
-import Historical from './components/historical';
-import Streaming from './components/streaming';
-import SubmitCSV from './components/submitCSV';
+import Historical from './components/historical/historical';
+import Streaming from './components/streaming/streaming';
+import SubmitCSV from './components/CSV/submitCSV';
 import About from './components/about';
 import Notfound from './components/notFound';
 

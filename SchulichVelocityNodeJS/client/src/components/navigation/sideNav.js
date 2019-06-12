@@ -16,7 +16,7 @@ export default class SideNavigation extends React.Component {
         var content = (
             <React.Fragment>
                 <SideNav onSelect={(selected) => this.props.sideNav(selected)} >
-                    <SideNav.Toggle/>
+                    <SideNav.Toggle />
                     <SideNav.Nav defaultSelected="none">
                         <NavItem className="selectdata" eventKey="Select Data">
                             <NavIcon></NavIcon>
@@ -67,7 +67,7 @@ export default class SideNavigation extends React.Component {
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Air To Fuel
                             </NavText>
                             </NavItem>
-                            <NavItem eventKey="Intake Air Pressure">
+                            <NavItem eventKey="Intake Air Temperature">
                                 <   NavText>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Intake Air Temperature
@@ -103,29 +103,28 @@ export default class SideNavigation extends React.Component {
                             </NavIcon>
                             <NavText>
                                 Acceleration
-                        </NavText>
+                            </NavText>
+                            <NavItem eventKey="Accel vs Time">
+                                <NavText>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Accel vs Time
+                                </NavText>
+                            </NavItem>
+                            <NavItem eventKey="Accel Map">
+                                <NavText>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Accel Map
+                            </NavText>
+                            </NavItem>
                         </NavItem>
-                        <NavItem eventKey="Yaw">
+                        <NavItem eventKey="Axles">
                             <NavIcon>
                             </NavIcon>
                             <NavText>
-                                Yaw
-                        </NavText>
+                                Axes
+                            </NavText>
                         </NavItem>
-                        <NavItem eventKey="Pitch">
-                            <NavIcon>
-                            </NavIcon>
-                            <NavText>
-                                Pitch
-                        </NavText>
-                        </NavItem>
-                        <NavItem eventKey="Roll">
-                            <NavIcon>
-                            </NavIcon>
-                            <NavText>
-                                Roll
-                        </NavText>
-                        </NavItem>
+
                         <NavItem eventKey="Track Map">
                             <NavIcon>
                             </NavIcon>

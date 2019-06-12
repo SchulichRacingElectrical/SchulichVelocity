@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import '../CSS/streaming.css';
+import '../../CSS/streaming.css';
 import StreamGraph from './streamGraph';
-import SideNavigation from './sideNav';
+import SideNavigation from '../navigation/sideNav';
 
 export default class Streaming extends Component {
     constructor(props) {

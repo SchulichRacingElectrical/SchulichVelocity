@@ -16,7 +16,6 @@ export default class HistoricalParser extends Component {
             var temp = { label: label, data: [] };
             this.datasets.push(temp);
         }
-
         for (const result in historicalData) {
             if (!historicalData.hasOwnProperty(result)) continue;
             var dataset = historicalData[result];
@@ -32,44 +31,67 @@ export default class HistoricalParser extends Component {
 
     getData(name) {
         let headerArray = [];
-        let dataArrays = [];
-        dataArrays.push(this.datasets[1]);
+        let dataArrays = [[]];
 
-        if (name === "Suspension")
-            headerArray = ["rearright", "rearleft", "frontleft", "frontright"];
-        else if (name === "Acceleration")
-            headerArray = ["accelx", "accely", "accelz"];
-        else if (name === 'Track Map')
-            headerArray = ['Longitude, Latitude'];
+        if (name === "Suspension") 
+            headerArray = ["line", "interval", "rearright", "rearleft", "frontleft", "frontright"];
+        else if (name === "Accel Map")
+            headerArray = ["line", "interval", "accelx", "accely", "accelz"];
+        else if (name === "Accel vs Time")
+            headerArray = ["scatter", "interval", "accelx", "accely"];
+        else if (name === "RPM")
+            headerArray = ["line", "interval", "rpm", "speed"];
         else if (name === "Engine Temperature")
-            headerArray = ["enginetemp"];
+            headerArray = ["line", "interval", "enginetemp"];
         else if (name === "Oil Temperature")
-            headerArray = ["oiltemp"];
+            headerArray = ["line", "interval", "oiltemp"];
         else if (name === "Oil Pressure")
-            headerArray = ["oilpressure"];
+            headerArray = ["line", "interval", "oilpressure"];
         else if (name === "Barometer")
-            headerArray = ["baro"];
+            headerArray = ["line", "interval", "baro"];
         else if (name === "Fuel Temperature")
-            headerArray = ["fueltemp"];
+            headerArray = ["line", "interval", "fueltemp"];
         else if (name === "Manifold Air Pressure")
-            headerArray = ["map"];
+            headerArray = ["line", "interval", "map"];
         else if (name === "Intake Air Temperature")
-            headerArray = ["iat"];
+            headerArray = ["line", "interval", "iat"];
         else if (name === "Injector Pulse Width")
-            headerArray = ["injectorpw"];
+            headerArray = ["line", "interval", "injectorpw"];
+        else if(name === "Track Map")
+            headerArray = ["scatter", "interval", "longitude", "latitude"];
+        else if(name === "Speed")
+            headerArray = ["line", "interval", "speed"];
+        else if(name === "Throttle Position")
+            headerArray = ["line", "interval", "TPS"];
+        else if(name === "Distance")
+            headerArray = ["line", "interval", "distance"];
+        else if (name === "Air To Fuel")
+            headerArray = ["line", "interval", "afr"];
+        else if(name === "Axles")
+            headerArray = ["line", "interval", "yaw", "pitch", "roll"]
         else
-            headerArray = [name];
+            headerArray = ["line", "interval", name];
+        
+        // dataArrays.push(headerArray[0]); //Push the type of graph to the front.
+        // dataArrays.push(this.datasets[1]); //Push in interval as x axis.
 
-        for (let i = 0; i < this.datasets.length; i++) {
-            for (let j = 0; j < headerArray.length; j++) {
-                if (headerArray[j].toLowerCase() === this.datasets[i].label) {
-                    dataArrays.push(this.datasets[i]);
+        // for (let i = 0; i < this.datasets.length; i++) 
+        //     for (let j = 0; j < headerArray.length; j++) 
+        //         if (headerArray[j].toLowerCase() === this.datasets[i].label) 
+        //             dataArrays.push(this.datasets[i]);
+
+        for(let i = 0; i < headerArray.length; i++){
+            dataArrays.push([]);
+            dataArrays[i].push(headerArray[i]);
+            for(let j = 1; j < this.datasets.length; j++){
+                for(let k = 1; k < headerArray.length; k++){
+                    if(this.datasets[j].label === headerArray[k]){
+                        dataArrays[i].push(this.datasets[j]);
+                    }
                 }
             }
         }
-        console.log(dataArrays);
-        console.log(name);
-
+        dataArrays.pop();
         return dataArrays;
     }
 
