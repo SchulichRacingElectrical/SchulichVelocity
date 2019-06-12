@@ -2,7 +2,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const {Pool, Client} = require('pg');
+const { Pool, Client } = require('pg');
 const HistoricalControl = require('./control/historicalControl');
 const StreamingControl = require('./control/streamingControl');
 const SubmitCSVControl = require('./control/submitCSVControl');
@@ -31,27 +31,35 @@ class Server {
         this.app.use(bodyParser.urlencoded({ extended: true }));
         this.app.use(cors());
         this.app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+        //Testing
+        var redis = require('redis');
+        var subscriber = redis.createClient();
+
+        subscriber.on("streaming", function (channel, message) {
+            console.log(message);
+        });
+        //Testing
         this.run();
     }
 
     async run() {
         this.app.post("/api/request", (req, res) => {
-            if(req.body.post === "historical"){
+            if (req.body.post === "historical") {
                 var historicalModel = new HistoricalModel(this.pool);
                 this.controller = new HistoricalControl(historicalModel, this.app);
             }
-            else if(req.body.post === "streaming"){
+            else if (req.body.post === "streaming") {
                 var streamingModel = new StreamingModel(this.pool);
                 this.controller = new StreamingControl(streamingModel, this.app);
             }
-            else if(req.body.post === "submitCSV"){
+            else if (req.body.post === "submitCSV") {
                 var submitCSVModel = new SubmitCSVModel(this.pool);
                 this.controller = new SubmitCSVControl(submitCSVModel, this.app);
             }
             res.send();
         });
 
-        this.app.post('/api/getHistoricalData', async(req, res) => {
+        this.app.post('/api/getHistoricalData', async (req, res) => {
             var data = await this.controller.getDataFromModel(req.body.post);
             var json = JSON.stringify({
                 data: data.rows
@@ -59,11 +67,16 @@ class Server {
             res.end(json);
         });
 
-        this.app.post('/api/getStreamingData', async(req, res) => {
-            //streaming stuff
+        this.app.post('/api/getStreamingData', async (req, res) => {
+            var redis = require('redis');
+            var subscriber = redis.createClient();
+
+            subscriber.on("streaming", function (channel, message) {
+                console.log(message);
+            });
         });
 
-        this.app.post('/api/submitCSV', async(req, res) => {
+        this.app.post('/api/submitCSV', async (req, res) => {
             //Use CSV controller to call CSV Model which will parse out the csv to properly insert into a table
         });
     }

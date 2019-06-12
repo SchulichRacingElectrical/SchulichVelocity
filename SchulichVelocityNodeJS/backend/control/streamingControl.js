@@ -11,7 +11,7 @@ class StreamingControl extends Control{
     }
 
     fetchData(request) {
-
+        
     }
 }
 
