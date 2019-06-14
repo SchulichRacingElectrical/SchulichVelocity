@@ -76,7 +76,7 @@ class Server {
         });
 
         this.subscriber.on("streaming", function (channel, message) {
-            console.log(message);
+            this.data = JSON.parse(message);
         });
     }
 }
