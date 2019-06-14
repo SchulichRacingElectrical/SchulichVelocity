@@ -12,17 +12,13 @@ const SubmitCSVModel = require('./model/submitCSVModel');
 const PORT = 5000;
 const app = express();
 
-var redis = require('redis');
-var subscriber = redis.createClient();
-subscriber.on("streaming", function (channel, message) {
-    console.log(message);
-});
-
 class Server {
     constructor(app) {
         this.app = app;
         this.router = express.Router();
         this.controller;
+        this.redis = require('redis');
+        this.subscriber = this.redis.createClient();
         this.pool = new Pool({
             port: 5432,
             password: 'greentomato',
@@ -76,6 +72,10 @@ class Server {
 
         this.app.post('/api/submitCSV', async (req, res) => {
             //Use CSV controller to call CSV Model which will parse out the csv to properly insert into a table
+        });
+
+        this.subscriber.on("streaming", function (channel, message) {
+            console.log(message);
         });
     }
 }

@@ -26,14 +26,24 @@ export default class Streaming extends Component {
         this.graphElement.current.setTitle(selected);
     };
 
-    render() {
-        const style = this.state.hideGraph ? {display: 'none'} : {};
-        return (
-            <div className="Streaming">
-                <SideNavigation sideNav={this.sideHandler} />
-                <div style={style}><StreamGraph className="contentGraph" ref={this.graphElement}/></div>
-                <StreamGraph/>
-            </div>
-        );
-    }
+    getData = async (request) => {
+        await fetch('/api/getStreamingData', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({})
+        });
+}
+
+render() {
+    const style = this.state.hideGraph ? { display: 'none' } : {};
+    return (
+        <div className="Streaming">
+            <SideNavigation sideNav={this.sideHandler} />
+            <div style={style}><StreamGraph className="contentGraph" ref={this.graphElement} /></div>
+            <StreamGraph />
+        </div>
+    );
+}
 }
