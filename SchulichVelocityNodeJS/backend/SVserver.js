@@ -11,7 +11,7 @@ const StreamingModel = require('./model/streamingModel');
 const SubmitCSVModel = require('./model/submitCSVModel');
 const PORT = 5000;
 const app = express();
-
+console.log("Starting redis....");
 var redis = require('redis');
 var subscriber = redis.createClient();
 subscriber.on("streaming", function (channel, message) {
