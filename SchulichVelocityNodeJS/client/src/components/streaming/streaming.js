@@ -9,8 +9,9 @@ export default class Streaming extends Component {
         this.graphElement = React.createRef();
         this.state = {
             selected: "",
-            hideGraph: true
-        }
+            hideGraph: true,
+            data: {}
+        };
     }
 
     sideHandler = (selected) => {
@@ -33,17 +34,21 @@ export default class Streaming extends Component {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({})
-        });
-}
+        })
+            .then(response => response.json())
+            .then(data => this.setState({data: data}));
+    }
 
-render() {
-    const style = this.state.hideGraph ? { display: 'none' } : {};
-    return (
-        <div className="Streaming">
-            <SideNavigation sideNav={this.sideHandler} />
-            <div style={style}><StreamGraph className="contentGraph" ref={this.graphElement} /></div>
-            <StreamGraph />
-        </div>
-    );
-}
+    render() {
+        const style = this.state.hideGraph ? { display: 'none' } : {};
+        return (
+            <div className="Streaming">
+                <SideNavigation sideNav={this.sideHandler} />
+                <div style={style}><StreamGraph className="contentGraph" 
+                ref={this.graphElement} 
+                dictionary={this.state.data}/></div>
+                <StreamGraph />
+            </div>
+        );
+    }
 }

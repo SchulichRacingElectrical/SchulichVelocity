@@ -2,18 +2,14 @@ import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
 import 'chartjs-plugin-streaming';
 
-function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
 export default class StreamGraph extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentLabel: 3,
-            labels: ['0', '1', '2'],
+            // currentLabel: 3,
+            labels: [],
             datasets: [{
-                data: [1, 2, 3],
+                data: [],
                 borderColor: 'rgb(255, 0, 0)',
                 pointRadius: 1,
                 backgroundColor: 'rgba(0,0,0,0.0)',
@@ -49,9 +45,9 @@ export default class StreamGraph extends Component {
     }
 
     pullData() {
-        this.state.labels.push(this.state.currentLabel.toString());
-        this.state.datasets[0].data.push(getRandomInt(0, 10));
-        this.setState({ currentLabel: this.state.currentLabel + 1 });
+        this.state.labels.push(this.props.dictionary.Utc);
+        this.state.datasets[0].data.push(this.props.dictionary.Rpm);
+        //this.setState({ currentLabel: this.state.currentLabel + 1 });
     }
 
     tick() {
@@ -65,7 +61,7 @@ export default class StreamGraph extends Component {
     setTitle = (selected) => {
         if(selected !== null && selected !== "Select Data")
             this.options.title.text = selected;
-        this.setState({state: this.state})
+        this.setState({state: this.state});
     }
 
     render() {
