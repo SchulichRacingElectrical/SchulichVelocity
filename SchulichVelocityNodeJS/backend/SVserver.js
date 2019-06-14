@@ -29,6 +29,7 @@ class Server {
             host: '3.19.41.249',
             user: 'postgres',
         });
+        data
     }
 
     start() {
@@ -78,7 +79,8 @@ class Server {
         });
         this.subscriber.subscribe("streaming");
         this.subscriber.on("message", function (channel, message) {
-            console.log(message);
+            var result = JSON.parse(message);
+            console.log(result);
         });
 
     }
