@@ -12,7 +12,11 @@ const SubmitCSVModel = require('./model/submitCSVModel');
 const PORT = 5000;
 const app = express();
 
-import messenger from "../messenger";
+import {PubsubManager} from 'redis-messaging-manager';
+
+let messenger = new PubsubManager({
+   host: 'localhost'
+});
 
 console.log('consuming messages..!');
 messenger.consume('streaming')
