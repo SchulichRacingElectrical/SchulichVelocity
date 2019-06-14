@@ -12,6 +12,12 @@ const SubmitCSVModel = require('./model/submitCSVModel');
 const PORT = 5000;
 const app = express();
 
+var redis = require('redis');
+var subscriber = redis.createClient();
+subscriber.on("streaming", function (channel, message) {
+    console.log(message);
+});
+
 class Server {
     constructor(app) {
         this.app = app;
@@ -31,14 +37,6 @@ class Server {
         this.app.use(bodyParser.urlencoded({ extended: true }));
         this.app.use(cors());
         this.app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
-        //Testing
-        var redis = require('redis');
-        var subscriber = redis.createClient();
-
-        subscriber.on("streaming", function (channel, message) {
-            console.log(message);
-        });
-        //Testing
         this.run();
     }
 
