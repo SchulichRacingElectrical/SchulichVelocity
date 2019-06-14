@@ -45,7 +45,7 @@ export default class StreamGraph extends Component {
     }
 
     pullData() {
-        console.log(this.props.dictionary);
+        //console.log(this.props.dictionary);
         //this.state.labels.push(this.props.dictionary);
         //this.state.datasets[0].data.push(this.props.dictionary.Rpm);
         //this.setState({ currentLabel: this.state.currentLabel + 1 });
@@ -56,7 +56,7 @@ export default class StreamGraph extends Component {
     }
 
     componentDidMount() {
-        this.timerID = setInterval(() => this.tick(),200);
+        this.timerID = setInterval(() => this.tick(),100);
     }
 
     setTitle = (selected) => {
