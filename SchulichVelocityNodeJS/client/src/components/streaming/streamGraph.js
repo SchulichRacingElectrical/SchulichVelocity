@@ -45,8 +45,9 @@ export default class StreamGraph extends Component {
     }
 
     pullData() {
-        this.state.labels.push(this.props.dictionary.Utc);
-        this.state.datasets[0].data.push(this.props.dictionary.Rpm);
+        console.log(this.props.dictionary);
+        //this.state.labels.push(this.props.dictionary);
+        //this.state.datasets[0].data.push(this.props.dictionary.Rpm);
         //this.setState({ currentLabel: this.state.currentLabel + 1 });
     }
 
