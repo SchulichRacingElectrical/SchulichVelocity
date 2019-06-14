@@ -12,11 +12,13 @@ const SubmitCSVModel = require('./model/submitCSVModel');
 const PORT = 5000;
 const app = express();
 
-var redis = require('redis');
-var subscriber = redis.createClient();
-subscriber.on("streaming", function (channel, message) {
-    console.log(message);
-});
+import messenger from "../messenger";
+
+console.log('consuming messages..!');
+messenger.consume('streaming')
+    .subscribe(msg => {
+        console.log('Got message- ', msg);
+    });
 
 class Server {
     constructor(app) {
