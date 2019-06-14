@@ -28,20 +28,22 @@ export default class Streaming extends Component {
     };
 
     getData = async (request) => {
-        await fetch('/api/getStreamingData', {
+        this.state.data = await fetch('/api/getStreamingData', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({post: ''})
-        })
-            .then(response => response.json())
-            .then(res => console.log(res.data));
+        });
+        
+            // .then(response => response.json())
+            // .then(data => console.log(data));
             // .then(data => this.setState({data: data.data}));
     }
 
     render() {
         const style = this.state.hideGraph ? { display: 'none' } : {};
+        console.log(this.state.data);
         return (
             <div className="Streaming">
                 <SideNavigation sideNav={this.sideHandler} />

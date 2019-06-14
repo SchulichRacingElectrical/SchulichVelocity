@@ -63,20 +63,20 @@ class Server {
         });
 
         this.app.post('/api/getStreamingData', async (req, res) => {
-            var json = JSON.stringify({
-                data: data
-            });
-            res.end(json);
-            console.log(message);
+            // var json = JSON.stringify({
+            //     data: data
+            // });
+            var placeholder = await this.data;
+            res.end(this.data);
         });
 
         this.app.post('/api/submitCSV', async (req, res) => {
             //Use CSV controller to call CSV Model which will parse out the csv to properly insert into a table
         });
-
-        this.subscriber.on("streaming", function (channel, message) {
+        this.subscriber.subscribe("streaming");
+        this.subscriber.on("message", function (channel, message) {
             this.data = JSON.parse(message);
-            console.log(message);
+            console.log(this.data);
         });
     }
 }
