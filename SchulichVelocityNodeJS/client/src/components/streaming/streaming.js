@@ -36,7 +36,7 @@ export default class Streaming extends Component {
             body: JSON.stringify({post: ''})
         })
             .then(response => response.json())
-            .then(data => console.log(data.data));
+            .then(data => console.log(data));
             // .then(data => this.setState({data: data.data}));
     }
 

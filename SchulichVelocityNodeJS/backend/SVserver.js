@@ -63,11 +63,10 @@ class Server {
         });
 
         this.app.post('/api/getStreamingData', async (req, res) => {
-            var json = JSON.stringify({
-                data: data
-            });
-            res.end(json);
-            console.log(message);
+            // var json = JSON.stringify({
+            //     data: data
+            // });
+            res.end(this.data);
         });
 
         this.app.post('/api/submitCSV', async (req, res) => {
