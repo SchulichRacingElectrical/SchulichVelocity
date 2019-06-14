@@ -29,7 +29,6 @@ class Server {
             host: '3.19.41.249',
             user: 'postgres',
         });
-        data
     }
 
     start() {
