@@ -58,15 +58,16 @@ class Server {
             var data = await this.controller.getDataFromModel(req.body.post);
             var json = JSON.stringify({
                 data: data.rows
-            })
+            });
             res.end(json);
         });
 
         this.app.post('/api/getStreamingData', async (req, res) => {
-            var redis = require('redis');
-            var subscriber = redis.createClient();
-
             subscriber.on("streaming", function (channel, message) {
+                var json = JSON.stringify({
+                    data: data
+                });
+                res.end(json);
                 console.log(message);
             });
         });
@@ -77,6 +78,7 @@ class Server {
 
         this.subscriber.on("streaming", function (channel, message) {
             this.data = JSON.parse(message);
+            console.log(message);
         });
     }
 }
