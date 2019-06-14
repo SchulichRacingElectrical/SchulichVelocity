@@ -18,7 +18,7 @@ class Server {
         this.router = express.Router();
         this.controller;
         this.data = {};
-        this.redis =  require('redis');
+        this.redis = require('redis');
         this.subscriber = this.redis.createClient();
         this.pool = new Pool({
             port: 5432,
@@ -63,13 +63,11 @@ class Server {
         });
 
         this.app.post('/api/getStreamingData', async (req, res) => {
-            subscriber.on("streaming", function (channel, message) {
-                var json = JSON.stringify({
-                    data: data
-                });
-                res.end(json);
-                console.log(message);
+            var json = JSON.stringify({
+                data: data
             });
+            res.end(json);
+            console.log(message);
         });
 
         this.app.post('/api/submitCSV', async (req, res) => {
