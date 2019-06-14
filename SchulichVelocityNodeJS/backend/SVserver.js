@@ -66,6 +66,7 @@ class Server {
             // var json = JSON.stringify({
             //     data: data
             // });
+            var placeholder = await this.controller.getDataFromModel(req.body.post);
             res.end(this.data);
         });
 
