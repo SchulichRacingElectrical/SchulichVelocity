@@ -16,6 +16,28 @@ export default class Streaming extends Component {
             hideGraph: true,
             data: {}
         };
+    
+    }
+    // Fetch the list on first mount
+    componentDidMount() {
+        this.timerID = setInterval(() => this.tick(),100);
+    }
+    tick() {
+        this.pullData();
+    }
+    
+    pullData(){
+        fetch('/api/getData', {
+            method: 'POST', 
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({post: ''})
+        })
+        .then(function(response){return response.json()})
+        .then(body => this.setState({data: body}));
+        this.streamDash.current.insertData(this.state.data)
+        this.forceUpdate();
     }
 
     sideHandler = (selected) => {
@@ -30,29 +52,6 @@ export default class Streaming extends Component {
     graphHandler = (selected) => {
         this.graphElement.current.setTitle(selected);
     };
-
-    getData = async (request) => {
-        await fetch('/api/request', {
-            method: 'POST', 
-            headers: {
-              'Content-Type': 'application/json',
-            }, 
-            body: JSON.stringify({post: 'streaming'})
-          });
-        fetch('/api/getStreamingData', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({post: ''})
-        })
-        .then(function(response){return response.json()})
-        .then(function(body){console.log(body)});
-        
-            // .then(response => response.json())
-            // .then(data => console.log(data));
-            // .then(data => this.setState({data: data.data}));
-    }
 
     render() {
         const style = this.state.hideGraph ? { display: 'none' } : {};

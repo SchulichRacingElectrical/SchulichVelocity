@@ -17,9 +17,6 @@ class Server {
         this.app = app;
         this.router = express.Router();
         this.controller;
-        this.data = {};
-        this.redis = require('redis');
-        this.subscriber = this.redis.createClient();
         this.pool = new Pool({
             port: 5432,
             password: 'greentomato',
@@ -27,9 +24,12 @@ class Server {
             host: '3.19.41.249',
             user: 'postgres',
         });
+        this.redis = require('redis');
+        this.subscriber = this.redis.createClient();
     }
 
     start() {
+        this.subscriber.subscribe("streaming");
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: true }));
         this.app.use(cors());
@@ -61,23 +61,26 @@ class Server {
             });
             return res.send(json);
         });
-
         this.app.post('/api/getStreamingData', async (req, res) => {
-            var json = JSON.stringify({
-                 data: data
+            return res.send();
+        });
+        app.all('*', function(req, res, next){
+            let redis = require('redis');
+            let subscriber = redis.createClient();
+            subscriber.subscribe("streaming");
+            subscriber.on("message", function (channel, message) {
+                res.myObj = JSON.parse(message);
+                next();
             });
-            console.log("Streaming send: " + this.data);
-            return res.send(json);
+          });
+        this.app.post('/api/getData',  (req, res) => {
+            return res.send(res.myObj);
         });
 
         this.app.post('/api/submitCSV', async (req, res) => {
             //Use CSV controller to call CSV Model which will parse out the csv to properly insert into a table
         });
-        this.subscriber.subscribe("streaming");
-         this.subscriber.on("message", function (channel, message) {
-             this.data = JSON.parse(message);
-             //console.log("Received Data: " + this.data);
-         });
+        
     }
 }
 
