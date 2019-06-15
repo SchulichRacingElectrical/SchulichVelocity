@@ -67,6 +67,8 @@ export default class StreamGraph extends Component {
     }
 
     pushData(data) {
+        let colorArray = ['rgb(255, 0, 0)', 'rgb(0, 255, 0)', 'rgb(0, 0, 255)',
+                          'rgb(255, 255, 0)', 'rgb(0, 255, 255)', 'rgb(255, 0, 255)'];
         this.state.labels.push(data["Utc"]); //Update time
         if (this.state.labels.length > 100)
             this.state.labels.slice(0, 1);
@@ -127,12 +129,24 @@ export default class StreamGraph extends Component {
 
         let dataArrays = {};
         for (let i = 0; i < headerArray.length; i++) {
-            dataArrays.push([]);
-            dataArrays[i].push(headerArray[i]);
-            for (let j = 1; j < this.datasets.length; j++) 
-                for (let k = 1; k < headerArray.length; k++) 
-                    if (this.datasets[j].label === headerArray[k]) 
-                        dataArrays[i].push(this.datasets[j]);
+            //dataArrays.push([]);
+            let temp = headerArray[i];
+            for (let j = 1; j < this.datasets.length; j++) {
+                for (let k = 1; k < headerArray.length; k++) {
+                    if (this.datasets[j].label === headerArray[k]) {
+                        dataArrays[i].push({
+                            data: this.datasets[j],
+                            label: temp,
+                            borderColor: colorArray[i - 2],
+                            pointRadius: 0.5,
+                            borderWidth: 2,
+                            showLine: true,
+                            backgroundColor: 'rgba(0,0,0,0.0)',
+                            lineTension: 0
+                        });
+                    }
+                }
+            }
         }
         //dataArrays.pop();
         this.lineData = dataArrays;
