@@ -66,7 +66,7 @@ class Server {
              var json = JSON.stringify({
                  data: data
             });
-            //console.log(json);
+            console.log("Streaming send: " + this.data);
             return res.send(json);
         });
 
@@ -76,7 +76,7 @@ class Server {
         this.subscriber.subscribe("streaming");
          this.subscriber.on("message", function (channel, message) {
              this.data = JSON.parse(message);
-             console.log("Received Data: " + this.data["Utc"]);
+             console.log("Received Data: " + this.data);
          });
     }
 }
