@@ -1,27 +1,43 @@
 import React, { Component } from 'react';
 import Badge from 'react-bootstrap/Badge';
+import { Grid, Row, Col } from 'react-flexbox-grid';
 
 const style = {
-    position: "absolute",
-    marginLeft: "13%"
+    marginLeft: "7%",
+    fontSize: "30px",
 }
-const normalVariant = "primary";
-const dangerVariant = "danger";
-const goodVariant = "success";
+const normalStyle = {
+    background: "#00BFFF",
+    textAlign: "center",
+    border: "5px solid #FFF",
+    color: "#FFF"
+}
+const dangerStyle = {
+    background: "#FF0000",
+    textAlign: "center",
+    border: "5px solid #FFF",
+    color: "#FFF"
+}
+const goodStyle = {
+    background: "#32CD32",
+    textAlign: "center",
+    border: "5px solid #FFF",
+    color: "#FFF"
+}
 
 export default class StreamingDash extends Component {
     constructor(props) {
         super(props);
         this.rpm = 0;
-        this.engineTemp = 0;
+        this.engineTemp = 120;
         this.oilTemp = 0;
         this.oilPres = 0;
-        this.afr = 0;
+        this.afr = 17;
         this.iat = 0;
         this.map = 0;
         this.tps = 0;
-        this.accelX = 0;
-        this.accelY = 0;
+        this.accelX = 1.1;
+        this.accelY = 1.6;
         this.accelZ = 0;
         this.speed = 0;
         this.roll = 0;
@@ -37,188 +53,229 @@ export default class StreamingDash extends Component {
     insertData(data) {
         //Insert all the new incoming data
         for (var key in data) {
-            if (key == "RPM"){
+            if (key === "RPM")
                 this.rpm = data[key]
-            } else if (key == "CoolantTemp"){
-                this.oilTemp = data[key]
-            }else if (key == "OilPressure"){
-                this.oilPres = data[key]
-            }else if (key == "AFR"){
-                this.afr = data[key]
-            }else if (key == "IAT"){
-                this.iat = data[key]
-            }else if (key == "MAP"){
-                this.map = data[key]
-            }else if (key == "TPS"){
-                this.tps = data[key]
-            }else if (key == "AccelX"){
-                this.accelX = data[key]
-            }else if (key == "AccelY"){
-                this.accelY = data[key]
-            }else if (key == "AccelZ"){
-                this.accelZ = data[key]
-            }else if (key == "Speed"){
-                this.speed = data[key]
-            }else if (key == "Roll"){
-                this.roll = data[key]
-            }else if (key == "Pitch"){
-                this.pitch = data[key]
-            }else if (key == "Yaw"){
-                this.yaw = data[key]
-            }else if (key == "PDMVoltage"){
-                this.pdmVoltage = data[key]
-            }else if (key == "PDMTemp"){
-                this.pdmTemp = data[key]
-            }else if (key == "Longitude"){
-                this.longitude = data[key]
-            }else if (key == "Latitude"){
+            else if (key === "EngineTemp")
                 this.latitude = data[key]
-            }
+            else if (key === "OilTemp")
+                this.latitude = data[key]
+            else if (key === "OilPressure")
+                this.oilPres = data[key]
+            else if (key === "AFR")
+                this.afr = data[key]
+            else if (key === "IAT")
+                this.iat = data[key]
+            else if (key === "MAP")
+                this.map = data[key]
+            else if (key === "TPS")
+                this.tps = data[key]
+            else if (key === "AccelX")
+                this.accelX = data[key]
+            else if (key === "AccelY")
+                this.accelY = data[key]
+            else if (key === "AccelZ")
+                this.accelZ = data[key]
+            else if (key === "Speed")
+                this.speed = data[key]
+            else if (key === "Roll")
+                this.roll = data[key]
+            else if (key === "Pitch")
+                this.pitch = data[key]
+            else if (key === "Yaw")
+                this.yaw = data[key]
+            else if (key === "PDMVoltage")
+                this.pdmVoltage = data[key]
+            else if (key === "PDMTemp")
+                this.pdmTemp = data[key]
+            else if (key === "Longitude")
+                this.longitude = data[key]
+            else if (key === "Latitude")
+                this.latitude = data[key]
         }
     }
 
     checkXAccel() {
-        if(this.accelX > 1)
-            return goodVariant;
+        if (this.accelX > 1)
+            return goodStyle;
         else
-            return normalVariant;
+            return normalStyle;
     }
 
     checkYAccel() {
-        if(this.accelY > 1.5)
-            return goodVariant;
-        else    
-            return normalVariant;
+        if (this.accelY > 1.5)
+            return goodStyle;
+        else
+            return normalStyle;
     }
 
     checkAFR() {
-        if(this.afr > 15)
-            return dangerVariant;
+        if (this.afr > 15)
+            return dangerStyle;
         else
-            return normalVariant;
+            return normalStyle;
     }
 
     checkEngineTemp() {
-        if(this.engineTemp > 110)
-            return dangerVariant;
+        if (this.engineTemp > 110)
+            return dangerStyle;
         else
-            return normalVariant;
+            return normalStyle;
     }
 
     render() {
         return (
             <div style={style}>
+                <strong>Power Train</strong>
+                <Grid fluid>
+                    <Row>
+                        <Col xs={9} md="50%" style={normalStyle}>
+                            <strong>
+                                RPM<p></p>
+                                {this.rpm}
+                            </strong>
+                        </Col>
+                        <Col xs={9} md="50%" style={this.checkEngineTemp()}>
+                            <strong>
+                                Engine Temperature<p></p>
+                                {this.engineTemp} &deg;C
+                            </strong>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs={9} md="50%" style={normalStyle}>
+                            <strong>
+                                Oil Pressure<p></p>
+                                {this.oilPres}
+                            </strong>
+                        </Col>
+                        <Col xs={9} md="50%" style={normalStyle}>
+                            <strong>
+                                Oil Temperature<p></p>
+                                {this.oilTemp} &deg;C
+                            </strong>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs={9} md="50%" style={this.checkAFR()}>
+                            <strong>
+                                AFR<p></p>
+                                {this.afr}
+                            </strong>
+                        </Col>
+                        <Col xs={9} md="50%" style={normalStyle}>
+                            <strong>
+                                IAT<p></p>
+                                {this.iat}
+                            </strong>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs={9} md="50%" style={normalStyle}>
+                            <strong>
+                                MAP<p></p>
+                                {this.map}
+                            </strong>
+                        </Col>
+                        <Col xs={9} md="50%" style={normalStyle}>
+                            <strong>
+                                TPS<p></p>
+                                {this.tps}
+                            </strong>
+                        </Col>
+                    </Row>
+                </Grid>
                 <p></p>
-                <p><strong>Power Train</strong></p>
-                <h1>
-                    RPM
-                    <Badge variant={normalVariant}>
-                        {this.rpm}
-                    </Badge>
-                    &nbsp;&nbsp; Engine Temperature
-                    <Badge variant={this.checkEngineTemp()}>
-                        {this.engineTemp}
-                    </Badge>
-                </h1>
-                <h3>&nbsp;</h3>
-                <h1>
-                    Oil Temperature
-                    <Badge variant={normalVariant}>
-                        {this.oilTemp}
-                    </Badge>
-                    &nbsp;&nbsp; Oil Pressure
-                    <Badge variant={normalVariant}>
-                        {this.oilPres}
-                    </Badge>
-                </h1>
-                <h3>&nbsp;</h3>
-                <h1>
-                    AFR
-                    <Badge variant={this.checkAFR()}>
-                        {this.afr}
-                    </Badge>
-                    &nbsp;&nbsp; IAT
-                    <Badge variant={normalVariant}>
-                        {this.iat}
-                    </Badge>
-                    &nbsp;&nbsp; MAP
-                    <Badge variant={normalVariant}>
-                        {this.map}
-                    </Badge>
-                    &nbsp;&nbsp; TPS
-                    <Badge variant={normalVariant}>
-                        {this.tps}
-                    </Badge>
-                </h1>
+                <strong>Vehicle Dynamics</strong>
+                <Grid fluid>
+                    <Row>
+                        <Col xs={9} md="33%" style={this.checkYAccel()}>
+                            <strong>
+                                X Acceleration<p></p>
+                                {this.accelX}
+                            </strong>
+                        </Col>
+                        <Col xs={9} md="33%" style={this.checkYAccel()}>
+                            <strong>
+                                Y Acceleration<p></p>
+                                {this.accelY}
+                            </strong>
+                        </Col>
+                        <Col xs={9} md="33%" style={normalStyle}>
+                            <strong>
+                                Z Acceleration<p></p>
+                                {this.accelZ}
+                            </strong>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs={9} md="50%" style={normalStyle}>
+                            <strong>
+                                Speed<p></p>
+                                {this.speed} MPH
+                            </strong>
+                        </Col>
+                        <Col xs={9} md="50%" style={normalStyle}>
+                            <strong>
+                                Roll<p></p>
+                                {this.roll}
+                            </strong>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs={9} md="50%" style={normalStyle}>
+                            <strong>
+                                Pitch<p></p>
+                                {this.pitch}
+                            </strong>
+                        </Col>
+                        <Col xs={9} md="50%" style={normalStyle}>
+                            <strong>
+                                Yaw<p></p>
+                                {this.yaw}
+                            </strong>
+                        </Col>
+                    </Row>
+                </Grid>
                 <p></p>
-                <h3>&nbsp;</h3>
-                <h3>&nbsp;</h3>
-                <p><strong>Vehicle Dynamics</strong></p>
-                <h1>
-                    Accel X
-                    <Badge variant={this.checkXAccel()}>
-                        {this.accelX}
-                    </Badge>
-                    &nbsp;&nbsp; Accel Y
-                    <Badge variant={this.checkYAccel()}>
-                        {this.accelY}
-                    </Badge>
-                    &nbsp;&nbsp; Accel Z
-                    <Badge variant={normalVariant}>
-                        {this.accelZ}
-                    </Badge>
-                </h1>
-                <h3>&nbsp;</h3>
-                <h1>
-                    Speed
-                    <Badge variant={normalVariant}>
-                        {this.speed}
-                    </Badge>
-                    &nbsp;&nbsp; Roll
-                    <Badge variant={normalVariant}>
-                        {this.roll}
-                    </Badge>
-                    &nbsp;&nbsp; Pitch
-                    <Badge variant={normalVariant}>
-                        {this.pitch}
-                    </Badge>
-                    &nbsp;&nbsp; Yaw
-                    <Badge variant={normalVariant}>
-                        {this.yaw}
-                    </Badge>
-                </h1>
-                <p></p>
-                <h3>&nbsp;</h3>
-                <h3>&nbsp;</h3>
-                <p><strong>Diagnostics</strong></p>
-                <h1>
-                    Battery
-                    <Badge variant={normalVariant}>
-                        {this.battery}
-                    </Badge>
-                    &nbsp;&nbsp; PDM Temperature
-                    <Badge variant={normalVariant}>
-                        {this.pdmTemp}
-                    </Badge>
-                </h1>
-                <h3>&nbsp;</h3>
-                <h1>
-                    PDM Voltage
-                    <Badge variant={normalVariant}>
-                        {this.pdmVoltage}
-                    </Badge>
-                    &nbsp;&nbsp;Longitude
-                    <Badge variant={normalVariant}>
-                        {this.longitude}
-                    </Badge>
-                </h1>
-                <h3>&nbsp;</h3>
-                <h1>
-                    Latitude
-                    <Badge variant={normalVariant}>
-                        {this.latitude}
-                    </Badge>
-                </h1>
+                <strong>Diagnostics</strong>
+                <Grid fluid>
+                    <Row>
+                        <Col xs={9} md="50%" style={normalStyle}>
+                            <strong>
+                                Battery<p></p>
+                                {this.battery} V
+                            </strong>
+                        </Col>
+                        <Col xs={9} md="50%" style={normalStyle}>
+                            <strong>
+                                PDM Temperature<p></p>
+                                {this.pdmTemp} &deg;C
+                            </strong>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs={9} md="50%" style={normalStyle}>
+                            <strong>
+                                PDM Voltage<p></p>
+                                {this.battery} V
+                            </strong>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs={9} md="50%" style={normalStyle}>
+                            <strong>
+                                Latitude<p></p>
+                                {this.latitude}
+                            </strong>
+                        </Col>
+                        <Col xs={9} md="50%" style={normalStyle}>
+                            <strong>
+                                Longitude<p></p>
+                                {this.longitude}
+                            </strong>
+                        </Col>
+                    </Row>
+                </Grid>
             </div>
         );
     }
