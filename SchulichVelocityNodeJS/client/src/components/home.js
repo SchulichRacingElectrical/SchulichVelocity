@@ -32,11 +32,12 @@ class Home extends Component {
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <Button variant="success" size="lg">
+                        <Button variant="success" size="lg" href="/streaming">
                             <div style={style}><strong>Go to Streaming Dash</strong></div>
                         </Button>
                     </div>
                 </div>
+                <p></p>
             </div>
         );
     }
