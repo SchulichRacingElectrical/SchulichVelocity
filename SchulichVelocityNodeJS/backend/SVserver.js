@@ -107,9 +107,11 @@ class Server {
             var yourscript = exec('sh /home/ec2-user/status_telemetry.sh',
              (error, stdout, stderr) => {
              console.log(stdout);
-             console.log(stderr);
-             if (error !== null) {
-                 console.log(`exec error: ${error}`);
+             if (length(stdout) > 1){
+                 return res.send({"scriptRunning": true})
+             }else{
+                return res.send({"scriptRunning": false})
+
              }
             });
         });
