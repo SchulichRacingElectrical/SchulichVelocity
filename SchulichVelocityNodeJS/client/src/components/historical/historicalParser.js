@@ -40,7 +40,7 @@ export default class HistoricalParser extends Component {
         else if (name === "Accel vs Time")
             headerArray = ["scatter", "interval", "accelx", "accely"];
         else if (name === "RPM")
-            headerArray = ["line", "interval", "rpm", "speed"];
+            headerArray = ["line", "interval", "rpm"];
         else if (name === "Engine Temperature")
             headerArray = ["line", "interval", "enginetemp"];
         else if (name === "Oil Temperature")

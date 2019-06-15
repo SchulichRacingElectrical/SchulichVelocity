@@ -10,9 +10,6 @@ export default class Navigation extends React.Component {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Nav className="mr-auto">
                     <Nav.Item>
-                        <Nav.Link eventKey="1" href="/home">Home</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
                         <Nav.Link eventKey="2" href="/historical">Historical Data</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>

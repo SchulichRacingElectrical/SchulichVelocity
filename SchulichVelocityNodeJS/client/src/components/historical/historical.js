@@ -66,7 +66,7 @@ export default class Historical extends Component {
 
   render() {
     const graphStyle = this.state.hideGraph ? {display: 'none'} : {};
-    const searcherStyle = this.state.hideGraph ? {} : {display: 'none'};
+    const searcherStyle = this.state.hideGraph ? {} : {display: 'none', marginRight: '30em'};
     return (
       <div className="Historical">
           <SideNavigation sideNav={this.sideHandler} />

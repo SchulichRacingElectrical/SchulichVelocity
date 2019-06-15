@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 
 const style = {
-    marginLeft: "7%",
+    marginLeft: "3em",
     fontSize: "30px",
 }
 const normalStyle = {
@@ -28,15 +28,15 @@ export default class StreamingDash extends Component {
     constructor(props) {
         super(props);
         this.rpm = 0;
-        this.engineTemp = 120;
+        this.engineTemp = 0;
         this.oilTemp = 0;
         this.oilPres = 0;
-        this.afr = 17;
+        this.afr = 0;
         this.iat = 0;
         this.map = 0;
         this.tps = 0;
-        this.accelX = 1.1;
-        this.accelY = 1.6;
+        this.accelX = 0;
+        this.accelY = 0;
         this.accelZ = 0;
         this.speed = 0;
         this.roll = 0;
@@ -94,28 +94,28 @@ export default class StreamingDash extends Component {
     }
 
     checkXAccel() {
-        if (this.accelX > 1)
+        if (this.accelX >= 1)
             return goodStyle;
         else
             return normalStyle;
     }
 
     checkYAccel() {
-        if (this.accelY > 1.5)
+        if (this.accelY >= 1.5)
             return goodStyle;
         else
             return normalStyle;
     }
 
     checkAFR() {
-        if (this.afr > 15)
+        if (this.afr >= 15)
             return dangerStyle;
         else
             return normalStyle;
     }
 
     checkEngineTemp() {
-        if (this.engineTemp > 110)
+        if (this.engineTemp >= 110)
             return dangerStyle;
         else
             return normalStyle;
@@ -210,7 +210,7 @@ export default class StreamingDash extends Component {
                         <Col xs={9} md="50%" style={normalStyle}>
                             <strong>
                                 Speed<p></p>
-                                {this.speed} MPH
+                                {this.speed} KPH
                             </strong>
                         </Col>
                         <Col xs={9} md="50%" style={normalStyle}>
