@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { Line, Scatter } from 'react-chartjs-2';
 import 'chartjs-plugin-streaming';
 
-let chartData = 0;
-
 export default class HistoricalLineGraph extends Component {
     constructor(props){
         super(props);
@@ -26,8 +24,6 @@ export default class HistoricalLineGraph extends Component {
             },
             lineData: {},
             scatterData: {}
-            //labels: [],
-            //datasets: []
         };
         this.options = {
             layout: {
@@ -37,7 +33,6 @@ export default class HistoricalLineGraph extends Component {
                     top: 0,
                     bottom: 0
                 }
-                
             },
             elements: {
                 line: {
@@ -70,7 +65,6 @@ export default class HistoricalLineGraph extends Component {
     setData = (data) => {
         let colorArray = ['rgb(255, 0, 0)', 'rgb(0, 255, 0)', 'rgb(0, 0, 255)',
                           'rgb(255, 255, 0)', 'rgb(0, 255, 255)', 'rgb(255, 0, 255)'];
-        chartData = data;
         //this.state.min = data[1].data[0];
         //this.state.max = data[1].data[data[1].data.length - 2];
         this.state = {

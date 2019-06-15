@@ -61,10 +61,12 @@ class Server {
             });
             return res.send(json);
         });
+
         this.app.post('/api/getStreamingData', async (req, res) => {
             return res.send();
         });
-        app.all('*', function(req, res, next){
+
+        app.all('*', function (req, res, next) {
             let redis = require('redis');
             let subscriber = redis.createClient();
             subscriber.subscribe("streaming");
@@ -72,15 +74,15 @@ class Server {
                 res.myObj = JSON.parse(message);
                 next();
             });
-          });
-        this.app.post('/api/getData',  (req, res) => {
+        });
+
+        this.app.post('/api/getData', (req, res) => {
             return res.send(res.myObj);
         });
 
         this.app.post('/api/submitCSV', async (req, res) => {
             //Use CSV controller to call CSV Model which will parse out the csv to properly insert into a table
         });
-        
     }
 }
 

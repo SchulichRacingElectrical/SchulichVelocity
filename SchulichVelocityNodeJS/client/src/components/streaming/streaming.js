@@ -16,14 +16,14 @@ export default class Streaming extends Component {
             hideGraph: true,
             data: {}
         };
-    
     }
-    // Fetch the list on first mount
-    componentDidMount() {
+
+    componentDidMount() {    // Fetch the list on first mount
         this.timerID = setInterval(() => this.tick(),100);
     }
+
     tick() {
-        this.pullData();
+        //this.pullData();
     }
     
     pullData(){
@@ -42,7 +42,7 @@ export default class Streaming extends Component {
 
     sideHandler = (selected) => {
         this.setState({ selected: selected });
-        if (selected === null || selected === "Select Data" || selected === "")
+        if (selected === null || selected === "Select Data" || selected === "" || selected === "Dash")
             this.setState({ hideGraph: true, selected: "" });
         else
             this.setState({ hideGraph: false });
@@ -55,18 +55,19 @@ export default class Streaming extends Component {
 
     render() {
         const style = this.state.hideGraph ? { display: 'none' } : {};
-        const dashStyle = this.state.hideGraph ? {} : {display: 'none'};
-        console.log(this.state.data);
+        const navStyle = {position: "relative", height: "100%"};
+        //const dashStyle = this.state.hideGraph ? {} : {display: 'none'};
         return (
-            <div className="Streaming">
+            <div className="Streaming" style={navStyle}>
                 <SideNavigation sideNav={this.sideHandler} />
-                <div style={style}><StreamGraph className="contentGraph" 
-                ref={this.graphElement} 
-                dictionary={this.state.data}/>
+                <div style={style}>
+                    <StreamGraph className="contentGraph" 
+                    ref={this.graphElement} 
+                    dictionary={this.state.data}/>
                 </div>
-                <div style={dashStyle}>
+                {/* <div style={dashStyle}> */}
                     <StreamingDash ref={this.streamDash}/>
-                </div>
+                {/* </div> */}
                 <StreamingParser ref={this.StreamingParser}/>
             </div>
         );

@@ -16,11 +16,15 @@ export default class SideNavigation extends React.Component {
         var content = (
             <React.Fragment>
                 <SideNav onSelect={(selected) => this.props.sideNav(selected)} >
-                    <SideNav.Toggle />
+                    <SideNav.Toggle/>
                     <SideNav.Nav defaultSelected="none">
                         <NavItem className="selectdata" eventKey="Select Data">
                             <NavIcon></NavIcon>
                             <NavText>Select Historical Data</NavText>
+                        </NavItem>
+                        <NavItem className="dash" eventKey="Dash">
+                            <NavIcon></NavIcon>
+                            <NavText>Dash</NavText>
                         </NavItem>
                         <NavItem eventKey="Suspension">
                             <NavIcon></NavIcon>
@@ -67,7 +71,7 @@ export default class SideNavigation extends React.Component {
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Air To Fuel
                             </NavText>
                             </NavItem>
-                            <NavItem eventKey="Intake Air Temperature">
+                            <NavItem eventKey="Intake Air Pressure">
                                 <   NavText>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Intake Air Temperature
@@ -103,28 +107,29 @@ export default class SideNavigation extends React.Component {
                             </NavIcon>
                             <NavText>
                                 Acceleration
-                            </NavText>
-                            <NavItem eventKey="Accel vs Time">
-                                <NavText>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Accel vs Time
-                                </NavText>
-                            </NavItem>
-                            <NavItem eventKey="Accel Map">
-                                <NavText>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Accel Map
-                            </NavText>
-                            </NavItem>
+                        </NavText>
                         </NavItem>
-                        <NavItem eventKey="Axles">
+                        <NavItem eventKey="Yaw">
                             <NavIcon>
                             </NavIcon>
                             <NavText>
-                                Axes
-                            </NavText>
+                                Yaw
+                        </NavText>
                         </NavItem>
-
+                        <NavItem eventKey="Pitch">
+                            <NavIcon>
+                            </NavIcon>
+                            <NavText>
+                                Pitch
+                        </NavText>
+                        </NavItem>
+                        <NavItem eventKey="Roll">
+                            <NavIcon>
+                            </NavIcon>
+                            <NavText>
+                                Roll
+                        </NavText>
+                        </NavItem>
                         <NavItem eventKey="Track Map">
                             <NavIcon>
                             </NavIcon>
@@ -156,14 +161,12 @@ export default class SideNavigation extends React.Component {
             document.head.appendChild(style);
             return style;
         })();
-        if (this.hideSelectData === true)
+        if (this.hideSelectData === true){
             var idx = style.sheet.insertRule(".selectdata { display:none;}", 0);
-        else
-            style.sheet.cssRules[idx] = "";
-
+        }
+        else{
+            var idx = style.sheet.insertRule(".dash { display:none;}", 0);
+        }
         return content;
     }
 }
-
-
-
