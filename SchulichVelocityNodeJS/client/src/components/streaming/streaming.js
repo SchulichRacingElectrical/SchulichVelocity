@@ -39,7 +39,7 @@ export default class Streaming extends Component {
             .then(function (response) { return response.json() })
             .then(body => this.setState({ data: body }));
         this.streamDash.current.insertData(this.state.data);
-        this.streamGraph.current.pushData(this.state.data);
+        this.graphElement.current.pushData(this.state.data);
     }
 
     sideHandler = (selected) => {
