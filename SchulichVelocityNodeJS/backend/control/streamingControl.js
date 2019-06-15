@@ -6,10 +6,6 @@ class StreamingControl extends Control{
         super(model, router);
     }
 
-    start() {
-        
-    }
-
     fetchData(request) {
         
     }

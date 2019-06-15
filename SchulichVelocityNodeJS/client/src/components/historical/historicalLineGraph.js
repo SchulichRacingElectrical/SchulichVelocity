@@ -70,27 +70,7 @@ export default class HistoricalLineGraph extends Component {
     setData = (data) => {
         let colorArray = ['rgb(255, 0, 0)', 'rgb(0, 255, 0)', 'rgb(0, 0, 255)',
                           'rgb(255, 255, 0)', 'rgb(0, 255, 255)', 'rgb(255, 0, 255)'];
-        // //Clear previous data
-        // this.state.labels = [];
-        // this.state.datasets = [];
-        // //Push in new data
-        // this.setState({labels: data[0].data});
-        // console.log(data.length);
-        // for(let i = 1; i < data.length; i++) {
-        //     this.state.datasets.push( {
-        //         data : data[i].data,
-        //         label: data[i].label,
-        //         borderColor: colorArray[i - 1],
-        //         pointRadius: 0.5,
-        //         borderWidth: 2,
-        //         showLine: true,
-        //         backgroundColor: 'rgba(0,0,0,0.0)',
-        //         lineTension: 0
-        //     })
-        // }
-        // this.setState({state: this.state});
         chartData = data;
-
         //this.state.min = data[1].data[0];
         //this.state.max = data[1].data[data[1].data.length - 2];
         this.state = {
@@ -111,13 +91,12 @@ export default class HistoricalLineGraph extends Component {
                 lineData: {},
                 scatterData: {}
         };
-        //Need to fix undefined label being displayed on graphs.
         if(data[0][0] === "line") { //clean up, currently sending several copies of data
+            console.log(data);
             this.state.originalLineData.data = [];
             this.state.originalLineData.labels = data[0][1].data;
             for(let i = 2; i < data[0].length; i++) {
-                console.log(data[0][i].label)
-                console.log(i);
+                console.log(data[0][i])
                 this.state.originalLineData.datasets.push( {
                     data : data[0][i].data,
                     label: data[0][i].label,
@@ -129,13 +108,12 @@ export default class HistoricalLineGraph extends Component {
                     lineTension: 0
                 });
             }
+            this.state.originalLineData.datasets.splice(0, 1);
             this.setState({chartType: "Line"});
             this.setState({lineData: this.state.originalLineData,
                                 originalLineData: this.state.originalLineData});
             this.forceUpdate();
-            console.log(this.state.lineData);
         }
-
         else if(data[0][0] === "scatter") {
             this.state.originalScatterData = {
                 labels: 'Points',
@@ -163,6 +141,7 @@ export default class HistoricalLineGraph extends Component {
                     });
                 }
             }
+            this.state.originalLineData.datasets.splice(0, 1);
             this.setState({scatterData: this.state.originalScatterData});
             this.setState({chartType: "Scatter"});
         }
