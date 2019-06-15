@@ -30,11 +30,13 @@ class Home extends Component {
                         <strong><p></p></strong>
                     </div>
                 </div>
-                <Button variant="success" size="lg">
-                    <div style={style}><strong>Go to Streaming Dash</strong></div>
-                </Button>
-                <form onSubmit={this.handleSubmit}>
-                </form>
+                <div class="row">
+                    <div class="col-12">
+                        <Button variant="success" size="lg">
+                            <div style={style}><strong>Go to Streaming Dash</strong></div>
+                        </Button>
+                    </div>
+                </div>
             </div>
         );
     }
