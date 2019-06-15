@@ -66,6 +66,7 @@ class Server {
              var json = JSON.stringify({
                  data: data
             });
+            console.log(json);
             return res.send(json);
         });
 
