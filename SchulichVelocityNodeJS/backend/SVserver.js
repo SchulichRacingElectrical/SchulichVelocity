@@ -56,14 +56,14 @@ class Server {
 
         this.app.post('/api/getHistoricalData', async (req, res) => {
             var data = await this.controller.getDataFromModel(req.body.post);
-            var json = JSON.stringify({
+             var json = JSON.stringify({
                 data: data.rows
             });
             return res.send(json);
         });
 
         this.app.post('/api/getStreamingData', async (req, res) => {
-             var json = JSON.stringify({
+            var json = JSON.stringify({
                  data: data
             });
             return res.send(json);
