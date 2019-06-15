@@ -16,11 +16,7 @@ export default class StreamGraph extends Component {
             labels: [],
             datasets: [{
                 label: "",
-                data: [],
-                borderColor: 'rgb(255, 0, 0)',
-                pointRadius: 1,
-                backgroundColor: 'rgba(0,0,0,0.0)',
-                lineTension: 0,
+                data: []
             }],
             lineData: {}
         };
@@ -75,7 +71,7 @@ export default class StreamGraph extends Component {
         for (var key in data) {
             if (key !== "Utc") {
                 let i = this.state.datasets.findIndex(x => x.label === key);
-                this.state.datasets[i].push(data[key]);
+                this.state.datasets[i].data.push(data[key]);
                 if (this.state.datasets[i] > 100)
                     this.state.datasets[i].splice(0, 1);
             }
@@ -126,16 +122,16 @@ export default class StreamGraph extends Component {
             headerArray = ["Utc", "Yaw", "Pitch", "Roll"]
         else
             headerArray = ["Utc", name];
-
+        
         let dataArrays = {};
         for (let i = 0; i < headerArray.length; i++) {
             //dataArrays.push([]);
             let temp = headerArray[i];
-            for (let j = 1; j < this.datasets.length; j++) {
+            for (let j = 1; j < this.state.datasets.length; j++) {
                 for (let k = 1; k < headerArray.length; k++) {
-                    if (this.datasets[j].label === headerArray[k]) {
-                        dataArrays[i].push({
-                            data: this.datasets[j],
+                    if (this.state.datasets[j].label === headerArray[k]) {
+                        dataArrays.push({
+                            data: this.state.datasets[j].data,
                             label: temp,
                             borderColor: colorArray[i - 2],
                             pointRadius: 0.5,
