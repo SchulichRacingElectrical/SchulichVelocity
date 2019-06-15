@@ -189,19 +189,19 @@ export default class StreamingDash extends Component {
                 <strong>Vehicle Dynamics</strong>
                 <Grid fluid>
                     <Row>
-                        <Col xs={9} md="33%" style={this.checkYAccel()}>
+                        <Col xs={9} md={3} style={this.checkYAccel()}>
                             <strong>
                                 X Acceleration<p></p>
                                 {this.accelX}
                             </strong>
                         </Col>
-                        <Col xs={9} md="33%" style={this.checkYAccel()}>
+                        <Col xs={9} md={3} style={this.checkYAccel()}>
                             <strong>
                                 Y Acceleration<p></p>
                                 {this.accelY}
                             </strong>
                         </Col>
-                        <Col xs={9} md="33%" style={normalStyle}>
+                        <Col xs={9} md={3} style={normalStyle}>
                             <strong>
                                 Z Acceleration<p></p>
                                 {this.accelZ}
