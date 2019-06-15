@@ -47,17 +47,8 @@ export default class StreamingDash extends Component {
         this.pdmVoltage = 0;
         this.longitude = 0;
         this.latitude = 0;
-        this.status = "Offline"
     }
 
-    insertStatus(status){
-        console.log(status)
-        if (status["scriptRunning"]){
-            this.status = "Running"
-        }else{
-            this.status = "Offline"
-        }
-    }
     insertData(data) {
         //Insert all the new incoming data
         for (var key in data) {
@@ -130,13 +121,6 @@ export default class StreamingDash extends Component {
             return dangerStyle;
         else
             return normalStyle;
-    }
-    checkTelemetryStatus() {
-        if (this.status === "Offline"){
-            return dangerStyle;
-        }else{
-            return normalStyle;
-        }
     }
 
     render() {
@@ -261,12 +245,6 @@ export default class StreamingDash extends Component {
                             <strong>
                                 Battery<p></p>
                                 {this.battery} V
-                            </strong>
-                        </Col>
-                        <Col xs={9} md="50%" style={this.checkTelemetryStatus()}>
-                            <strong>
-                                Telemetry Runner<p></p>
-                                {this.telemetryStatus}
                             </strong>
                         </Col>
                     </Row>
