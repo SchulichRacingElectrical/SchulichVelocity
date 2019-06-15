@@ -129,13 +129,13 @@ export default class StreamingDash extends Component {
                 <strong>Power Train</strong>
                 <Grid fluid>
                     <Row>
-                        <Col xs={9} md="50%" style={normalStyle}>
+                        <Col xs={9} md={6} style={normalStyle}>
                             <strong>
                                 RPM<p></p>
                                 {this.rpm}
                             </strong>
                         </Col>
-                        <Col xs={9} md="50%" style={this.checkEngineTemp()}>
+                        <Col xs={9} md={6} style={this.checkEngineTemp()}>
                             <strong>
                                 Engine Temperature<p></p>
                                 {this.engineTemp} &deg;C
@@ -143,13 +143,13 @@ export default class StreamingDash extends Component {
                         </Col>
                     </Row>
                     <Row>
-                        <Col xs={9} md="50%" style={normalStyle}>
+                        <Col xs={9} md={6} style={normalStyle}>
                             <strong>
                                 Oil Pressure<p></p>
                                 {this.oilPres}
                             </strong>
                         </Col>
-                        <Col xs={9} md="50%" style={normalStyle}>
+                        <Col xs={9} md={6} style={normalStyle}>
                             <strong>
                                 Oil Temperature<p></p>
                                 {this.oilTemp} &deg;C
@@ -157,13 +157,13 @@ export default class StreamingDash extends Component {
                         </Col>
                     </Row>
                     <Row>
-                        <Col xs={9} md="50%" style={this.checkAFR()}>
+                        <Col xs={9} md={6} style={this.checkAFR()}>
                             <strong>
                                 AFR<p></p>
                                 {this.afr}
                             </strong>
                         </Col>
-                        <Col xs={9} md="50%" style={normalStyle}>
+                        <Col xs={9} md={6} style={normalStyle}>
                             <strong>
                                 IAT<p></p>
                                 {this.iat}
@@ -171,13 +171,13 @@ export default class StreamingDash extends Component {
                         </Col>
                     </Row>
                     <Row>
-                        <Col xs={9} md="50%" style={normalStyle}>
+                        <Col xs={9} md={6} style={normalStyle}>
                             <strong>
                                 MAP<p></p>
                                 {this.map}
                             </strong>
                         </Col>
-                        <Col xs={9} md="50%" style={normalStyle}>
+                        <Col xs={9} md={6} style={normalStyle}>
                             <strong>
                                 TPS<p></p>
                                 {this.tps}
@@ -209,13 +209,13 @@ export default class StreamingDash extends Component {
                         </Col>
                     </Row>
                     <Row>
-                        <Col xs={9} md="50%" style={normalStyle}>
+                        <Col xs={9} md={6} style={normalStyle}>
                             <strong>
                                 Speed<p></p>
                                 {this.speed} KPH
                             </strong>
                         </Col>
-                        <Col xs={9} md="50%" style={normalStyle}>
+                        <Col xs={9} md={6} style={normalStyle}>
                             <strong>
                                 Roll<p></p>
                                 {this.roll}
@@ -223,13 +223,13 @@ export default class StreamingDash extends Component {
                         </Col>
                     </Row>
                     <Row>
-                        <Col xs={9} md="50%" style={normalStyle}>
+                        <Col xs={9} md={6} style={normalStyle}>
                             <strong>
                                 Pitch<p></p>
                                 {this.pitch}
                             </strong>
                         </Col>
-                        <Col xs={9} md="50%" style={normalStyle}>
+                        <Col xs={9} md={6} style={normalStyle}>
                             <strong>
                                 Yaw<p></p>
                                 {this.yaw}
@@ -241,7 +241,7 @@ export default class StreamingDash extends Component {
                 <strong>Diagnostics</strong>
                 <Grid fluid>
                     <Row>
-                        <Col xs={9} md="50%" style={normalStyle}>
+                        <Col xs={9} md={6} style={normalStyle}>
                             <strong>
                                 Battery<p></p>
                                 {this.battery} V
@@ -249,13 +249,13 @@ export default class StreamingDash extends Component {
                         </Col>
                     </Row>
                     <Row>
-                        <Col xs={9} md="50%" style={normalStyle}>
+                        <Col xs={9} md={6} style={normalStyle}>
                             <strong>
                                 PDM Voltage<p></p>
                                 {this.battery} V
                             </strong>
                         </Col>
-                        <Col xs={9} md="50%" style={normalStyle}>
+                        <Col xs={9} md={6} style={normalStyle}>
                             <strong>
                                 PDM Temperature<p></p>
                                 {this.pdmTemp} &deg;C
@@ -263,13 +263,13 @@ export default class StreamingDash extends Component {
                         </Col>
                     </Row>
                     <Row>
-                        <Col xs={9} md="50%" style={normalStyle}>
+                        <Col xs={9} md={6} style={normalStyle}>
                             <strong>
                                 Latitude<p></p>
                                 {this.latitude}
                             </strong>
                         </Col>
-                        <Col xs={9} md="50%" style={normalStyle}>
+                        <Col xs={9} md={6} style={normalStyle}>
                             <strong>
                                 Longitude<p></p>
                                 {this.longitude}
