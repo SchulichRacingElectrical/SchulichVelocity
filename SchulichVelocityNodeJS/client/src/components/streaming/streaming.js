@@ -16,26 +16,30 @@ export default class Streaming extends Component {
             hideGraph: true,
             data: {}
         };
-        this.redis = require('redis');
-        this.subscriber = this.redis.createClient();
+    
     }
     // Fetch the list on first mount
     componentDidMount() {
-    this.subscriber.subscribe("streaming");
-    this.loadPage();
-    this.timerID = setInterval(() => this.tick(),100);
+        this.timerID = setInterval(() => this.tick(),100);
     }
-    
     tick() {
         this.pullData();
     }
     
     pullData(){
-         this.subscriber.on("message", function (channel, message) {
-             let data = JSON.parse(message);
-             this.state.data = data
-             console.log("Received Data: " + data);
-         });
+        fetch('/api/getData', {
+            method: 'POST', 
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({post: ''})
+        })
+        .then(function(response){return response.json()})
+        .then(function(body){
+            //this.state.data = body;
+            console.log(body)
+        });
+
     }
 
     sideHandler = (selected) => {
@@ -50,29 +54,6 @@ export default class Streaming extends Component {
     graphHandler = (selected) => {
         this.graphElement.current.setTitle(selected);
     };
-
-    loadPage = async (request) => {
-        // await fetch('/api/request', {
-        //     method: 'POST', 
-        //     headers: {
-        //       'Content-Type': 'application/json',
-        //     }, 
-        //     body: JSON.stringify({post: 'streaming'})
-        //   });
-        fetch('/api/getStreamingData', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({post: ''})
-        })
-        .then(function(response){return response.json()})
-        .then(function(body){console.log(body)});
-        
-            // .then(response => response.json())
-            // .then(data => console.log(data));
-            // .then(data => this.setState({data: data.data}));
-    }
 
     render() {
         const style = this.state.hideGraph ? { display: 'none' } : {};

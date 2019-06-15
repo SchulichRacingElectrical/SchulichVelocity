@@ -17,7 +17,6 @@ class Server {
         this.app = app;
         this.router = express.Router();
         this.controller;
-        this.data = {};
         this.pool = new Pool({
             port: 5432,
             password: 'greentomato',
@@ -25,9 +24,12 @@ class Server {
             host: '3.19.41.249',
             user: 'postgres',
         });
+        this.redis = require('redis');
+        this.subscriber = this.redis.createClient();
     }
 
     start() {
+        this.subscriber.subscribe("streaming");
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: true }));
         this.app.use(cors());
@@ -60,11 +62,13 @@ class Server {
             return res.send(json);
         });
         this.app.post('/api/getStreamingData', async (req, res) => {
-             var json = JSON.stringify({
-                 data: this.data
+            return res.send();
+        });
+        this.app.post('/api/getData', async (req, res) => {
+            this.subscriber.on("message", function (channel, message) {
+                data = JSON.parse(message);
+                return res.send(data);
             });
-            console.log("Streaming send: " + this.data["Utc"]);
-            return res.send(json);
         });
 
         this.app.post('/api/submitCSV', async (req, res) => {
