@@ -18,8 +18,8 @@ class Server {
         this.router = express.Router();
         this.controller;
         this.data = {};
-       // this.redis = require('redis');
-       // this.subscriber = this.redis.createClient();
+        this.redis = require('redis');
+        this.subscriber = this.redis.createClient();
         this.pool = new Pool({
             port: 5432,
             password: 'greentomato',
