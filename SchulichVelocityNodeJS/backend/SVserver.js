@@ -69,11 +69,12 @@ class Server {
         app.all('*', function (req, res, next) {
             // let redis = require('redis');
             // let subscriber = redis.createClient();
-            this.subscriber.on("message", function (channel, message) {
+            var self = this;
+            self.subscriber.on("message", function (channel, message) {
                 res.myObj = JSON.parse(message);
                 next();
             });
-        }).bind(this);
+        });
 
         this.app.post('/api/getData', (req, res) => {
             return res.send(res.myObj);
