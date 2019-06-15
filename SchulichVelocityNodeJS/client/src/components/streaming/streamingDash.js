@@ -51,6 +51,7 @@ export default class StreamingDash extends Component {
     }
 
     insertStatus(status){
+        console.log(status)
         if (status["scriptRunning"]){
             this.status = "Running"
         }else{
