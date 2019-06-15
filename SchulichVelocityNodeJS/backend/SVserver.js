@@ -18,8 +18,8 @@ class Server {
         this.router = express.Router();
         this.controller;
         this.data = {};
-       // this.redis = require('redis');
-       // this.subscriber = this.redis.createClient();
+        this.redis = require('redis');
+        this.subscriber = this.redis.createClient();
         this.pool = new Pool({
             port: 5432,
             password: 'greentomato',
@@ -66,17 +66,18 @@ class Server {
             var json = JSON.stringify({
                  data: data
             });
+            console.log("Streaming send: " + this.data);
             return res.send(json);
         });
 
         this.app.post('/api/submitCSV', async (req, res) => {
             //Use CSV controller to call CSV Model which will parse out the csv to properly insert into a table
         });
-        // this.subscriber.subscribe("streaming");
-        // this.subscriber.on("message", function (channel, message) {
-        //     this.data = JSON.parse(message);
-        //     console.log(this.data);
-        // });
+        this.subscriber.subscribe("streaming");
+         this.subscriber.on("message", function (channel, message) {
+             this.data = JSON.parse(message);
+             //console.log("Received Data: " + this.data);
+         });
     }
 }
 
