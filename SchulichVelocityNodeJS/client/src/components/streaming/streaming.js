@@ -55,7 +55,6 @@ export default class Streaming extends Component {
     render() {
         const style = this.state.hideGraph ? { display: 'none' } : {};
         const dashStyle = this.state.hideGraph ? {} : {display: 'none'};
-        console.log(this.state.data);
         return (
             <div className="Streaming">
                 <SideNavigation sideNav={this.sideHandler} />
