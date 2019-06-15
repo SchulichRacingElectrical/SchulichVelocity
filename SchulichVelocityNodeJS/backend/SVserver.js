@@ -64,12 +64,15 @@ class Server {
         this.app.post('/api/getStreamingData', async (req, res) => {
             return res.send();
         });
-        this.app.post('/api/getData',  (req, res) => {
-            let data = this.subscriber.on("message", function (channel, message) {
-                return JSON.parse(message);
+        app.all('*', function(req, res, next){
+            this.subscriber.on("message", function (channel, message) {
+                res.myObj = JSON.parse(message);
+                next();
             });
-            console.log(data);
-            return res.send(data);
+          });
+        this.app.post('/api/getData',  (req, res) => {
+            console.log(res.myObject)
+            return res.send(res.myObject);
         });
 
         this.app.post('/api/submitCSV', async (req, res) => {
