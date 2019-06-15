@@ -68,7 +68,7 @@ class Server {
             let data = this.subscriber.on("message", function (channel, message) {
                 return JSON.parse(message);
             });
-            
+            console.log(data);
             return res.send(data);
         });
 
