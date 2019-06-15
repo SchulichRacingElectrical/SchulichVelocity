@@ -29,7 +29,7 @@ export default class StreamingDash extends Component {
         this.yaw = 0;
         this.battery = 0;
         this.pdmTemp = 0;
-        this.pdmVotage = 0;
+        this.pdmVoltage = 0;
         this.longitude = 0;
         this.latitude = 0;
     }
@@ -39,7 +39,41 @@ export default class StreamingDash extends Component {
         for (var key in data) {
             if (key == "RPM"){
                 this.rpm = data[key]
-            } 
+            } else if (key == "CoolantTemp"){
+                this.oilTemp = data[key]
+            }else if (key == "OilPressure"){
+                this.oilPres = data[key]
+            }else if (key == "AFR"){
+                this.afr = data[key]
+            }else if (key == "IAT"){
+                this.iat = data[key]
+            }else if (key == "MAP"){
+                this.map = data[key]
+            }else if (key == "TPS"){
+                this.tps = data[key]
+            }else if (key == "AccelX"){
+                this.accelX = data[key]
+            }else if (key == "AccelY"){
+                this.accelY = data[key]
+            }else if (key == "AccelZ"){
+                this.accelZ = data[key]
+            }else if (key == "Speed"){
+                this.speed = data[key]
+            }else if (key == "Roll"){
+                this.roll = data[key]
+            }else if (key == "Pitch"){
+                this.pitch = data[key]
+            }else if (key == "Yaw"){
+                this.yaw = data[key]
+            }else if (key == "PDMVoltage"){
+                this.pdmVoltage = data[key]
+            }else if (key == "PDMTemp"){
+                this.pdmTemp = data[key]
+            }else if (key == "Longitude"){
+                this.longitude = data[key]
+            }else if (key == "Latitude"){
+                this.latitude = data[key]
+            }
         }
     }
 
@@ -171,7 +205,7 @@ export default class StreamingDash extends Component {
                 <h1>
                     PDM Voltage
                     <Badge variant={normalVariant}>
-                        {this.pdmVotage}
+                        {this.pdmVoltage}
                     </Badge>
                     &nbsp;&nbsp;Longitude
                     <Badge variant={normalVariant}>
