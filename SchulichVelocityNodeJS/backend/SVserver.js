@@ -76,7 +76,7 @@ class Server {
         this.subscriber.subscribe("streaming");
          this.subscriber.on("message", function (channel, message) {
              this.data = JSON.parse(message);
-             console.log("Received Data: " + this.data.data);
+             console.log("Received Data: " + this.data["rpm"]);
          });
     }
 }
