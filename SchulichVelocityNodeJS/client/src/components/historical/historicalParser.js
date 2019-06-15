@@ -71,14 +71,6 @@ export default class HistoricalParser extends Component {
             headerArray = ["line", "interval", "yaw", "pitch", "roll"]
         else
             headerArray = ["line", "interval", name];
-        
-        // dataArrays.push(headerArray[0]); //Push the type of graph to the front.
-        // dataArrays.push(this.datasets[1]); //Push in interval as x axis.
-
-        // for (let i = 0; i < this.datasets.length; i++) 
-        //     for (let j = 0; j < headerArray.length; j++) 
-        //         if (headerArray[j].toLowerCase() === this.datasets[i].label) 
-        //             dataArrays.push(this.datasets[i]);
 
         for(let i = 0; i < headerArray.length; i++){
             dataArrays.push([]);

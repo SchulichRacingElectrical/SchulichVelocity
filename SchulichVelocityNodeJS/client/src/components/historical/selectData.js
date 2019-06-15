@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import { options } from "./selectDataOptions";
 import Select from "react-dropdown-select";
-import '../CSS/selectData.css'
+import '../../CSS/selectData.css'
 
 export default class SelectData extends React.Component {
   constructor(props) {

@@ -42,7 +42,7 @@ export default class Streaming extends Component {
 
     sideHandler = (selected) => {
         this.setState({ selected: selected });
-        if (selected === null || selected === "Select Data" || selected === "")
+        if (selected === null || selected === "Select Data" || selected === "" || selected === "Dash")
             this.setState({ hideGraph: true, selected: "" });
         else
             this.setState({ hideGraph: false });

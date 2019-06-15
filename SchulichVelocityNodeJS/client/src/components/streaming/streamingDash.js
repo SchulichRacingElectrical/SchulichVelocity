@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Badge from 'react-bootstrap/Badge';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 
 const style = {

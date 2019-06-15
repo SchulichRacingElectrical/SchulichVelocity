@@ -4,7 +4,7 @@ import '../../CSS/historical.css';
 import HistoricalParser from './historicalParser';
 import HistoricalLineGraph from './historicalLineGraph';
 import SideNavigation from '../navigation/sideNav';
-import SelectData from '../selectData';
+import SelectData from './selectData';
 
 export default class Historical extends Component {
   constructor(props) {
