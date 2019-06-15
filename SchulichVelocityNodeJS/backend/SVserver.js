@@ -65,13 +65,10 @@ class Server {
             return res.send();
         });
         this.app.post('/api/getData',  (req, res) => {
-            let data = {}
-            while (true) {
-                this.subscriber.on("message", function (channel, message) {
-                    data = JSON.parse(message);
-                    break;
-                });
-            }
+            let data = this.subscriber.on("message", function (channel, message) {
+                return JSON.parse(message);
+            });
+            
             return res.send(data);
         });
 
