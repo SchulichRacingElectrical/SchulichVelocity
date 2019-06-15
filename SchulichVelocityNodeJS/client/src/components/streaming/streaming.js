@@ -38,7 +38,8 @@ export default class Streaming extends Component {
         })
             .then(function (response) { return response.json() })
             .then(body => this.setState({ data: body }));
-        this.streamDash.current.insertData(this.state.data)
+        this.streamDash.current.insertData(this.state.data);
+        this.streamGraph.current.pushData(this.state.data);
     }
 
     sideHandler = (selected) => {
@@ -63,6 +64,11 @@ export default class Streaming extends Component {
                 <div className="Streaming">
                     <StreamingDash ref={this.streamDash} />
                     <StreamingParser ref={this.StreamingParser} />
+                    <div style={style}>
+                        <StreamGraph className="contentGraph"
+                            ref={this.graphElement}
+                            dictionary={this.state.data} />
+                    </div>
                 </div>
             );
         }
