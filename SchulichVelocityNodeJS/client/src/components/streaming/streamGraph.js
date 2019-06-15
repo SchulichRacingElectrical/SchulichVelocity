@@ -127,7 +127,7 @@ export default class StreamGraph extends Component {
 
         let dataArrays = {};
         for (let i = 0; i < headerArray.length; i++) {
-            dataArrays.push([]);
+            // dataArrays.push([]);
             dataArrays[i].push(headerArray[i]);
             for (let j = 1; j < this.datasets.length; j++) 
                 for (let k = 1; k < headerArray.length; k++) 
