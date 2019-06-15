@@ -62,6 +62,8 @@ export default class StreamingDash extends Component {
                 this.oilPres = data[key]
             else if (key === "AFR")
                 this.afr = data[key]
+            else if (key === "Battery")
+                this.battery = data[key]
             else if (key === "IAT")
                 this.iat = data[key]
             else if (key === "MAP")
