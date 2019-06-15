@@ -162,10 +162,10 @@ export default class SideNavigation extends React.Component {
             return style;
         })();
         if (this.hideSelectData === true){
-            var idx = style.sheet.insertRule(".selectdata { display:none;}", 0);
+            style.sheet.insertRule(".selectdata { display:none;}", 0);
         }
         else{
-            var idx = style.sheet.insertRule(".dash { display:none;}", 0);
+            style.sheet.insertRule(".dash { display:none;}", 0);
         }
         return content;
     }
