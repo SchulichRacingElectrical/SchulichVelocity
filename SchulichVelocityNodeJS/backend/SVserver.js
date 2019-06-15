@@ -65,7 +65,7 @@ class Server {
              var json = JSON.stringify({
                  data: this.data
             });
-            console.log("Streaming send: " + this.data);
+            console.log("Streaming send: " + this.data["Utc"]);
             return res.send(json);
         });
 
