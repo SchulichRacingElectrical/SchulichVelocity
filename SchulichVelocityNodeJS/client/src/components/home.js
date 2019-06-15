@@ -24,15 +24,14 @@ class Home extends Component {
                 </div>
                 <div class="jumbotron bg-white text-black">
                     <div class="container">
-                        <strong><p><br></br>Welcome to Schulich Velocity!</p></strong>
-                        <strong><p>This tool was created by the electrical engineering subteam
-                        of the Schulich Racing Team.</p></strong>
-                        <strong><p></p></strong>
+                        <h1>Welcome to Schulich Velocity!</h1>
+                        <h3><br></br>This tool was created by the electrical engineering subteam
+                        of the Schulich Racing Team.</h3>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <Button variant="success" size="lg" href="/streaming">
+                        <Button variant="danger" size="lg" href="/streaming">
                             <div style={style}><strong>Go to Streaming Dash</strong></div>
                         </Button>
                     </div>
