@@ -55,9 +55,9 @@ export default class StreamingDash extends Component {
             if (key === "RPM")
                 this.rpm = data[key]
             else if (key === "EngineTemp")
-                this.latitude = data[key]
+                this.engineTemp = data[key]
             else if (key === "OilTemp")
-                this.latitude = data[key]
+                this.oilTemp = data[key]
             else if (key === "OilPressure")
                 this.oilPres = data[key]
             else if (key === "AFR")
