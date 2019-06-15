@@ -2,7 +2,12 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://schulichracing.com:5000",
+  "proxy":  {
+    "/api": {
+      "target": "https://localhost:5000",
+      "secure": false
+    }
+  },
   "dependencies": {
     "@emotion/core": "^10.0.10",
     "@emotion/styled": "^10.0.11",
