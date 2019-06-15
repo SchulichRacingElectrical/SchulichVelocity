@@ -15,7 +15,7 @@ export default class Streaming extends Component {
             selected: "",
             hideGraph: true,
             data: {},
-            state: {}
+            state: {scriptRunning: false}
         };
     }
 
