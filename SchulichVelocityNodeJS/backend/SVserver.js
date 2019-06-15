@@ -80,6 +80,40 @@ class Server {
             return res.send(res.myObj);
         });
 
+        this.app.post('/api/startTelemetry', (req, res) => {
+            const exec = require('child_process').exec;
+            var yourscript = exec('sh /home/ec2-user/start_telemetry.sh',
+             (error, stdout, stderr) => {
+             console.log(stdout);
+             console.log(stderr);
+             if (error !== null) {
+                 console.log(`exec error: ${error}`);
+             }
+            });
+        });
+        this.app.post('/api/stopTelemetry', (req, res) => {
+            const exec = require('child_process').exec;
+            var yourscript = exec('sh /home/ec2-user/stop_telemetry.sh',
+             (error, stdout, stderr) => {
+             console.log(stdout);
+             console.log(stderr);
+             if (error !== null) {
+                 console.log(`exec error: ${error}`);
+             }
+            });
+        });
+        this.app.post('/api/statusTelemetry', (req, res) => {
+            const exec = require('child_process').exec;
+            var yourscript = exec('sh /home/ec2-user/status_telemetry.sh',
+             (error, stdout, stderr) => {
+             console.log(stdout);
+             console.log(stderr);
+             if (error !== null) {
+                 console.log(`exec error: ${error}`);
+             }
+            });
+        });
+
         this.app.post('/api/submitCSV', async (req, res) => {
             //Use CSV controller to call CSV Model which will parse out the csv to properly insert into a table
         });

@@ -14,7 +14,8 @@ export default class Streaming extends Component {
         this.state = {
             selected: "",
             hideGraph: true,
-            data: {}
+            data: {},
+            state: {}
         };
     }
 
@@ -24,6 +25,9 @@ export default class Streaming extends Component {
 
     tick() {
         this.pullData();
+        this.checkStatus();
+        this.forceUpdate();
+
     }
     
     pullData(){
@@ -37,7 +41,19 @@ export default class Streaming extends Component {
         .then(function(response){return response.json()})
         .then(body => this.setState({data: body}));
         this.streamDash.current.insertData(this.state.data)
-        this.forceUpdate();
+    }
+
+    checkStatus(){
+        fetch('/api/statusTelemetry', {
+            method: 'POST', 
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({post: ''})
+        })
+        .then(function(response){return response.json()})
+        .then(body => this.setState({status: body}));
+        this.streamDash.current.insertStatus(this.state.status)
     }
 
     sideHandler = (selected) => {

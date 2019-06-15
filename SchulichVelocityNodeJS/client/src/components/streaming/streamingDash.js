@@ -47,8 +47,16 @@ export default class StreamingDash extends Component {
         this.pdmVoltage = 0;
         this.longitude = 0;
         this.latitude = 0;
+        this.status = "Offline"
     }
 
+    insertStatus(status){
+        if (status["scriptRunning"]){
+            this.status = "Running"
+        }else{
+            this.status = "Offline"
+        }
+    }
     insertData(data) {
         //Insert all the new incoming data
         for (var key in data) {
@@ -121,6 +129,13 @@ export default class StreamingDash extends Component {
             return dangerStyle;
         else
             return normalStyle;
+    }
+    checkTelemetryStatus() {
+        if (this.status === "Offline"){
+            return dangerStyle;
+        }else{
+            return normalStyle;
+        }
     }
 
     render() {
@@ -247,10 +262,10 @@ export default class StreamingDash extends Component {
                                 {this.battery} V
                             </strong>
                         </Col>
-                        <Col xs={9} md="50%" style={normalStyle}>
+                        <Col xs={9} md="50%" style={this.checkTelemetryStatus()}>
                             <strong>
-                                PDM Temperature<p></p>
-                                {this.pdmTemp} &deg;C
+                                Telemetry Runner<p></p>
+                                {this.telemetryStatus}
                             </strong>
                         </Col>
                     </Row>
@@ -259,6 +274,12 @@ export default class StreamingDash extends Component {
                             <strong>
                                 PDM Voltage<p></p>
                                 {this.battery} V
+                            </strong>
+                        </Col>
+                        <Col xs={9} md="50%" style={normalStyle}>
+                            <strong>
+                                PDM Temperature<p></p>
+                                {this.pdmTemp} &deg;C
                             </strong>
                         </Col>
                     </Row>
