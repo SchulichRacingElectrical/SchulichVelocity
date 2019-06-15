@@ -38,6 +38,7 @@ class Server {
     }
 
     async run() {
+        var self = this;
         this.app.post("/api/request", (req, res) => {
             if (req.body.post === "historical") {
                 var historicalModel = new HistoricalModel(this.pool);
@@ -67,10 +68,9 @@ class Server {
         });
 
         app.all('*', function (req, res, next) {
-            let redis = require('redis');
-            let subscriber = redis.createClient();
-            subscriber.subscribe("streaming");
-            subscriber.on("message", function (channel, message) {
+            // let redis = require('redis');
+            // let subscriber = redis.createClient();
+            self.subscriber.on("message", function (channel, message) {
                 res.myObj = JSON.parse(message);
                 next();
             });
