@@ -7,10 +7,6 @@ const style = {
 }
 
 class Home extends Component {
-    componentDidMount() {
-        document.title = "Schulich Velocity: Home"
-    }
-
     render() {
         return (
             <div className="Home">

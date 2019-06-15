@@ -4,6 +4,7 @@ import StreamGraph from './streamGraph';
 import SideNavigation from '../navigation/sideNav';
 import StreamingDash from './streamingDash';
 import StreamingParser from './streamingParser';
+import {isMobile} from 'react-device-detect';
 
 export default class Streaming extends Component {
     constructor(props) {
@@ -19,25 +20,24 @@ export default class Streaming extends Component {
     }
 
     componentDidMount() {    // Fetch the list on first mount
-        this.timerID = setInterval(() => this.tick(),100);
+        this.timerID = setInterval(() => this.tick(), 100);
     }
 
     tick() {
-        this.pullData();
-        this.forceUpdate();
-
+        //this.pullData();
+        //this.forceUpdate();
     }
-    
-    pullData(){
+
+    pullData() {
         fetch('/api/getData', {
-            method: 'POST', 
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({post: ''})
+            body: JSON.stringify({ post: '' })
         })
-        .then(function(response){return response.json()})
-        .then(body => this.setState({data: body}));
+            .then(function (response) { return response.json() })
+            .then(body => this.setState({ data: body }));
         this.streamDash.current.insertData(this.state.data)
     }
 
@@ -56,21 +56,31 @@ export default class Streaming extends Component {
 
     render() {
         const style = this.state.hideGraph ? { display: 'none' } : {};
-        const navStyle = {position: "relative", height: "100%"};
+        const navStyle = { position: "relative", height: "100%" };
         //const dashStyle = this.state.hideGraph ? {} : {display: 'none'};
-        return (
-            <div className="Streaming" style={navStyle}>
-                <SideNavigation sideNav={this.sideHandler} />
-                <div style={style}>
-                    <StreamGraph className="contentGraph" 
-                    ref={this.graphElement} 
-                    dictionary={this.state.data}/>
+        if (isMobile) { 
+            return (
+                <div className="Streaming" style={navStyle}>
+                    <StreamingDash ref={this.streamDash} />
+                    <StreamingParser ref={this.StreamingParser} />
                 </div>
-                {/* <div style={dashStyle}> */}
-                    <StreamingDash ref={this.streamDash}/>
-                {/* </div> */}
-                <StreamingParser ref={this.StreamingParser}/>
-            </div>
-        );
+            );
+        }
+        else {
+            return (
+                <div className="Streaming" style={navStyle}>
+                    <SideNavigation sideNav={this.sideHandler} />
+                    <div style={style}>
+                        <StreamGraph className="contentGraph"
+                            ref={this.graphElement}
+                            dictionary={this.state.data} />
+                    </div>
+                    {/* <div style={dashStyle}> */}
+                    <StreamingDash ref={this.streamDash} />
+                    {/* </div> */}
+                    <StreamingParser ref={this.StreamingParser} />
+                </div>
+            );
+        }
     }
 }
