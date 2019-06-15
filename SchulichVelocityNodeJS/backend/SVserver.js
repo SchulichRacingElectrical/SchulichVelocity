@@ -61,7 +61,6 @@ class Server {
             });
             return res.send(json);
         });
-
         this.app.post('/api/getStreamingData', async (req, res) => {
              var json = JSON.stringify({
                  data: data
