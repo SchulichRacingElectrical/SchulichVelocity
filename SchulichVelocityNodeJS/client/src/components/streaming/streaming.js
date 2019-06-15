@@ -36,6 +36,7 @@ export default class Streaming extends Component {
         })
         .then(function(response){return response.json()})
         .then(body => this.setState({data: body}));
+        this.streamDash.insertData(this.state.data)
         this.forceUpdate();
     }
 

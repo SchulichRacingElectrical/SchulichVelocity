@@ -34,8 +34,13 @@ export default class StreamingDash extends Component {
         this.latitude = 0;
     }
 
-    insertData() {
+    insertData(data) {
         //Insert all the new incoming data
+        for (var key in data) {
+            if (key == "RPM"){
+                this.rpm = data[key]
+            } 
+        }
     }
 
     checkXAccel() {
