@@ -65,7 +65,9 @@ class Server {
             return res.send();
         });
         app.all('*', function(req, res, next){
-            this.subscriber.on("message", function (channel, message) {
+            let redis = require('redis');
+            let subscriber = this.redis.createClient();
+            subscriber.on("message", function (channel, message) {
                 res.myObj = JSON.parse(message);
                 next();
             });
