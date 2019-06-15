@@ -80,6 +80,7 @@ class Server {
             return res.send(res.myObj);
         });
 
+
         this.app.post('/api/submitCSV', async (req, res) => {
             //Use CSV controller to call CSV Model which will parse out the csv to properly insert into a table
         });

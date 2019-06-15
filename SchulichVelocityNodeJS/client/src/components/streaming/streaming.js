@@ -15,7 +15,7 @@ export default class Streaming extends Component {
         this.state = {
             selected: "",
             hideGraph: true,
-            data: {}
+            data: {},
         };
     }
 
@@ -25,6 +25,7 @@ export default class Streaming extends Component {
 
     tick() {
         //this.pullData();
+        //this.forceUpdate();
     }
 
     pullData() {
@@ -38,7 +39,6 @@ export default class Streaming extends Component {
             .then(function (response) { return response.json() })
             .then(body => this.setState({ data: body }));
         this.streamDash.current.insertData(this.state.data)
-        this.forceUpdate();
     }
 
     sideHandler = (selected) => {
