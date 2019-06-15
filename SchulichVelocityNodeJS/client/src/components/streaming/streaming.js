@@ -16,10 +16,26 @@ export default class Streaming extends Component {
             hideGraph: true,
             data: {}
         };
+        this.redis = require('redis');
+        this.subscriber = this.redis.createClient();
     }
     // Fetch the list on first mount
     componentDidMount() {
-    this.getData();
+    this.subscriber.subscribe("streaming");
+    this.loadPage();
+    this.timerID = setInterval(() => this.tick(),100);
+    }
+    
+    tick() {
+        this.pullData();
+    }
+    
+    pullData(){
+         this.subscriber.on("message", function (channel, message) {
+             let data = JSON.parse(message);
+             this.state.data = data
+             console.log("Received Data: " + data);
+         });
     }
 
     sideHandler = (selected) => {
@@ -35,7 +51,7 @@ export default class Streaming extends Component {
         this.graphElement.current.setTitle(selected);
     };
 
-    getData = async (request) => {
+    loadPage = async (request) => {
         // await fetch('/api/request', {
         //     method: 'POST', 
         //     headers: {
