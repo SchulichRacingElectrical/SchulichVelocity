@@ -74,8 +74,8 @@ class Server {
             });
           });
         this.app.post('/api/getData',  (req, res) => {
-            console.log(res.myObject)
-            return res.send(res.myObject);
+            console.log(res.myObj)
+            return res.send(res.myObj);
         });
 
         this.app.post('/api/submitCSV', async (req, res) => {
