@@ -11,14 +11,17 @@ import Streaming from './components/streaming/streaming';
 import SubmitCSV from './components/CSV/submitCSV';
 import About from './components/about';
 import Notfound from './components/notFound';
+import {isMobile} from 'react-device-detect';
 
 export default class App extends React.Component {
     render() {
+        let style = {};
+        if(isMobile) style = {display:"none"};
         return (
             <div className="App">
                 <Router>
                     <div>
-                        <Navigation/>
+                        <div style={style}><Navigation/></div>
                         <Switch>
                             <Route exact path="/" component={Home} />
                             <Route exact path="/home" component={Home} />

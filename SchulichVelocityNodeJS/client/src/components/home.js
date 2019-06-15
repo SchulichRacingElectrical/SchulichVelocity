@@ -3,7 +3,10 @@ import '../CSS/home.css';
 import Button from 'react-bootstrap/Button';
 
 const style = {
-    fontSize: "4em"
+    md: "12",
+    sm:"12",
+    xs:"12",
+    fontSize: "1.5em"
 }
 
 class Home extends Component {
@@ -21,8 +24,8 @@ class Home extends Component {
                 <div class="jumbotron bg-white text-black">
                     <div class="container">
                         <h1>Welcome to Schulich Velocity!</h1>
-                        <h3><br></br>This tool was created by the electrical engineering subteam
-                        of the Schulich Racing Team.</h3>
+                        <h3><br></br>This tool was created by the electrical and software subteam
+                        of Schulich Racing.</h3>
                     </div>
                 </div>
                 <div class="row">

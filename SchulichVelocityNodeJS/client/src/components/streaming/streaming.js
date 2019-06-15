@@ -60,7 +60,7 @@ export default class Streaming extends Component {
         //const dashStyle = this.state.hideGraph ? {} : {display: 'none'};
         if (isMobile) { 
             return (
-                <div className="Streaming" style={navStyle}>
+                <div className="Streaming">
                     <StreamingDash ref={this.streamDash} />
                     <StreamingParser ref={this.StreamingParser} />
                 </div>
