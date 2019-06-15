@@ -74,7 +74,6 @@ class Server {
             });
           });
         this.app.post('/api/getData',  (req, res) => {
-            console.log(res.myObj)
             return res.send(res.myObj);
         });
 
