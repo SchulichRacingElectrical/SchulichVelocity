@@ -24,8 +24,8 @@ export default class Streaming extends Component {
     }
 
     tick() {
-        //this.pullData();
-        //this.forceUpdate();
+        this.pullData();
+        this.forceUpdate();
     }
 
     pullData() {
