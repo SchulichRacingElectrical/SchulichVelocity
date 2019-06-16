@@ -55,7 +55,7 @@ export default class StreamGraph extends Component {
             var inserted = false;
 
             for (var key in this.headerArray) {
-                for (var temp in data) {
+                for (var temp in data) { //Find value in telem dict and insert
                     if (this.headerArray[key] === temp && temp !== "" && temp !== "Interval") {
                         let i = this.state.datasets.findIndex(x => x.label === this.headerArray[key]);
                         this.state.datasets[i].data.push(data[temp]);
@@ -73,6 +73,9 @@ export default class StreamGraph extends Component {
         this.ready = false; //acts as a semaphore
 
         if (name !== null && name !== "Select Data") {
+            let colorArray = ['rgb(255, 0, 0)', 'rgb(0, 255, 0)', 'rgb(0, 0, 255)',
+                          'rgb(255, 255, 0)', 'rgb(0, 255, 255)', 'rgb(255, 0, 255)'];
+
             this.options.title.text = name;
             this.graphType = "line";
             var headerArray = [];
@@ -126,7 +129,7 @@ export default class StreamGraph extends Component {
                 this.state.datasets.push({
                     label: headerArray[key],
                     data: [],
-                    borderColor: 'rgb(255, 0, 0)',
+                    borderColor: colorArray[key],
                     pointRadius: 1,
                     backgroundColor: 'rgba(0,0,0,0.0)',
                     lineTension: 0,
