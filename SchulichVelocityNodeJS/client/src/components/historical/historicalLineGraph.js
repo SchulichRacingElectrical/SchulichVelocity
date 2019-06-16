@@ -6,8 +6,6 @@ export default class HistoricalLineGraph extends Component {
     constructor(props){
         super(props);
         this.state = {
-            //min: 0,
-            //max: 100,
             chartType: "Line",
             value: [0, 0],
             originalLineData: {
@@ -65,8 +63,6 @@ export default class HistoricalLineGraph extends Component {
     setData = (data) => {
         let colorArray = ['rgb(255, 0, 0)', 'rgb(0, 255, 0)', 'rgb(0, 0, 255)',
                           'rgb(255, 255, 0)', 'rgb(0, 255, 255)', 'rgb(255, 0, 255)'];
-        //this.state.min = data[1].data[0];
-        //this.state.max = data[1].data[data[1].data.length - 2];
         this.state = {
                 chartType: "Line",
                 value: [0, 0],
@@ -138,11 +134,9 @@ export default class HistoricalLineGraph extends Component {
             this.setState({chartType: "Scatter"});
         }
         this.setState({state: this.state});
-        console.log(this.state.lineData);
     };
 
     render() {
-        console.log(this.state.lineData);
         if(this.state.chartType === "Line"){
             return (
                 <div>
