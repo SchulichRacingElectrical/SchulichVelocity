@@ -51,15 +51,19 @@ export default class StreamGraph extends Component {
             if (this.state.labels.length > 100)
                 this.state.labels.shift();
             this.setState(this.state);
+            
+            var inserted = false;
 
             for (var key in this.headerArray) {
                 for (var temp in data) {
                     if (this.headerArray[key] === temp && temp !== "" && temp !== "Interval") {
                         let i = this.state.datasets.findIndex(x => x.label === this.headerArray[key]);
                         this.state.datasets[i].data.push(data[temp]);
-
+                        inserted = true;
                     }
                 }
+                if(!inserted) //Needed for gaps between values due to Hz of signals coming in.
+                    this.state.datasets[key].push(null); //MIGHT BE WRONG -TEST
             }
             this.forceUpdate();
         }
