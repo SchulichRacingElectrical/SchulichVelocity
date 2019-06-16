@@ -1,3 +1,0 @@
-Learn: Node.js, React, Postgres, Express, D3.
-
-Do: Build the skeleton of the entire dashboard using express. Historical and streaming data, select between pages. start doing selectors for historical. Have different layouts and tabs. 

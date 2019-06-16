@@ -51,7 +51,7 @@ export default class StreamGraph extends Component {
             if (this.state.labels.length > 100)
                 this.state.labels.shift();
             this.setState(this.state);
-            
+
             var inserted = false;
 
             for (var key in this.headerArray) {
@@ -62,7 +62,7 @@ export default class StreamGraph extends Component {
                         inserted = true;
                     }
                 }
-                if(!inserted) //Needed for gaps between values due to Hz of signals coming in.
+                if (!inserted) //Needed for gaps between values due to Hz of signals coming in.
                     this.state.datasets[key].push(null); //MIGHT BE WRONG -TEST
             }
             this.forceUpdate();
@@ -74,7 +74,7 @@ export default class StreamGraph extends Component {
 
         if (name !== null && name !== "Select Data") {
             let colorArray = ['rgb(255, 0, 0)', 'rgb(0, 255, 0)', 'rgb(0, 0, 255)',
-                          'rgb(255, 255, 0)', 'rgb(0, 255, 255)', 'rgb(255, 0, 255)'];
+                'rgb(255, 255, 0)', 'rgb(0, 255, 255)', 'rgb(255, 0, 255)'];
 
             this.options.title.text = name;
             this.graphType = "line";
@@ -96,7 +96,7 @@ export default class StreamGraph extends Component {
             else if (name === "Oil Pressure")
                 headerArray = ["Interval", "OilPressure"];
             else if (name === "Barometer")
-            headerArray = ["Interval", "Baro"];
+                headerArray = ["Interval", "Baro"];
             else if (name === "Fuel Temperature")
                 headerArray = ["Interval", "FuelTemp"];
             else if (name === "Manifold Air Pressure")
@@ -125,7 +125,7 @@ export default class StreamGraph extends Component {
             this.state.labels.splice(0, this.state.labels.length);
 
             for (var key in headerArray) {
-                if(headerArray[key] === "Interval") continue;
+                if (headerArray[key] === "Interval") continue;
                 this.state.datasets.push({
                     label: headerArray[key],
                     data: [],
@@ -143,11 +143,11 @@ export default class StreamGraph extends Component {
 
     render() {
         if (this.graphType === "line") {
-        return (
-            <div>
-                <Line data={this.state} options={this.options} />
-            </div>
-        );
+            return (
+                <div>
+                    <Line data={this.state} options={this.options} />
+                </div>
+            );
         }
         else {
             return (
