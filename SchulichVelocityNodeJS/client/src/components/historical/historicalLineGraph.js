@@ -86,12 +86,10 @@ export default class HistoricalLineGraph extends Component {
                 scatterData: {}
         };
         if(data[0][0] === "line") { //clean up, currently sending several copies of data
-            console.log(data);
             this.state.originalLineData.data = [];
             this.state.originalLineData.labels = data[0][1].data;
             for(let i = 2; i < data[0].length; i++) {
-                console.log(data[0][i])
-                this.state.originalLineData.datasets.push( {
+                this.state.originalLineData.datasets.push({
                     data : data[0][i].data,
                     label: data[0][i].label,
                     borderColor: colorArray[i - 2],
@@ -140,36 +138,31 @@ export default class HistoricalLineGraph extends Component {
             this.setState({chartType: "Scatter"});
         }
         this.setState({state: this.state});
+        console.log(this.state.lineData);
     };
 
-    resize(smaller) {
-        if(smaller === true)
-            this.options.layout.padding = 240;
-        else
-            this.options.layout.padding = 80;
-    }
-
     render() {
+        console.log(this.state.lineData);
         if(this.state.chartType === "Line"){
             return (
                 <div>
                     <Line data={this.state.lineData} options={this.options}/>
                 </div>
-            )
+            );
         }
         else if(this.state.chartType === "Scatter"){
             return (
                 <div>
                     <Scatter data={this.state.scatterData} options={this.options}/>
                 </div>
-            )
+            );
         }
         else{
             return (
                 <div>
                     <h1>Error: Chart type not specified.</h1>
                 </div>
-            )
+            );
         }
     }
 }

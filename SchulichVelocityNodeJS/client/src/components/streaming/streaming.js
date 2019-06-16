@@ -4,7 +4,7 @@ import StreamGraph from './streamGraph';
 import SideNavigation from '../navigation/sideNav';
 import StreamingDash from './streamingDash';
 import StreamingParser from './streamingParser';
-import { isMobile } from 'react-device-detect';
+import {isMobile} from 'react-device-detect';
 
 export default class Streaming extends Component {
     constructor(props) {
@@ -59,7 +59,7 @@ export default class Streaming extends Component {
         const style = this.state.hideGraph ? { display: 'none' } : {};
         const navStyle = { position: "relative", height: "100%" };
         //const dashStyle = this.state.hideGraph ? {} : {display: 'none'};
-        if (isMobile) {
+        if (isMobile) { 
             return (
                 <div className="Streaming">
                     <StreamingDash ref={this.streamDash} />

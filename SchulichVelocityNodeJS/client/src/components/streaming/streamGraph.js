@@ -2,24 +2,19 @@ import React, { Component } from 'react';
 import { Line, Scatter } from 'react-chartjs-2';
 import 'chartjs-plugin-streaming';
 
-const allLabels = ["RPM", "EngineTemp", "OilTemp", "OilPressure", "AFR",
-    "Battery", "IAT", "MAP", "TPS", "AccelX", "AccelY",
-    "AccelZ", "Speed", "Roll", "Pitch", "Yaw", "Longitude",
-    "Latitude", "FrontRight", "FrontLeft", "RearRight",
-    "RearLeft", "Utc", "InjectorPW", "Baro", "FuelTemp", "Distance"]
+const initialState = {
+    currentLabel: 0,
+    labels: [],
+    datasets: [{
+        data: []
+    }]
+}
 
 export default class StreamGraph extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            graphType: "line",
-            labels: [],
-            datasets: [{
-                label: "",
-                data: []
-            }],
-            lineData: {}
-        };
+        this.state = initialState;
+        this.headerArray = [];
         this.options = {
             layout: {
                 padding: {
@@ -45,122 +40,107 @@ export default class StreamGraph extends Component {
                     }
                 }]
             }
-        }
-        this.initData();
-    }
-
-    initData() {
-        for (let i = 0; i < allLabels.length; i++) {
-            this.state.datasets.push({
-                label: allLabels[i],
-                data: [],
-                borderColor: 'rgb(255, 0, 0)',
-                pointRadius: 1,
-                backgroundColor: 'rgba(0,0,0,0.0)',
-                lineTension: 0,
-            });
-        }
+        };
+        this.ready = false;
     }
 
     pushData(data) {
-        let colorArray = ['rgb(255, 0, 0)', 'rgb(0, 255, 0)', 'rgb(0, 0, 255)',
-                          'rgb(255, 255, 0)', 'rgb(0, 255, 255)', 'rgb(255, 0, 255)'];
-        this.state.labels.push(data["Utc"]); //Update time
-        if (this.state.labels.length > 100)
-            this.state.labels.slice(0, 1);
-        for (var key in data) {
-            if (key !== "Utc") {
-                let i = this.state.datasets.findIndex(x => x.label === key);
-                this.state.datasets[i].data.push(data[key]);
-                if (this.state.datasets[i] > 100)
-                    this.state.datasets[i].splice(0, 1);
-            }
-        }
+        if (this.ready) { //semaphore
+            this.state.labels.push(data["Interval"]); //Update time
+            this.setState({ currentLabel: this.state.currentLabel + 1 });
+            if (this.state.labels.length > 100)
+                this.state.labels.shift();
+            this.setState(this.state);
 
-        let name = this.options.title.text;
-        let headerArray = [];
-        this.state.graphType = "line";
-        if (name === "Suspension")
-            headerArray = ["Utc", "RearRight", "RearLeft", "FrontLeft", "FrontRight"];
-        else if (name === "Accel Map")
-            headerArray = ["Utc", "AccelX", "AccelY", "AccelZ"];
-        else if (name === "Accel vs Time") {
-            headerArray = ["scatter", "Utc", "AccelX", "AccelY"];
-            this.state.graphType = "scatter";
-        }
-        else if (name === "RPM")
-            headerArray = ["Utc", "RPM"];
-        else if (name === "Engine Temperature")
-            headerArray = ["Utc", "EngineTemp"];
-        else if (name === "Oil Temperature")
-            headerArray = ["Utc", "OilTemp"];
-        else if (name === "Oil Pressure")
-            headerArray = ["Utc", "OilPressure"];
-        else if (name === "Barometer")
-            headerArray = ["Utc", "Baro"];
-        else if (name === "Fuel Temperature")
-            headerArray = ["Utc", "FuelTemp"];
-        else if (name === "Manifold Air Pressure")
-            headerArray = ["Utc", "MAP"];
-        else if (name === "Intake Air Temperature")
-            headerArray = ["Utc", "IAT"];
-        else if (name === "Injector Pulse Width")
-            headerArray = ["Utc", "InjectorPW"];
-        else if (name === "Track Map") {
-            headerArray = ["scatter", "Utc", "Longitude", "Latitude"];
-            this.state.graphType = "scatter";
-        }
-        else if (name === "Speed")
-            headerArray = ["Utc", "Speed"];
-        else if (name === "Throttle Position")
-            headerArray = ["Utc", "TPS"];
-        else if (name === "Distance")
-            headerArray = ["Utc", "Distance"];
-        else if (name === "Air To Fuel")
-            headerArray = ["Utc", "AFR"];
-        else if (name === "Axles")
-            headerArray = ["Utc", "Yaw", "Pitch", "Roll"]
-        else
-            headerArray = ["Utc", name];
-        
-        let dataArrays = {};
-        for (let i = 0; i < headerArray.length; i++) {
-            //dataArrays.push([]);
-            let temp = headerArray[i];
-            for (let j = 1; j < this.state.datasets.length; j++) {
-                for (let k = 1; k < headerArray.length; k++) {
-                    if (this.state.datasets[j].label === headerArray[k]) {
-                        dataArrays.push({
-                            data: this.state.datasets[j].data,
-                            label: temp,
-                            borderColor: colorArray[i - 2],
-                            pointRadius: 0.5,
-                            borderWidth: 2,
-                            showLine: true,
-                            backgroundColor: 'rgba(0,0,0,0.0)',
-                            lineTension: 0
-                        });
+            for (var key in this.headerArray) {
+                for (var temp in data) {
+                    if (this.headerArray[key] === temp && temp !== "" && temp !== "Interval") {
+                        let i = this.state.datasets.findIndex(x => x.label === this.headerArray[key]);
+                        this.state.datasets[i].data.push(data[temp]);
+
                     }
                 }
             }
+            this.forceUpdate();
         }
-        //dataArrays.pop();
-        this.lineData = dataArrays;
     }
 
-    setTitle = (selected) => {
-        if (selected !== null && selected !== "Select Data")
-            this.options.title.text = selected;
-        this.setState({ state: this.state });
+    setTitle = (name) => {
+        this.ready = false; //acts as a semaphore
+
+        if (name !== null && name !== "Select Data") {
+            this.options.title.text = name;
+            this.graphType = "line";
+            var headerArray = [];
+            if (name === "Suspension") //CLEAN THIS
+                headerArray = ["Interval", "RearRight", "RearLeft", "FrontLeft", "FrontRight"];
+            else if (name === "Accel Map")
+                headerArray = ["Interval", "AccelX", "AccelY", "AccelZ"];
+            else if (name === "Accel vs Time") {
+                headerArray = ["Interval", "AccelX", "AccelY"];
+                this.graphType = "scatter";
+            }
+            else if (name === "RPM")
+                headerArray = ["Interval", "RPM"];
+            else if (name === "Engine Temperature")
+                headerArray = ["Interval", "EngineTemp"];
+            else if (name === "Oil Temperature")
+                headerArray = ["Interval", "OilTemp"];
+            else if (name === "Oil Pressure")
+                headerArray = ["Interval", "OilPressure"];
+            else if (name === "Barometer")
+            headerArray = ["Interval", "Baro"];
+            else if (name === "Fuel Temperature")
+                headerArray = ["Interval", "FuelTemp"];
+            else if (name === "Manifold Air Pressure")
+                headerArray = ["Interval", "MAP"];
+            else if (name === "Intake Air Temperature")
+                headerArray = ["Interval", "IAT"];
+            else if (name === "Injector Pulse Width")
+                headerArray = ["Interval", "InjectorPW"];
+            else if (name === "Track Map") {
+                headerArray = ["Interval", "Longitude", "Latitude"];
+                this.graphType = "scatter";
+            }
+            else if (name === "Speed")
+                headerArray = ["Interval", "Speed"];
+            else if (name === "Throttle Position")
+                headerArray = ["Interval", "TPS"];
+            else if (name === "Distance")
+                headerArray = ["Interval", "Distance"];
+            else if (name === "Air To Fuel")
+                headerArray = ["Interval", "AFR"];
+            else if (name === "Axles")
+                headerArray = ["Interval", "Yaw", "Pitch", "Roll"]
+
+            this.setState(initialState);
+            this.state.datasets.splice(0, this.state.datasets.length);
+            this.state.labels.splice(0, this.state.labels.length);
+
+            for (var key in headerArray) {
+                if(headerArray[key] === "Interval") continue;
+                this.state.datasets.push({
+                    label: headerArray[key],
+                    data: [],
+                    borderColor: 'rgb(255, 0, 0)',
+                    pointRadius: 1,
+                    backgroundColor: 'rgba(0,0,0,0.0)',
+                    lineTension: 0,
+                })
+            }
+            this.headerArray.splice(0, headerArray.length);
+            this.headerArray = headerArray;
+        }
+        this.ready = true;//acts as a semaphore
     }
 
     render() {
-        if (this.state.graphType === "line") {
-            return (
-                <div>
-                    <Line data={this.state} options={this.options} />
-                </div>
-            );
+        if (this.graphType === "line") {
+        return (
+            <div>
+                <Line data={this.state} options={this.options} />
+            </div>
+        );
         }
         else {
             return (
