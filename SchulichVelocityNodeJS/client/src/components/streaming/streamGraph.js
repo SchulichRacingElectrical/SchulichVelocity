@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Line, Scatter } from 'react-chartjs-2';
 import 'chartjs-plugin-streaming';
+import Slider from 'react-rangeslider';
+import 'react-rangeslider/lib/index.css'
 
 const initialState = {
     currentLabel: 0,
@@ -15,6 +17,7 @@ export default class StreamGraph extends Component {
         super(props);
         this.state = initialState;
         this.headerArray = [];
+        this.range = 100;
         this.options = {
             layout: {
                 padding: {
@@ -47,9 +50,9 @@ export default class StreamGraph extends Component {
     pushData(data) {
         if (this.ready) { //semaphore
             this.state.labels.push(data["Interval"]); //Update time
-            this.setState({ currentLabel: this.state.currentLabel + 1 });
-            if (this.state.labels.length > 100)
-                this.state.labels.shift();
+            this.setState({ currentLabel: data["Interval"]});
+            if (this.state.labels.length > this.range)
+                this.state.labels.splice(0, this.state.labels.length - this.range);
             this.setState(this.state);
 
             var inserted = false;
@@ -62,11 +65,17 @@ export default class StreamGraph extends Component {
                         inserted = true;
                     }
                 }
-                if (!inserted) //Needed for gaps between values due to Hz of signals coming in.
-                    this.state.datasets[key].push(null); //MIGHT BE WRONG -TEST
+                if (!inserted && this.headerArray[key] !== "Interval" && this.headerArray[key] !== "") { //Needed for gaps between values due to Hz of signals coming in.
+                    let i = this.state.datasets.findIndex(x => x.label === this.headerArray[key]);
+                    this.state.datasets[i].data.push(null); //Should work now
+                }
             }
             this.forceUpdate();
         }
+    }
+
+    handleOnChange = (value) => {
+        this.range = value;
     }
 
     setTitle = (name) => {
@@ -79,9 +88,10 @@ export default class StreamGraph extends Component {
             this.options.title.text = name;
             this.graphType = "line";
             var headerArray = [];
+            
             if (name === "Suspension") //CLEAN THIS
                 headerArray = ["Interval", "RearRight", "RearLeft", "FrontLeft", "FrontRight"];
-            else if (name === "Accel Map")
+            else if (name === "Acceleration")
                 headerArray = ["Interval", "AccelX", "AccelY", "AccelZ"];
             else if (name === "Accel vs Time") {
                 headerArray = ["Interval", "AccelX", "AccelY"];
@@ -129,7 +139,7 @@ export default class StreamGraph extends Component {
                 this.state.datasets.push({
                     label: headerArray[key],
                     data: [],
-                    borderColor: colorArray[key],
+                    borderColor: colorArray[key - 1],
                     pointRadius: 1,
                     backgroundColor: 'rgba(0,0,0,0.0)',
                     lineTension: 0,
@@ -142,10 +152,22 @@ export default class StreamGraph extends Component {
     }
 
     render() {
+        let style = {
+            marginLeft: "10%",
+            marginRight: "10%",
+            textAlign: "center"
+        }
         if (this.graphType === "line") {
             return (
                 <div>
                     <Line data={this.state} options={this.options} />
+                    <div style={style}><p><strong>Select a Range for the Graph</strong></p>
+                        <Slider
+                            min={100}
+                            max={1000}
+                            value={this.range}
+                            onChange={this.handleOnChange} />
+                    </div>
                 </div>
             );
         }

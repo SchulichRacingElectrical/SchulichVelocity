@@ -3,7 +3,6 @@ import '../../CSS/streaming.css';
 import StreamGraph from './streamGraph';
 import SideNavigation from '../navigation/sideNav';
 import StreamingDash from './streamingDash';
-import StreamingParser from './streamingParser';
 import {isMobile} from 'react-device-detect';
 
 export default class Streaming extends Component {
@@ -11,7 +10,6 @@ export default class Streaming extends Component {
         super(props);
         this.graphElement = React.createRef();
         this.streamDash = React.createRef();
-        this.streamParser = React.createRef();
         this.state = {
             selected: "",
             hideGraph: true,
@@ -57,13 +55,12 @@ export default class Streaming extends Component {
 
     render() {
         const style = this.state.hideGraph ? { display: 'none' } : {};
-        const navStyle = { position: "relative", height: "100%" };
-        //const dashStyle = this.state.hideGraph ? {} : {display: 'none'};
+        const navStyle = { position: "relative", height: "100vh" };
+        const dashStyle = this.state.hideGraph ? {} : {display: 'none'};
         if (isMobile) { 
             return (
                 <div className="Streaming">
                     <StreamingDash ref={this.streamDash} />
-                    <StreamingParser ref={this.StreamingParser} />
                     <div style={style}>
                         <StreamGraph className="contentGraph"
                             ref={this.graphElement}
@@ -81,10 +78,9 @@ export default class Streaming extends Component {
                             ref={this.graphElement}
                             dictionary={this.state.data} />
                     </div>
-                    {/* <div style={dashStyle}> */}
+                    <div style={dashStyle}>
                     <StreamingDash ref={this.streamDash} />
-                    {/* </div> */}
-                    <StreamingParser ref={this.StreamingParser} />
+                    </div>
                 </div>
             );
         }
