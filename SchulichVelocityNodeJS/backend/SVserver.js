@@ -70,7 +70,7 @@ class Server {
         app.all('*', function (req, res, next) {
             let redis = require('redis');
             let subscriber = redis.createClient();
-            self.subscriber.on("message", function (channel, message) {
+            self.subscriber.on("design", function (channel, message) {
                 res.myObj = JSON.parse(message);
                 next();
             });
@@ -84,6 +84,7 @@ class Server {
         this.app.post('/api/submitCSV', async (req, res) => {
             //Use CSV controller to call CSV Model which will parse out the csv to properly insert into a table
         });
+
     }
 }
 
