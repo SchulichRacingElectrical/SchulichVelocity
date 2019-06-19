@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../../CSS/streaming.css';
-import StreamGraph from './streamGraph';
+//import StreamGraph from './streamGraph';
 import SideNavigation from '../navigation/sideNav';
 import StreamingDash from './streamingDash';
 import {isMobile} from 'react-device-detect';
@@ -62,9 +62,9 @@ export default class Streaming extends Component {
                 <div className="Streaming">
                     <StreamingDash ref={this.streamDash} />
                     <div style={style}>
-                        <StreamGraph className="contentGraph"
+                        {/* <StreamGraph className="contentGraph"
                             ref={this.graphElement}
-                            dictionary={this.state.data} />
+                            dictionary={this.state.data} /> */}
                     </div>
                 </div>
             );
@@ -74,9 +74,9 @@ export default class Streaming extends Component {
                 <div className="Streaming" style={navStyle}>
                     <SideNavigation sideNav={this.sideHandler} />
                     <div style={style}>
-                        <StreamGraph className="contentGraph"
+                        {/* <StreamGraph className="contentGraph"
                             ref={this.graphElement}
-                            dictionary={this.state.data} />
+                            dictionary={this.state.data} /> */}
                     </div>
                     <div style={dashStyle}>
                     <StreamingDash ref={this.streamDash} />
