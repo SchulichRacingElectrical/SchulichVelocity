@@ -8,7 +8,7 @@ import {isMobile} from 'react-device-detect';
 export default class Streaming extends Component {
     constructor(props) {
         super(props);
-        this.graphElement = React.createRef();
+        //this.graphElement = React.createRef();
         this.streamDash = React.createRef();
         this.state = {
             selected: "",
@@ -37,7 +37,7 @@ export default class Streaming extends Component {
             .then(function (response) { return response.json() })
             .then(body => this.setState({ data: body }));
         this.streamDash.current.insertData(this.state.data);
-        this.graphElement.current.pushData(this.state.data);
+        //this.graphElement.current.pushData(this.state.data);
     }
 
     sideHandler = (selected) => {
