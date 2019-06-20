@@ -4,11 +4,14 @@ import '../../CSS/streaming.css';
 import SideNavigation from '../navigation/sideNav';
 import StreamingDash from './streamingDash';
 import {isMobile} from 'react-device-detect';
+import socketIOClient from "socket.io-client";
 
 export default class Streaming extends Component {
     constructor(props) {
         super(props);
         //this.graphElement = React.createRef();
+        this.socket = "";
+
         this.streamDash = React.createRef();
         this.state = {
             selected: "",
@@ -19,6 +22,8 @@ export default class Streaming extends Component {
 
     componentDidMount() {    // Fetch the list on first mount
         this.timerID = setInterval(() => this.tick(), 100);
+        this.socket = socketIOClient("http://schulichracing.com:4001");
+
     }
 
     tick() {
@@ -27,15 +32,7 @@ export default class Streaming extends Component {
     }
 
     pullData() {
-        fetch('/api/getData', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ post: '' })
-        })
-            .then(function (response) { return response.json() })
-            .then(body => this.setState({ data: body }));
+        this.socket.on("FromAPI", redis_data => this.setState({ data: redis_data }));
         this.streamDash.current.insertData(this.state.data);
         //this.graphElement.current.pushData(this.state.data);
     }
