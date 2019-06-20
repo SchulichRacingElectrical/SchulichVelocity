@@ -29,7 +29,7 @@ class Server {
     }
 
     start() {
-        this.subscriber.subscribe("streaming");
+        this.subscriber.subscribe("design");
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: true }));
         this.app.use(cors());
@@ -70,9 +70,8 @@ class Server {
         app.all('*', function (req, res, next) {
             let redis = require('redis');
             let subscriber = redis.createClient();
-            self.subscriber.on("design", function (channel, message) {
+            self.subscriber.on("message", function (channel, message) {
                 res.myObj = JSON.parse(message);
-                console.log(res.myObj);
                 next();
             });
         });
@@ -85,7 +84,6 @@ class Server {
         this.app.post('/api/submitCSV', async (req, res) => {
             //Use CSV controller to call CSV Model which will parse out the csv to properly insert into a table
         });
-
     }
 }
 
