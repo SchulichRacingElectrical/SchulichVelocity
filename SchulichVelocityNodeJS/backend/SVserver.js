@@ -72,6 +72,7 @@ class Server {
             let subscriber = redis.createClient();
             self.subscriber.on("design", function (channel, message) {
                 res.myObj = JSON.parse(message);
+                console.log(res.myObj);
                 next();
             });
         });
