@@ -56,7 +56,7 @@ export default class StreamingDash extends Component {
     insertData(data) {
         //Insert all the new incoming data
         for (var key in data) {
-            if (data != ""){
+            if (data[key] !== ""){
                 if (key === "RPM")
                     this.rpm = data[key]
                 else if (key === "EngineTemp")
